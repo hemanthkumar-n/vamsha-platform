@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'widgets/person_card.dart';
 import 'widgets/family_unit_card.dart';
+import 'widgets/generation_section.dart';
+import 'widgets/relationship_connector.dart';
 
 class FounderFamilyWebScreen extends StatelessWidget {
   const FounderFamilyWebScreen({super.key});
@@ -16,55 +18,178 @@ class FounderFamilyWebScreen extends StatelessWidget {
         maxScale: 4,
         boundaryMargin: const EdgeInsets.all(1000),
         child: Container(
-          width: 2400,
-          height: 1600,
+          width: 2800,
+          height: 1800,
           color: const Color(0xFFF7F7F7),
           child: Stack(
             children: [
-              // PATERNAL GRANDPARENTS
+              // =====================================
+              // VIEWER DISTANCE SECTIONS
+              // =====================================
+
               const Positioned(
-                left: 700,
-                top: 40,
-                child: FamilyUnitCard(
-                  husband: 'Natakam Narendranath',
-                  wife: 'Natakam Lakshmikanthamma',
+                left: 1050,
+                top: 20,
+                child: GenerationSection(
+                  title: 'Ancestors (+2)',
                 ),
               ),
 
-              // MATERNAL GRANDPARENTS
               const Positioned(
-                left: 1350,
-                top: 40,
-                child: FamilyUnitCard(
-                  husband: 'Mamidi Subbarao',
-                  wife: 'Mamidi Samarajamma',
+                left: 1050,
+                top: 280,
+                child: GenerationSection(
+                  title: 'Parents (+1)',
                 ),
               ),
 
-              // PARENTS
               const Positioned(
-                left: 1020,
-                top: 320,
-                child: FamilyUnitCard(
-                  husband: 'Natakam Malakonda Prasad',
-                  wife: 'Mamidi Sudha Rani',
+                left: 1050,
+                top: 620,
+                child: GenerationSection(
+                  title: 'You (0)',
                 ),
               ),
 
-              // KEERTHI
+              const Positioned(
+                left: 1050,
+                top: 1080,
+                child: GenerationSection(
+                  title: 'Children (-1)',
+                ),
+              ),
+
+              // =====================================
+              // GRANDPARENTS
+              // =====================================
+
               const Positioned(
                 left: 650,
-                top: 720,
+                top: 100,
+                child: FamilyUnitCard(
+                  husband: 'Natakam Narendranath',
+                  wife: 'Lakshmikanthamma',
+                ),
+              ),
+
+              const Positioned(
+                left: 1450,
+                top: 100,
+                child: FamilyUnitCard(
+                  husband: 'Mamidi Subbarao',
+                  wife: 'Samarajamma',
+                ),
+              ),
+
+              // =====================================
+              // NATAKAM SIBLINGS
+              // =====================================
+
+              const Positioned(
+                left: 80,
+                top: 380,
+                child: PersonCard(
+                  name: 'Mallikarjuna Rao',
+                  relation: 'Paternal Uncle',
+                ),
+              ),
+
+              const Positioned(
+                left: 300,
+                top: 380,
+                child: PersonCard(
+                  name: 'Akalhya',
+                  relation: 'Paternal Aunt',
+                ),
+              ),
+
+              const Positioned(
+                left: 520,
+                top: 380,
+                child: PersonCard(
+                  name: 'Sandhya Rani',
+                  relation: 'Paternal Aunt',
+                ),
+              ),
+
+              const Positioned(
+                left: 740,
+                top: 380,
+                child: PersonCard(
+                  name: 'Usha Rani',
+                  relation: 'Paternal Aunt',
+                ),
+              ),
+
+              // =====================================
+              // PARENTS
+              // =====================================
+
+              const Positioned(
+                left: 1020,
+                top: 350,
+                child: FamilyUnitCard(
+                  husband: 'Malakonda Prasad',
+                  wife: 'Sudha Rani',
+                ),
+              ),
+
+              // =====================================
+              // MAMIDI SIBLINGS
+              // =====================================
+
+              const Positioned(
+                left: 1450,
+                top: 380,
+                child: PersonCard(
+                  name: 'Suresh Kumar',
+                  relation: 'Maternal Uncle',
+                ),
+              ),
+
+              const Positioned(
+                left: 1670,
+                top: 380,
+                child: PersonCard(
+                  name: 'Ramesh Babu',
+                  relation: 'Maternal Uncle',
+                ),
+              ),
+
+              const Positioned(
+                left: 1890,
+                top: 380,
+                child: PersonCard(
+                  name: 'Radha Rani',
+                  relation: 'Maternal Aunt',
+                ),
+              ),
+
+              const Positioned(
+                left: 2110,
+                top: 380,
+                child: PersonCard(
+                  name: 'Ganesh Kumar',
+                  relation: 'Maternal Uncle',
+                ),
+              ),
+
+              // =====================================
+              // YOU LAYER
+              // =====================================
+
+              const Positioned(
+                left: 650,
+                top: 760,
                 child: PersonCard(
                   name: 'Keerthi Doguparti',
                   relation: 'Wife',
                 ),
               ),
 
-              // HEMANTH (CENTER)
               const Positioned(
-                left: 1020,
-                top: 650,
+                left: 1050,
+                top: 700,
                 child: PersonCard(
                   name: 'Natakam Hemanth Kumar',
                   relation: 'Founder',
@@ -72,87 +197,89 @@ class FounderFamilyWebScreen extends StatelessWidget {
                 ),
               ),
 
-              // DIVYA
               const Positioned(
                 left: 1450,
-                top: 720,
+                top: 760,
                 child: PersonCard(
-                  name: 'Natakam Divya Bharathi',
+                  name: 'Divya Bharathi',
                   relation: 'Sister',
                 ),
               ),
 
-              // KAMESH
               const Positioned(
                 left: 1700,
-                top: 720,
+                top: 760,
                 child: PersonCard(
                   name: 'Buduri Kamesh',
                   relation: 'Brother-in-law',
                 ),
               ),
 
-              // YUVAN
+              // =====================================
+              // CHILDREN
+              // =====================================
+
               const Positioned(
-                left: 1050,
-                top: 1080,
+                left: 900,
+                top: 1180,
                 child: PersonCard(
-                  name: 'Natakam Yuvan Simha',
+                  name: 'Yuvan Simha',
                   relation: 'Son',
                 ),
               ),
 
-              // DIVYA CHILDREN
               const Positioned(
-                left: 1550,
-                top: 1080,
+                left: 1450,
+                top: 1180,
                 child: PersonCard(
-                  name: 'Buduri Shreasta',
+                  name: 'Shreasta',
                   relation: 'Niece',
                 ),
               ),
 
               const Positioned(
-                left: 1770,
-                top: 1080,
+                left: 1670,
+                top: 1180,
                 child: PersonCard(
-                  name: 'Buduri Vedhansh',
+                  name: 'Vedhansh',
                   relation: 'Nephew',
                 ),
               ),
 
               const Positioned(
-                left: 1990,
-                top: 1080,
+                left: 1890,
+                top: 1180,
                 child: PersonCard(
-                  name: 'Buduri Krithiksha',
+                  name: 'Krithiksha',
                   relation: 'Niece',
                 ),
               ),
 
-              // SECTION LABELS
+              // =====================================
+              // BRANCH LABELS
+              // =====================================
 
               Positioned(
-                left: 760,
-                top: 10,
+                left: 720,
+                top: 70,
                 child: _label('Natakam Branch'),
               ),
 
               Positioned(
-                left: 1420,
-                top: 10,
+                left: 1520,
+                top: 70,
                 child: _label('Mamidi Branch'),
               ),
 
               Positioned(
                 left: 600,
-                top: 640,
+                top: 700,
                 child: _label('Doguparti Family'),
               ),
 
               Positioned(
-                left: 1680,
-                top: 640,
+                left: 1700,
+                top: 700,
                 child: _label('Buduri Family'),
               ),
             ],
@@ -181,4 +308,3 @@ class FounderFamilyWebScreen extends StatelessWidget {
     );
   }
 }
-
