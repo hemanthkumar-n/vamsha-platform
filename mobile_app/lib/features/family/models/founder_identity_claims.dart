@@ -2,40 +2,46 @@ import '../domain/identity_claim.dart';
 
 class FounderIdentityClaims {
   static const claims = <IdentityClaim>[
+    // Prasad -> Hemanth
     IdentityClaim(
-      claimantIdentityId: 'hemanth',
-      targetIdentityId: 'prasad',
-      relationship: 'father',
+      sourceId: 'prasad',
+      targetId: 'hemanth',
+      type: ClaimType.parent,
     ),
 
+    // Sudha Rani -> Hemanth
     IdentityClaim(
-      claimantIdentityId: 'hemanth',
-      targetIdentityId: 'sudharani',
-      relationship: 'mother',
+      sourceId: 'sudharani',
+      targetId: 'hemanth',
+      type: ClaimType.parent,
     ),
 
+    // Hemanth <-> Divya
     IdentityClaim(
-      claimantIdentityId: 'hemanth',
-      targetIdentityId: 'divya',
-      relationship: 'younger_sister',
+      sourceId: 'hemanth',
+      targetId: 'divya',
+      type: ClaimType.sibling,
     ),
 
+    // Hemanth <-> Keerthi
     IdentityClaim(
-      claimantIdentityId: 'hemanth',
-      targetIdentityId: 'keerthi',
-      relationship: 'spouse',
+      sourceId: 'hemanth',
+      targetId: 'keerthi',
+      type: ClaimType.spouse,
     ),
 
+    // Hemanth -> Yuvan
     IdentityClaim(
-      claimantIdentityId: 'hemanth',
-      targetIdentityId: 'yuvan',
-      relationship: 'son',
+      sourceId: 'hemanth',
+      targetId: 'yuvan',
+      type: ClaimType.parent,
     ),
 
+    // Divya <-> Kamesh
     IdentityClaim(
-      claimantIdentityId: 'divya',
-      targetIdentityId: 'kamesh',
-      relationship: 'spouse',
+      sourceId: 'divya',
+      targetId: 'kamesh',
+      type: ClaimType.spouse,
     ),
   ];
 }

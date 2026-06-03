@@ -1,35 +1,34 @@
-import '../domain/identity_claim.dart';
+import 'identity_claim.dart';
 import '../models/founder_identity_claims.dart';
 
 class RelationshipResolver {
   const RelationshipResolver();
 
-  static String? relationshipBetween(
-    String viewerId,
+  static ClaimType? relationshipBetween(
+    String sourceId,
     String targetId,
   ) {
     try {
       final claim = FounderIdentityClaims.claims.firstWhere(
         (claim) =>
-            claim.claimantIdentityId == viewerId &&
-            claim.targetIdentityId == targetId,
+            claim.sourceId == sourceId &&
+            claim.targetId == targetId,
       );
 
-      return claim.relationship;
+      return claim.type;
     } catch (_) {
       return null;
     }
   }
 
   static bool hasRelationship(
-    String viewerId,
+    String sourceId,
     String targetId,
   ) {
     return relationshipBetween(
-          viewerId,
+          sourceId,
           targetId,
         ) !=
         null;
   }
 }
-

@@ -1,16 +1,25 @@
+enum ClaimType {
+  parent,
+  child,
+  sibling,
+  spouse,
+  alias,
+  knownAs,
+}
+
 class IdentityClaim {
-  final String claimantIdentityId;
+  final String sourceId;
 
-  final String targetIdentityId;
+  final String targetId;
 
-  final String relationship;
+  final ClaimType type;
 
   final bool verified;
 
   const IdentityClaim({
-    required this.claimantIdentityId,
-    required this.targetIdentityId,
-    required this.relationship,
+    required this.sourceId,
+    required this.targetId,
+    required this.type,
     this.verified = false,
   });
 }
