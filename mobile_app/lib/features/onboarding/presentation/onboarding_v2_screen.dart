@@ -58,38 +58,57 @@ class _OnboardingV2ScreenState extends State<OnboardingV2Screen> {
                 ],
               ),
             ),
-            Step(
-              title: const Text('Naming Intelligence'),
-              content: const Text('Support cultural naming conventions.'),
+            const Step(
+              title: Text('Naming Intelligence'),
+              content: Text('Support cultural naming conventions.'),
             ),
             Step(
               title: const Text('Family Space'),
               content: premiumField('Family Space Name'),
             ),
-            Step(
-              title: const Text('Immediate Family'),
-              content: const Text('Quick add setup coming next.'),
+            const Step(
+              title: Text('Immediate Family'),
+              content: Text('Quick add setup coming next.'),
             ),
             Step(
               title: const Text('Relationship Intelligence'),
               content: Column(
                 children: [
                   DropdownButtonFormField<String>(
-                    value: selectedRelationship,
-                    decoration: const InputDecoration(labelText: 'Relationship'),
-                    items: ['Father', 'Mother', 'Uncle', 'Aunt', 'Brother', 'Sister']
+                    initialValue: selectedRelationship,
+                    decoration:
+                        const InputDecoration(labelText: 'Relationship'),
+                    items: [
+                      'Father',
+                      'Mother',
+                      'Uncle',
+                      'Aunt',
+                      'Brother',
+                      'Sister'
+                    ]
                         .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                         .toList(),
-                    onChanged: (value) => setState(() => selectedRelationship = value!),
+                    onChanged: (value) =>
+                        setState(() => selectedRelationship = value!),
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
-                    value: selectedDisplayTerm,
-                    decoration: const InputDecoration(labelText: 'How do you call them?'),
-                    items: ['Uncle', 'Mama', 'Mamaji', 'Babai', 'Machan', 'Chettan', 'Other']
+                    initialValue: selectedDisplayTerm,
+                    decoration: const InputDecoration(
+                        labelText: 'How do you call them?'),
+                    items: [
+                      'Uncle',
+                      'Mama',
+                      'Mamaji',
+                      'Babai',
+                      'Machan',
+                      'Chettan',
+                      'Other'
+                    ]
                         .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                         .toList(),
-                    onChanged: (value) => setState(() => selectedDisplayTerm = value!),
+                    onChanged: (value) =>
+                        setState(() => selectedDisplayTerm = value!),
                   ),
                 ],
               ),

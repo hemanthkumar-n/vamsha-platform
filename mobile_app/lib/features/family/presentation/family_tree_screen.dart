@@ -41,7 +41,6 @@ class FamilyTreeScreen extends StatelessWidget {
               child: Icon(icon),
             ),
             const SizedBox(height: 10),
-
             Text(
               name,
               textAlign: TextAlign.center,
@@ -51,16 +50,13 @@ class FamilyTreeScreen extends StatelessWidget {
                 fontSize: center ? 16 : 14,
               ),
             ),
-
             const SizedBox(height: 8),
-
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: center
                     ? Colors.white24
-                    : Colors.deepPurple.withOpacity(0.08),
+                    : Colors.deepPurple.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
@@ -72,9 +68,7 @@ class FamilyTreeScreen extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 8),
-
             Text(
               "Known As",
               style: TextStyle(
@@ -82,7 +76,6 @@ class FamilyTreeScreen extends StatelessWidget {
                 color: center ? Colors.white70 : Colors.grey,
               ),
             ),
-
             Text(
               knownAs,
               style: TextStyle(
@@ -190,15 +183,15 @@ class FamilyTreeScreen extends StatelessWidget {
                   relationship: 'Younger Sister',
                   knownAs: 'Chelli',
                   icon: Icons.people,
-                    );
+                );
 
               case 'siblingSpouse':
                 return personNode(
-                name: 'Buduri Kamesh',
-                relationship: 'Brother In Law',
-                knownAs: 'Kamesh Bava',
-                icon: Icons.favorite,
-                    );
+                  name: 'Buduri Kamesh',
+                  relationship: 'Brother In Law',
+                  knownAs: 'Kamesh Bava',
+                  icon: Icons.favorite,
+                );
 
               default:
                 return const SizedBox.shrink();

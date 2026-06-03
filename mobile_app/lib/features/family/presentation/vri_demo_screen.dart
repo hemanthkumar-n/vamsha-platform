@@ -6,17 +6,15 @@ class VRIDemoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final father =
-        RelationshipResolver.relationshipBetween(
-          'hemanth',
-          'prasad',
-        );
+    final father = RelationshipResolver.relationshipBetween(
+      'hemanth',
+      'prasad',
+    );
 
-    final sister =
-        RelationshipResolver.relationshipBetween(
-          'hemanth',
-          'divya',
-        );
+    final sister = RelationshipResolver.relationshipBetween(
+      'hemanth',
+      'divya',
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -34,15 +32,11 @@ class VRIDemoScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 24),
-
-            Text('Hemanth → Prasad'),
+            const Text('Hemanth → Prasad'),
             Text('Relationship: $father'),
-
             const SizedBox(height: 20),
-
-            Text('Hemanth → Divya'),
+            const Text('Hemanth → Divya'),
             Text('Relationship: $sister'),
           ],
         ),
