@@ -14,7 +14,7 @@ class FounderFamilyWebScreen extends StatelessWidget {
         title: const Text('Vamsha Family Web'),
       ),
       body: InteractiveViewer(
-        minScale: 0.3,
+        minScale: 0.2,
         maxScale: 4,
         boundaryMargin: const EdgeInsets.all(1000),
         child: Container(
@@ -23,9 +23,20 @@ class FounderFamilyWebScreen extends StatelessWidget {
           color: const Color(0xFFF7F7F7),
           child: Stack(
             children: [
-              // =====================================
+              // ==================================================
+              // CONNECTOR LAYER
+              // ==================================================
+
+              const Positioned.fill(
+                child: FamilyConnectorLayer(
+                  width: 2800,
+                  height: 1800,
+                ),
+              ),
+
+              // ==================================================
               // VIEWER DISTANCE SECTIONS
-              // =====================================
+              // ==================================================
 
               const Positioned(
                 left: 1050,
@@ -59,9 +70,9 @@ class FounderFamilyWebScreen extends StatelessWidget {
                 ),
               ),
 
-              // =====================================
+              // ==================================================
               // GRANDPARENTS
-              // =====================================
+              // ==================================================
 
               const Positioned(
                 left: 650,
@@ -81,9 +92,9 @@ class FounderFamilyWebScreen extends StatelessWidget {
                 ),
               ),
 
-              // =====================================
+              // ==================================================
               // NATAKAM SIBLINGS
-              // =====================================
+              // ==================================================
 
               const Positioned(
                 left: 80,
@@ -121,9 +132,9 @@ class FounderFamilyWebScreen extends StatelessWidget {
                 ),
               ),
 
-              // =====================================
+              // ==================================================
               // PARENTS
-              // =====================================
+              // ==================================================
 
               const Positioned(
                 left: 1020,
@@ -134,9 +145,9 @@ class FounderFamilyWebScreen extends StatelessWidget {
                 ),
               ),
 
-              // =====================================
+              // ==================================================
               // MAMIDI SIBLINGS
-              // =====================================
+              // ==================================================
 
               const Positioned(
                 left: 1450,
@@ -174,9 +185,9 @@ class FounderFamilyWebScreen extends StatelessWidget {
                 ),
               ),
 
-              // =====================================
+              // ==================================================
               // YOU LAYER
-              // =====================================
+              // ==================================================
 
               const Positioned(
                 left: 650,
@@ -215,9 +226,9 @@ class FounderFamilyWebScreen extends StatelessWidget {
                 ),
               ),
 
-              // =====================================
+              // ==================================================
               // CHILDREN
-              // =====================================
+              // ==================================================
 
               const Positioned(
                 left: 900,
@@ -255,9 +266,9 @@ class FounderFamilyWebScreen extends StatelessWidget {
                 ),
               ),
 
-              // =====================================
+              // ==================================================
               // BRANCH LABELS
-              // =====================================
+              // ==================================================
 
               Positioned(
                 left: 720,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'features/family/presentation/viewer_family_web_screen.dart';
 import 'features/family/web/founder_family_web_screen.dart';
 
 // import 'features/onboarding/presentation/welcome_screen.dart';
@@ -21,10 +20,10 @@ class VamshaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Vamsha',
       debugShowCheckedModeBanner: false,
-      home: const FounderFamilyWebScreen(),
+      home: FounderFamilyWebScreen(),
     );
   }
 }
