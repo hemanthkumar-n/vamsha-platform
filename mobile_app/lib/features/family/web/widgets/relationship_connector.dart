@@ -2,20 +2,18 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
-enum FamilyConnectorStyle {
-  lineage,
-  spouse,
-  inLaw,
-}
+import '../family_web_layout.dart';
 
 class FamilyConnectorLayer extends StatelessWidget {
   final double width;
   final double height;
+  final List<FamilyConnectorSpec> connectors;
 
   const FamilyConnectorLayer({
     super.key,
     required this.width,
     required this.height,
+    required this.connectors,
   });
 
   @override
@@ -23,16 +21,20 @@ class FamilyConnectorLayer extends StatelessWidget {
     return IgnorePointer(
       child: CustomPaint(
         size: Size(width, height),
-        painter: _FamilyConnectorPainter(),
+        painter: _FamilyConnectorPainter(connectors),
       ),
     );
   }
 }
 
 class _FamilyConnectorPainter extends CustomPainter {
+  final List<FamilyConnectorSpec> connectors;
+
   static const _lineColor = Color(0xFF263238);
   static const _spouseColor = Color(0xFFEF4444);
   static const _inLawColor = Color(0xFF7C3AED);
+
+  const _FamilyConnectorPainter(this.connectors);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -55,113 +57,64 @@ class _FamilyConnectorPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
-    _drawSiblingBranch(
-      canvas,
-      paint: lineagePaint,
-      parent: const Offset(790, 214),
-      barY: 330,
-      childCenters: const [170, 390, 610, 830, 1160],
-      childTopY: 380,
-      parentChildTopY: 350,
-    );
-
-    _drawSiblingBranch(
-      canvas,
-      paint: lineagePaint,
-      parent: const Offset(1590, 214),
-      barY: 330,
-      childCenters: const [1160, 1540, 1760, 1980, 2200],
-      childTopY: 380,
-      parentChildTopY: 350,
-    );
-
-    _drawFamilyBranch(
-      canvas,
-      paint: lineagePaint,
-      from: const Offset(1160, 464),
-      barY: 650,
-      childCenters: const [1180, 1540],
-      childTopY: 760,
-      primaryChildTopY: 700,
-    );
-
-    _drawFamilyBranch(
-      canvas,
-      paint: lineagePaint,
-      from: const Offset(1180, 952),
-      barY: 1120,
-      childCenters: const [990],
-      childTopY: 1180,
-    );
-
-    _drawFamilyBranch(
-      canvas,
-      paint: lineagePaint,
-      from: const Offset(1660, 910),
-      barY: 1120,
-      childCenters: const [1540, 1760, 1980],
-      childTopY: 1180,
-    );
-
-    _drawStraightLine(
-      canvas,
-      paint: spousePaint,
-      from: const Offset(830, 850),
-      to: const Offset(1050, 850),
-    );
-    _drawHeart(canvas, const Offset(940, 850));
-
-    _drawStraightLine(
-      canvas,
-      paint: spousePaint,
-      from: const Offset(1630, 850),
-      to: const Offset(1700, 850),
-    );
-    _drawHeart(canvas, const Offset(1665, 850));
-
-    _drawDashedLine(
-      canvas,
-      paint: inLawPaint,
-      from: const Offset(720, 700),
-      to: const Offset(720, 760),
-    );
-    _drawDashedLine(
-      canvas,
-      paint: inLawPaint,
-      from: const Offset(1740, 700),
-      to: const Offset(1740, 760),
-    );
+    for (final connector in connectors) {
+      switch (connector) {
+        case SiblingBranchConnector():
+          _drawSiblingBranch(canvas, paint: lineagePaint, connector: connector);
+        case FamilyBranchConnector():
+          _drawFamilyBranch(canvas, paint: lineagePaint, connector: connector);
+        case SpouseConnector():
+          _drawStraightLine(
+            canvas,
+            paint: spousePaint,
+            from: connector.from,
+            to: connector.to,
+          );
+          _drawHeart(canvas, connector.heart);
+        case InLawConnector():
+          _drawDashedLine(
+            canvas,
+            paint: inLawPaint,
+            from: connector.from,
+            to: connector.to,
+          );
+      }
+    }
   }
 
   void _drawSiblingBranch(
     Canvas canvas, {
     required Paint paint,
-    required Offset parent,
-    required double barY,
-    required List<double> childCenters,
-    required double childTopY,
-    double? parentChildTopY,
+    required SiblingBranchConnector connector,
   }) {
-    final minX = childCenters.reduce(
+    final minX = connector.childCenters.reduce(
       (value, element) => value < element ? value : element,
     );
-    final maxX = childCenters.reduce(
+    final maxX = connector.childCenters.reduce(
       (value, element) => value > element ? value : element,
     );
 
-    _drawStraightLine(canvas,
-        paint: paint, from: parent, to: Offset(parent.dx, barY));
-    _drawStraightLine(canvas,
-        paint: paint, from: Offset(minX, barY), to: Offset(maxX, barY));
+    _drawStraightLine(
+      canvas,
+      paint: paint,
+      from: connector.parent,
+      to: Offset(connector.parent.dx, connector.barY),
+    );
+    _drawStraightLine(
+      canvas,
+      paint: paint,
+      from: Offset(minX, connector.barY),
+      to: Offset(maxX, connector.barY),
+    );
 
-    for (final centerX in childCenters) {
-      final topY = centerX == 1160 && parentChildTopY != null
-          ? parentChildTopY
-          : childTopY;
+    for (final centerX in connector.childCenters) {
+      final topY = centerX == 1160 && connector.parentChildTopY != null
+          ? connector.parentChildTopY!
+          : connector.childTopY;
       _drawStraightLine(
         canvas,
         paint: paint,
-        from: Offset(centerX, barY),
+        from: Offset(centerX, connector.barY),
         to: Offset(centerX, topY),
       );
     }
@@ -170,35 +123,40 @@ class _FamilyConnectorPainter extends CustomPainter {
   void _drawFamilyBranch(
     Canvas canvas, {
     required Paint paint,
-    required Offset from,
-    required double barY,
-    required List<double> childCenters,
-    required double childTopY,
-    double? primaryChildTopY,
+    required FamilyBranchConnector connector,
   }) {
-    final minX = childCenters.reduce(
+    final minX = connector.childCenters.reduce(
       (value, element) => value < element ? value : element,
     );
-    final maxX = childCenters.reduce(
+    final maxX = connector.childCenters.reduce(
       (value, element) => value > element ? value : element,
     );
 
-    _drawStraightLine(canvas,
-        paint: paint, from: from, to: Offset(from.dx, barY));
+    _drawStraightLine(
+      canvas,
+      paint: paint,
+      from: connector.from,
+      to: Offset(connector.from.dx, connector.barY),
+    );
 
-    if (childCenters.length > 1) {
-      _drawStraightLine(canvas,
-          paint: paint, from: Offset(minX, barY), to: Offset(maxX, barY));
-    }
-
-    for (final centerX in childCenters) {
-      final topY = primaryChildTopY != null && centerX == childCenters.first
-          ? primaryChildTopY
-          : childTopY;
+    if (connector.childCenters.length > 1) {
       _drawStraightLine(
         canvas,
         paint: paint,
-        from: Offset(centerX, barY),
+        from: Offset(minX, connector.barY),
+        to: Offset(maxX, connector.barY),
+      );
+    }
+
+    for (final centerX in connector.childCenters) {
+      final topY = connector.primaryChildTopY != null &&
+              centerX == connector.childCenters.first
+          ? connector.primaryChildTopY!
+          : connector.childTopY;
+      _drawStraightLine(
+        canvas,
+        paint: paint,
+        from: Offset(centerX, connector.barY),
         to: Offset(centerX, topY),
       );
     }
@@ -262,7 +220,9 @@ class _FamilyConnectorPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _FamilyConnectorPainter oldDelegate) {
+    return oldDelegate.connectors != connectors;
+  }
 }
 
 class VerticalConnector extends StatelessWidget {

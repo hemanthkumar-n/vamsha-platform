@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'features/family/presentation/relationship_projection_demo_screen.dart';
+import 'features/family/presentation/vamsha_home_screen.dart';
 
 void main() {
   runApp(const VamshaApp());
@@ -14,7 +14,7 @@ class VamshaApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Vamsha',
       debugShowCheckedModeBanner: false,
-      home: RelationshipProjectionDemoScreen(),
+      home: VamshaHomeScreen(),
     );
   }
 }
