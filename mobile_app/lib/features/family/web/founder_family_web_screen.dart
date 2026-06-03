@@ -15,84 +15,167 @@ class FounderFamilyWebScreen extends StatelessWidget {
         minScale: 0.3,
         maxScale: 4,
         boundaryMargin: const EdgeInsets.all(1000),
-        child: SizedBox(
-          width: 2200,
-          height: 1400,
+        child: Container(
+          width: 2400,
+          height: 1600,
+          color: const Color(0xFFF7F7F7),
           child: Stack(
             children: [
-              Positioned(
-                left: 900,
+              // PATERNAL GRANDPARENTS
+              const Positioned(
+                left: 700,
                 top: 40,
                 child: FamilyUnitCard(
                   husband: 'Natakam Narendranath',
-                  wife: 'Lakshmikanthamma',
+                  wife: 'Natakam Lakshmikanthamma',
                 ),
               ),
 
-              Positioned(
-                left: 1400,
+              // MATERNAL GRANDPARENTS
+              const Positioned(
+                left: 1350,
                 top: 40,
                 child: FamilyUnitCard(
                   husband: 'Mamidi Subbarao',
-                  wife: 'Samarajamma',
+                  wife: 'Mamidi Samarajamma',
                 ),
               ),
 
-              Positioned(
-                left: 1050,
+              // PARENTS
+              const Positioned(
+                left: 1020,
                 top: 320,
                 child: FamilyUnitCard(
-                  husband: 'Malakonda Prasad',
-                  wife: 'Sudha Rani',
+                  husband: 'Natakam Malakonda Prasad',
+                  wife: 'Mamidi Sudha Rani',
                 ),
               ),
 
-              Positioned(
+              // KEERTHI
+              const Positioned(
                 left: 650,
-                top: 650,
+                top: 720,
                 child: PersonCard(
-                  name: 'Keerthi',
+                  name: 'Keerthi Doguparti',
                   relation: 'Wife',
                 ),
               ),
 
-              Positioned(
-                left: 1050,
+              // HEMANTH (CENTER)
+              const Positioned(
+                left: 1020,
                 top: 650,
                 child: PersonCard(
                   name: 'Natakam Hemanth Kumar',
-                  relation: 'YOU',
+                  relation: 'Founder',
+                  isViewer: true,
                 ),
               ),
 
-              Positioned(
-                left: 1400,
-                top: 650,
+              // DIVYA
+              const Positioned(
+                left: 1450,
+                top: 720,
                 child: PersonCard(
-                  name: 'Divya Bharathi',
+                  name: 'Natakam Divya Bharathi',
                   relation: 'Sister',
                 ),
               ),
 
-              Positioned(
-                left: 1650,
-                top: 650,
+              // KAMESH
+              const Positioned(
+                left: 1700,
+                top: 720,
                 child: PersonCard(
                   name: 'Buduri Kamesh',
                   relation: 'Brother-in-law',
                 ),
               ),
 
-              Positioned(
+              // YUVAN
+              const Positioned(
                 left: 1050,
-                top: 1000,
+                top: 1080,
                 child: PersonCard(
-                  name: 'Yuvan Simha',
+                  name: 'Natakam Yuvan Simha',
                   relation: 'Son',
                 ),
               ),
+
+              // DIVYA CHILDREN
+              const Positioned(
+                left: 1550,
+                top: 1080,
+                child: PersonCard(
+                  name: 'Buduri Shreasta',
+                  relation: 'Niece',
+                ),
+              ),
+
+              const Positioned(
+                left: 1770,
+                top: 1080,
+                child: PersonCard(
+                  name: 'Buduri Vedhansh',
+                  relation: 'Nephew',
+                ),
+              ),
+
+              const Positioned(
+                left: 1990,
+                top: 1080,
+                child: PersonCard(
+                  name: 'Buduri Krithiksha',
+                  relation: 'Niece',
+                ),
+              ),
+
+              // SECTION LABELS
+
+              Positioned(
+                left: 760,
+                top: 10,
+                child: _label('Natakam Branch'),
+              ),
+
+              Positioned(
+                left: 1420,
+                top: 10,
+                child: _label('Mamidi Branch'),
+              ),
+
+              Positioned(
+                left: 600,
+                top: 640,
+                child: _label('Doguparti Family'),
+              ),
+
+              Positioned(
+                left: 1680,
+                top: 640,
+                child: _label('Buduri Family'),
+              ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _label(String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 6,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.green.shade50,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
