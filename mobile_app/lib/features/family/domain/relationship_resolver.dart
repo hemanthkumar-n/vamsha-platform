@@ -1,17 +1,18 @@
-import '../models/founder_identity_claims.dart';
 import '../domain/identity_claim.dart';
+import '../models/founder_identity_claims.dart';
 
 class RelationshipResolver {
+  const RelationshipResolver();
+
   static String? relationshipBetween(
-    String sourceId,
+    String viewerId,
     String targetId,
   ) {
     try {
-      final IdentityClaim claim =
-          FounderIdentityClaims.claims.firstWhere(
-        (c) =>
-            c.claimantIdentityId == sourceId &&
-            c.targetIdentityId == targetId,
+      final claim = FounderIdentityClaims.claims.firstWhere(
+        (claim) =>
+            claim.claimantIdentityId == viewerId &&
+            claim.targetIdentityId == targetId,
       );
 
       return claim.relationship;
@@ -19,4 +20,16 @@ class RelationshipResolver {
       return null;
     }
   }
+
+  static bool hasRelationship(
+    String viewerId,
+    String targetId,
+  ) {
+    return relationshipBetween(
+          viewerId,
+          targetId,
+        ) !=
+        null;
+  }
 }
+
