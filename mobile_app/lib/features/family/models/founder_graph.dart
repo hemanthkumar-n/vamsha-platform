@@ -1,87 +1,127 @@
-import '../domain/graph_person.dart';
-import '../domain/relationship_edge.dart';
+import 'person_entity.dart';
+import 'relationship_edge.dart';
+import 'family_unit.dart';
 
 class FounderGraph {
-  static final people = <GraphPerson>[
-    GraphPerson(
+  static final people = <PersonEntity>[
+    PersonEntity(
+      id: 'narendranath',
+      primaryName: 'Natakam Narendranath',
+    ),
+
+    PersonEntity(
+      id: 'lakshmikanthamma',
+      primaryName: 'Lakshmikanthamma',
+    ),
+
+    PersonEntity(
+      id: 'subbarao',
+      primaryName: 'Mamidi Subbarao',
+    ),
+
+    PersonEntity(
+      id: 'samarajamma',
+      primaryName: 'Samarajamma',
+    ),
+
+    PersonEntity(
       id: 'prasad',
-      name: 'Natakam Malakonda Prasad',
-      knownAs: 'Nanna',
-      relationship: 'Father',
+      primaryName: 'Natakam Malakonda Prasad',
+      aliases: [
+        'N Malakonda Prasad',
+        'N M Prasad',
+      ],
+      knownAs: [
+        'Prasad',
+      ],
     ),
-    GraphPerson(
-      id: 'sudharani',
-      name: 'Sudharani',
-      knownAs: 'Amma',
-      relationship: 'Mother',
+
+    PersonEntity(
+      id: 'sudha',
+      primaryName: 'Natakam Sudha Rani',
+      aliases: [
+        'Mamidi Sudha Rani',
+      ],
+      knownAs: [
+        'Sudha',
+      ],
     ),
-    GraphPerson(
+
+    PersonEntity(
       id: 'hemanth',
-      name: 'Hemanth Kumar',
-      knownAs: 'Hemanth',
-      relationship: 'YOU',
+      primaryName: 'Natakam Hemanth Kumar',
     ),
-    GraphPerson(
+
+    PersonEntity(
       id: 'keerthi',
-      name: 'Keerthi Doguparti',
-      knownAs: 'Keerthi',
-      relationship: 'Spouse',
+      primaryName: 'Keerthi Doguparti',
     ),
-    GraphPerson(
-      id: 'yuvan',
-      name: 'Yuvan Simha',
-      knownAs: 'Yuvan',
-      relationship: 'Son',
-    ),
-    GraphPerson(
+
+    PersonEntity(
       id: 'divya',
-      name: 'Divya Bharathi',
-      knownAs: 'Chelli',
-      relationship: 'Younger Sister',
+      primaryName: 'Natakam Divya Bharathi',
     ),
-    GraphPerson(
+
+    PersonEntity(
       id: 'kamesh',
-      name: 'Buduri Kamesh',
-      knownAs: 'Kamesh Bava',
-      relationship: 'Brother In Law',
+      primaryName: 'Buduri Kamesh',
+    ),
+
+    PersonEntity(
+      id: 'yuvan',
+      primaryName: 'Natakam Yuvan Simha',
     ),
   ];
 
-  static final edges = <RelationshipEdge>[
-    RelationshipEdge(
-      fromId: 'prasad',
-      toId: 'hemanth',
-      type: RelationshipEdgeType.parentChild,
+  static final familyUnits = <FamilyUnit>[
+    FamilyUnit(
+      id: 'fu_natakam_root',
+      partner1Id: 'narendranath',
+      partner2Id: 'lakshmikanthamma',
     ),
-    RelationshipEdge(
-      fromId: 'sudharani',
-      toId: 'hemanth',
-      type: RelationshipEdgeType.parentChild,
+
+    FamilyUnit(
+      id: 'fu_mamidi_root',
+      partner1Id: 'subbarao',
+      partner2Id: 'samarajamma',
     ),
-    RelationshipEdge(
-      fromId: 'hemanth',
-      toId: 'keerthi',
-      type: RelationshipEdgeType.spouse,
+
+    FamilyUnit(
+      id: 'fu_prasad_sudha',
+      partner1Id: 'prasad',
+      partner2Id: 'sudha',
     ),
-    RelationshipEdge(
-      fromId: 'hemanth',
-      toId: 'yuvan',
-      type: RelationshipEdgeType.parentChild,
+
+    FamilyUnit(
+      id: 'fu_hemanth_keerthi',
+      partner1Id: 'hemanth',
+      partner2Id: 'keerthi',
     ),
-    RelationshipEdge(
-      fromId: 'keerthi',
-      toId: 'yuvan',
-      type: RelationshipEdgeType.parentChild,
+
+    FamilyUnit(
+      id: 'fu_divya_kamesh',
+      partner1Id: 'divya',
+      partner2Id: 'kamesh',
     ),
+  ];
+
+  static final relationships = <RelationshipEdge>[
     RelationshipEdge(
-      fromId: 'hemanth',
-      toId: 'divya',
-      type: RelationshipEdgeType.sibling,
+      sourceId: 'prasad',
+      targetId: 'hemanth',
+      type: RelationshipType.parent,
     ),
+
     RelationshipEdge(
-      fromId: 'divya',
-      toId: 'kamesh',
-      type: RelationshipEdgeType.spouse,
+      sourceId: 'sudha',
+      targetId: 'hemanth',
+      type: RelationshipType.parent,
+    ),
+
+    RelationshipEdge(
+      sourceId: 'hemanth',
+      targetId: 'yuvan',
+      type: RelationshipType.parent,
     ),
   ];
 }
