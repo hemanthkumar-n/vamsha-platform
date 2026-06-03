@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'features/family/presentation/viewer_family_web_screen.dart';
+import 'features/family/web/founder_family_web_screen.dart';
 
-import 'features/family/presentation/vri_demo_screen.dart';
 // import 'features/onboarding/presentation/welcome_screen.dart';
 
 Future<void> main() async {
@@ -23,7 +24,7 @@ class VamshaApp extends StatelessWidget {
     return MaterialApp(
       title: 'Vamsha',
       debugShowCheckedModeBanner: false,
-      home: const VRIDemoScreen(),
+      home: const FounderFamilyWebScreen(),
     );
   }
 }
