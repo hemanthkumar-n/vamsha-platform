@@ -4,10 +4,12 @@ class MarriedCoupleCard extends StatelessWidget {
   final String partner1Id;
   final String partner1Name;
   final String partner1Relation;
+  final String? partner1CulturalRelation;
   final bool isPartner1Viewer;
   final String partner2Id;
   final String partner2Name;
   final String partner2Relation;
+  final String? partner2CulturalRelation;
   final bool isPartner2Viewer;
   final VoidCallback? onPartner1Tap;
   final VoidCallback? onPartner2Tap;
@@ -17,10 +19,12 @@ class MarriedCoupleCard extends StatelessWidget {
     required this.partner1Id,
     required this.partner1Name,
     required this.partner1Relation,
+    this.partner1CulturalRelation,
     required this.isPartner1Viewer,
     required this.partner2Id,
     required this.partner2Name,
     required this.partner2Relation,
+    this.partner2CulturalRelation,
     required this.isPartner2Viewer,
     this.onPartner1Tap,
     this.onPartner2Tap,
@@ -38,6 +42,7 @@ class MarriedCoupleCard extends StatelessWidget {
             key: ValueKey('couple-person-$partner1Id'),
             name: partner1Name,
             relation: partner1Relation,
+            culturalRelation: partner1CulturalRelation,
             isViewer: isPartner1Viewer,
             onTap: onPartner1Tap,
           ),
@@ -48,6 +53,7 @@ class MarriedCoupleCard extends StatelessWidget {
             key: ValueKey('couple-person-$partner2Id'),
             name: partner2Name,
             relation: partner2Relation,
+            culturalRelation: partner2CulturalRelation,
             isViewer: isPartner2Viewer,
             onTap: onPartner2Tap,
           ),
@@ -60,6 +66,7 @@ class MarriedCoupleCard extends StatelessWidget {
 class _PartnerCard extends StatelessWidget {
   final String name;
   final String relation;
+  final String? culturalRelation;
   final bool isViewer;
   final VoidCallback? onTap;
 
@@ -67,6 +74,7 @@ class _PartnerCard extends StatelessWidget {
     super.key,
     required this.name,
     required this.relation,
+    this.culturalRelation,
     required this.isViewer,
     this.onTap,
   });
@@ -85,7 +93,7 @@ class _PartnerCard extends StatelessWidget {
           child: Container(
             width: 190,
             height: 184,
-            padding: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -138,11 +146,33 @@ class _PartnerCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(
-                  relation,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.grey),
+                SizedBox(
+                  height: 34,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (culturalRelation != null)
+                        Text(
+                          culturalRelation!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Color(0xFF087F72),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      Text(
+                        relation,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: culturalRelation == null ? 13 : 11,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -1,0 +1,2137 @@
+{
+  "schemaVersion": 1,
+  "source": "Family_Relationship_Words-languages.numbers",
+  "defaultUiLanguageTag": "en",
+  "displayFormat": "mother_tongue_and_english",
+  "languages": {
+    "ta-IN": "Tamil",
+    "ml-IN": "Malayalam",
+    "te-IN": "Telugu",
+    "kn-IN": "Kannada",
+    "hi-IN": "Hindi"
+  },
+  "relationships": [
+    {
+      "code": "great_great_grandfather",
+      "generation": "Elder Generation",
+      "english": "Great-great-grandfather",
+      "terms": {
+        "ta-IN": {
+          "display": "Muppaṭṭakkārar",
+          "variants": [
+            "Muppaṭṭakkārar",
+            "Mūṭāttaṉ"
+          ]
+        },
+        "ml-IN": {
+          "display": "Muttachan (avan avan appan)",
+          "variants": [
+            "Muttachan (avan avan appan)"
+          ]
+        },
+        "te-IN": {
+          "display": "Muddu Tāṭayya",
+          "variants": [
+            "Muddu Tāṭayya"
+          ]
+        },
+        "kn-IN": {
+          "display": "Muddajja",
+          "variants": [
+            "Muddajja"
+          ]
+        },
+        "hi-IN": {
+          "display": "Pardada ka baap (Pūrvaj)",
+          "variants": [
+            "Pardada ka baap (Pūrvaj)"
+          ]
+        }
+      }
+    },
+    {
+      "code": "great_great_grandmother",
+      "generation": "Elder Generation",
+      "english": "Great-great-grandmother",
+      "terms": {
+        "ta-IN": {
+          "display": "Muppaṭṭi",
+          "variants": [
+            "Muppaṭṭi",
+            "Mūṭātti"
+          ]
+        },
+        "ml-IN": {
+          "display": "Muttassi (avan avan amma)",
+          "variants": [
+            "Muttassi (avan avan amma)"
+          ]
+        },
+        "te-IN": {
+          "display": "Muddu Nānamma",
+          "variants": [
+            "Muddu Nānamma"
+          ]
+        },
+        "kn-IN": {
+          "display": "Muddajji",
+          "variants": [
+            "Muddajji"
+          ]
+        },
+        "hi-IN": {
+          "display": "Pardadi ki maa (Pūrvaj)",
+          "variants": [
+            "Pardadi ki maa (Pūrvaj)"
+          ]
+        }
+      }
+    },
+    {
+      "code": "great_grandfather_paternal",
+      "generation": "Elder Generation",
+      "english": "Great-grandfather (paternal)",
+      "terms": {
+        "ta-IN": {
+          "display": "Muppaṭṭanār",
+          "variants": [
+            "Muppaṭṭanār",
+            "Koṭṭanār"
+          ]
+        },
+        "ml-IN": {
+          "display": "Appappan",
+          "variants": [
+            "Appappan"
+          ]
+        },
+        "te-IN": {
+          "display": "Pedda Tāṭayya",
+          "variants": [
+            "Pedda Tāṭayya",
+            "Muttāṭa"
+          ]
+        },
+        "kn-IN": {
+          "display": "Appa-appa",
+          "variants": [
+            "Appa-appa",
+            "Pedda-ajja"
+          ]
+        },
+        "hi-IN": {
+          "display": "Pardada",
+          "variants": [
+            "Pardada"
+          ]
+        }
+      }
+    },
+    {
+      "code": "great_grandmother_paternal",
+      "generation": "Elder Generation",
+      "english": "Great-grandmother (paternal)",
+      "terms": {
+        "ta-IN": {
+          "display": "Muppaṭṭi",
+          "variants": [
+            "Muppaṭṭi"
+          ]
+        },
+        "ml-IN": {
+          "display": "Appamma",
+          "variants": [
+            "Appamma",
+            "Koṭṭamma"
+          ]
+        },
+        "te-IN": {
+          "display": "Pedda Nānamma",
+          "variants": [
+            "Pedda Nānamma",
+            "Muttāṭi"
+          ]
+        },
+        "kn-IN": {
+          "display": "Appa-ajji",
+          "variants": [
+            "Appa-ajji",
+            "Pedda-ajji"
+          ]
+        },
+        "hi-IN": {
+          "display": "Pardadi",
+          "variants": [
+            "Pardadi"
+          ]
+        }
+      }
+    },
+    {
+      "code": "great_grandfather_maternal",
+      "generation": "Elder Generation",
+      "english": "Great-grandfather (maternal)",
+      "terms": {
+        "ta-IN": {
+          "display": "Aṇṇāttaṉ",
+          "variants": [
+            "Aṇṇāttaṉ"
+          ]
+        },
+        "ml-IN": {
+          "display": "Ammaman appa",
+          "variants": [
+            "Ammaman appa",
+            "Muttāppan"
+          ]
+        },
+        "te-IN": {
+          "display": "Ammamma Tāṭayya",
+          "variants": [
+            "Ammamma Tāṭayya"
+          ]
+        },
+        "kn-IN": {
+          "display": "Tāyi-appa",
+          "variants": [
+            "Tāyi-appa"
+          ]
+        },
+        "hi-IN": {
+          "display": "Nana ka baap",
+          "variants": [
+            "Nana ka baap"
+          ]
+        }
+      }
+    },
+    {
+      "code": "great_grandmother_maternal",
+      "generation": "Elder Generation",
+      "english": "Great-grandmother (maternal)",
+      "terms": {
+        "ta-IN": {
+          "display": "Āttacci",
+          "variants": [
+            "Āttacci",
+            "Aṇṇātti"
+          ]
+        },
+        "ml-IN": {
+          "display": "Ammumma amma",
+          "variants": [
+            "Ammumma amma"
+          ]
+        },
+        "te-IN": {
+          "display": "Ammamma Nānamma",
+          "variants": [
+            "Ammamma Nānamma"
+          ]
+        },
+        "kn-IN": {
+          "display": "Tāyi-ajji",
+          "variants": [
+            "Tāyi-ajji"
+          ]
+        },
+        "hi-IN": {
+          "display": "Nani ki maa",
+          "variants": [
+            "Nani ki maa"
+          ]
+        }
+      }
+    },
+    {
+      "code": "grandfather_paternal",
+      "generation": "Elder Generation",
+      "english": "Grandfather (paternal)",
+      "terms": {
+        "ta-IN": {
+          "display": "Tāttā",
+          "variants": [
+            "Tāttā",
+            "Paṭṭi"
+          ]
+        },
+        "ml-IN": {
+          "display": "Appappan",
+          "variants": [
+            "Appappan",
+            "Tātan"
+          ]
+        },
+        "te-IN": {
+          "display": "Tāṭayya (Babayya)",
+          "variants": [
+            "Tāṭayya (Babayya)"
+          ]
+        },
+        "kn-IN": {
+          "display": "Ajja",
+          "variants": [
+            "Ajja",
+            "Tāta"
+          ]
+        },
+        "hi-IN": {
+          "display": "Dada",
+          "variants": [
+            "Dada",
+            "Nana (paternal)"
+          ]
+        }
+      }
+    },
+    {
+      "code": "grandmother_paternal",
+      "generation": "Elder Generation",
+      "english": "Grandmother (paternal)",
+      "terms": {
+        "ta-IN": {
+          "display": "Pāṭṭi",
+          "variants": [
+            "Pāṭṭi"
+          ]
+        },
+        "ml-IN": {
+          "display": "Appamma",
+          "variants": [
+            "Appamma"
+          ]
+        },
+        "te-IN": {
+          "display": "Nānamma (Avva)",
+          "variants": [
+            "Nānamma (Avva)"
+          ]
+        },
+        "kn-IN": {
+          "display": "Ajji",
+          "variants": [
+            "Ajji"
+          ]
+        },
+        "hi-IN": {
+          "display": "Dadi",
+          "variants": [
+            "Dadi"
+          ]
+        }
+      }
+    },
+    {
+      "code": "grandfather_maternal",
+      "generation": "Elder Generation",
+      "english": "Grandfather (maternal)",
+      "terms": {
+        "ta-IN": {
+          "display": "Tāttā (tāymanai)",
+          "variants": [
+            "Tāttā (tāymanai)"
+          ]
+        },
+        "ml-IN": {
+          "display": "Ammapan",
+          "variants": [
+            "Ammapan",
+            "Māmman"
+          ]
+        },
+        "te-IN": {
+          "display": "Ammamma Tāṭayya",
+          "variants": [
+            "Ammamma Tāṭayya",
+            "Thāṭa"
+          ]
+        },
+        "kn-IN": {
+          "display": "Tāyi-ajja",
+          "variants": [
+            "Tāyi-ajja"
+          ]
+        },
+        "hi-IN": {
+          "display": "Nana",
+          "variants": [
+            "Nana"
+          ]
+        }
+      }
+    },
+    {
+      "code": "grandmother_maternal",
+      "generation": "Elder Generation",
+      "english": "Grandmother (maternal)",
+      "terms": {
+        "ta-IN": {
+          "display": "Āttai pāṭṭi",
+          "variants": [
+            "Āttai pāṭṭi",
+            "Māmān pāṭṭi"
+          ]
+        },
+        "ml-IN": {
+          "display": "Ammumma",
+          "variants": [
+            "Ammumma"
+          ]
+        },
+        "te-IN": {
+          "display": "Ammamma",
+          "variants": [
+            "Ammamma"
+          ]
+        },
+        "kn-IN": {
+          "display": "Tāyi-ajji",
+          "variants": [
+            "Tāyi-ajji"
+          ]
+        },
+        "hi-IN": {
+          "display": "Nani",
+          "variants": [
+            "Nani"
+          ]
+        }
+      }
+    },
+    {
+      "code": "father",
+      "generation": "Parent Generation",
+      "english": "Father",
+      "terms": {
+        "ta-IN": {
+          "display": "Appā",
+          "variants": [
+            "Appā",
+            "Appa"
+          ]
+        },
+        "ml-IN": {
+          "display": "Achan",
+          "variants": [
+            "Achan",
+            "Appan"
+          ]
+        },
+        "te-IN": {
+          "display": "Naanna",
+          "variants": [
+            "Naanna",
+            "Nāyanā"
+          ]
+        },
+        "kn-IN": {
+          "display": "Appa",
+          "variants": [
+            "Appa",
+            "Tande"
+          ]
+        },
+        "hi-IN": {
+          "display": "Pitaji",
+          "variants": [
+            "Pitaji",
+            "Papa",
+            "Bapu"
+          ]
+        }
+      }
+    },
+    {
+      "code": "mother",
+      "generation": "Parent Generation",
+      "english": "Mother",
+      "terms": {
+        "ta-IN": {
+          "display": "Ammā",
+          "variants": [
+            "Ammā",
+            "Amma"
+          ]
+        },
+        "ml-IN": {
+          "display": "Amma",
+          "variants": [
+            "Amma",
+            "Ammachi"
+          ]
+        },
+        "te-IN": {
+          "display": "Ammā",
+          "variants": [
+            "Ammā",
+            "Amma"
+          ]
+        },
+        "kn-IN": {
+          "display": "Amma",
+          "variants": [
+            "Amma",
+            "Tayi"
+          ]
+        },
+        "hi-IN": {
+          "display": "Maa",
+          "variants": [
+            "Maa",
+            "Maaji",
+            "Amma"
+          ]
+        }
+      }
+    },
+    {
+      "code": "paternal_uncle_fathers_elder_brother",
+      "generation": "Parent Generation",
+      "english": "Paternal Uncle (father's elder brother)",
+      "terms": {
+        "ta-IN": {
+          "display": "Periyappa",
+          "variants": [
+            "Periyappa"
+          ]
+        },
+        "ml-IN": {
+          "display": "Valiachhan",
+          "variants": [
+            "Valiachhan"
+          ]
+        },
+        "te-IN": {
+          "display": "Pedda Naanna",
+          "variants": [
+            "Pedda Naanna",
+            "Peddabba"
+          ]
+        },
+        "kn-IN": {
+          "display": "Dodda Appa",
+          "variants": [
+            "Dodda Appa"
+          ]
+        },
+        "hi-IN": {
+          "display": "Taauji",
+          "variants": [
+            "Taauji",
+            "Tau"
+          ]
+        }
+      }
+    },
+    {
+      "code": "paternal_aunt_fathers_elder_brothers_wife",
+      "generation": "Parent Generation",
+      "english": "Paternal Aunt (father's elder brother's wife)",
+      "terms": {
+        "ta-IN": {
+          "display": "Periyamma",
+          "variants": [
+            "Periyamma"
+          ]
+        },
+        "ml-IN": {
+          "display": "Valiaamma",
+          "variants": [
+            "Valiaamma"
+          ]
+        },
+        "te-IN": {
+          "display": "Pedda Amma",
+          "variants": [
+            "Pedda Amma"
+          ]
+        },
+        "kn-IN": {
+          "display": "Dodda Amma",
+          "variants": [
+            "Dodda Amma"
+          ]
+        },
+        "hi-IN": {
+          "display": "Taai",
+          "variants": [
+            "Taai"
+          ]
+        }
+      }
+    },
+    {
+      "code": "paternal_uncle_fathers_younger_brother",
+      "generation": "Parent Generation",
+      "english": "Paternal Uncle (father's younger brother)",
+      "terms": {
+        "ta-IN": {
+          "display": "Ciṭṭappa",
+          "variants": [
+            "Ciṭṭappa",
+            "Chittappa"
+          ]
+        },
+        "ml-IN": {
+          "display": "Cheriachhan",
+          "variants": [
+            "Cheriachhan",
+            "Ithiachhan"
+          ]
+        },
+        "te-IN": {
+          "display": "Cinna Naanna",
+          "variants": [
+            "Cinna Naanna",
+            "Baabai"
+          ]
+        },
+        "kn-IN": {
+          "display": "Chikka Appa",
+          "variants": [
+            "Chikka Appa"
+          ]
+        },
+        "hi-IN": {
+          "display": "Chacha",
+          "variants": [
+            "Chacha",
+            "Kaka"
+          ]
+        }
+      }
+    },
+    {
+      "code": "paternal_aunt_fathers_younger_bros_wife",
+      "generation": "Parent Generation",
+      "english": "Paternal Aunt (father's younger bro's wife)",
+      "terms": {
+        "ta-IN": {
+          "display": "Ciṭṭi",
+          "variants": [
+            "Ciṭṭi",
+            "Chitti"
+          ]
+        },
+        "ml-IN": {
+          "display": "Cheriaamma",
+          "variants": [
+            "Cheriaamma",
+            "Ithiamma"
+          ]
+        },
+        "te-IN": {
+          "display": "Cinna Amma",
+          "variants": [
+            "Cinna Amma",
+            "Baava Amma"
+          ]
+        },
+        "kn-IN": {
+          "display": "Chikka Amma",
+          "variants": [
+            "Chikka Amma"
+          ]
+        },
+        "hi-IN": {
+          "display": "Chachi",
+          "variants": [
+            "Chachi",
+            "Kaki"
+          ]
+        }
+      }
+    },
+    {
+      "code": "paternal_aunt_fathers_sister",
+      "generation": "Parent Generation",
+      "english": "Paternal Aunt (father's sister)",
+      "terms": {
+        "ta-IN": {
+          "display": "Aṭṭai",
+          "variants": [
+            "Aṭṭai",
+            "Attai"
+          ]
+        },
+        "ml-IN": {
+          "display": "Appante chechi",
+          "variants": [
+            "Appante chechi",
+            "Aniyathi"
+          ]
+        },
+        "te-IN": {
+          "display": "Naanna Akka",
+          "variants": [
+            "Naanna Akka",
+            "Naayana Akka (Pinni)"
+          ]
+        },
+        "kn-IN": {
+          "display": "Atte",
+          "variants": [
+            "Atte",
+            "Atthe"
+          ]
+        },
+        "hi-IN": {
+          "display": "Bua",
+          "variants": [
+            "Bua",
+            "Foi"
+          ]
+        }
+      }
+    },
+    {
+      "code": "paternal_uncle_fathers_sisters_husband",
+      "generation": "Parent Generation",
+      "english": "Paternal Uncle (father's sister's husband)",
+      "terms": {
+        "ta-IN": {
+          "display": "Aṭṭaṉ",
+          "variants": [
+            "Aṭṭaṉ"
+          ]
+        },
+        "ml-IN": {
+          "display": "Appante chechi bhartav",
+          "variants": [
+            "Appante chechi bhartav"
+          ]
+        },
+        "te-IN": {
+          "display": "Baava",
+          "variants": [
+            "Baava",
+            "Bava Gāru"
+          ]
+        },
+        "kn-IN": {
+          "display": "Mava",
+          "variants": [
+            "Mava",
+            "Atteya ganda"
+          ]
+        },
+        "hi-IN": {
+          "display": "Fufaji",
+          "variants": [
+            "Fufaji"
+          ]
+        }
+      }
+    },
+    {
+      "code": "maternal_uncle_mothers_brother",
+      "generation": "Parent Generation",
+      "english": "Maternal Uncle (mother's brother)",
+      "terms": {
+        "ta-IN": {
+          "display": "Māmā",
+          "variants": [
+            "Māmā",
+            "Mama"
+          ]
+        },
+        "ml-IN": {
+          "display": "Ammaavan",
+          "variants": [
+            "Ammaavan",
+            "Māman"
+          ]
+        },
+        "te-IN": {
+          "display": "Māmayya",
+          "variants": [
+            "Māmayya",
+            "Maamayyā"
+          ]
+        },
+        "kn-IN": {
+          "display": "Mava",
+          "variants": [
+            "Mava",
+            "Mama"
+          ]
+        },
+        "hi-IN": {
+          "display": "Mama",
+          "variants": [
+            "Mama",
+            "Mamu"
+          ]
+        }
+      }
+    },
+    {
+      "code": "maternal_aunt_mothers_brothers_wife",
+      "generation": "Parent Generation",
+      "english": "Maternal Aunt (mother's brother's wife)",
+      "terms": {
+        "ta-IN": {
+          "display": "Māmi",
+          "variants": [
+            "Māmi",
+            "Mami"
+          ]
+        },
+        "ml-IN": {
+          "display": "Ammaavan bharya",
+          "variants": [
+            "Ammaavan bharya",
+            "Māmi"
+          ]
+        },
+        "te-IN": {
+          "display": "Māmamma",
+          "variants": [
+            "Māmamma",
+            "Peddamma"
+          ]
+        },
+        "kn-IN": {
+          "display": "Maami",
+          "variants": [
+            "Maami"
+          ]
+        },
+        "hi-IN": {
+          "display": "Mami",
+          "variants": [
+            "Mami",
+            "Maami"
+          ]
+        }
+      }
+    },
+    {
+      "code": "maternal_aunt_mothers_elder_sister",
+      "generation": "Parent Generation",
+      "english": "Maternal Aunt (mother's elder sister)",
+      "terms": {
+        "ta-IN": {
+          "display": "Periyamma",
+          "variants": [
+            "Periyamma",
+            "Peria Amma"
+          ]
+        },
+        "ml-IN": {
+          "display": "Valiamma (ammante chechi)",
+          "variants": [
+            "Valiamma (ammante chechi)"
+          ]
+        },
+        "te-IN": {
+          "display": "Peddamma",
+          "variants": [
+            "Peddamma",
+            "Pedda Amma"
+          ]
+        },
+        "kn-IN": {
+          "display": "Dodda Amma",
+          "variants": [
+            "Dodda Amma",
+            "Doddamma"
+          ]
+        },
+        "hi-IN": {
+          "display": "Badi Mausi",
+          "variants": [
+            "Badi Mausi",
+            "Taai"
+          ]
+        }
+      }
+    },
+    {
+      "code": "maternal_aunt_mothers_younger_sister",
+      "generation": "Parent Generation",
+      "english": "Maternal Aunt (mother's younger sister)",
+      "terms": {
+        "ta-IN": {
+          "display": "Ciṭṭi",
+          "variants": [
+            "Ciṭṭi",
+            "Chitti"
+          ]
+        },
+        "ml-IN": {
+          "display": "Cheriamma (ammante aniyathi)",
+          "variants": [
+            "Cheriamma (ammante aniyathi)"
+          ]
+        },
+        "te-IN": {
+          "display": "Cinna Amma",
+          "variants": [
+            "Cinna Amma",
+            "Pinni"
+          ]
+        },
+        "kn-IN": {
+          "display": "Chikka Amma",
+          "variants": [
+            "Chikka Amma"
+          ]
+        },
+        "hi-IN": {
+          "display": "Mausi",
+          "variants": [
+            "Mausi",
+            "Choti Mausi"
+          ]
+        }
+      }
+    },
+    {
+      "code": "maternal_uncle_mothers_sisters_husband",
+      "generation": "Parent Generation",
+      "english": "Maternal Uncle (mother's sister's husband)",
+      "terms": {
+        "ta-IN": {
+          "display": "Māmā (ciṭṭappa)",
+          "variants": [
+            "Māmā (ciṭṭappa)"
+          ]
+        },
+        "ml-IN": {
+          "display": "Ammaavan (cheriamma bhartav)",
+          "variants": [
+            "Ammaavan (cheriamma bhartav)"
+          ]
+        },
+        "te-IN": {
+          "display": "Cinna Naanna",
+          "variants": [
+            "Cinna Naanna",
+            "Mavayya"
+          ]
+        },
+        "kn-IN": {
+          "display": "Maava",
+          "variants": [
+            "Maava",
+            "Mava"
+          ]
+        },
+        "hi-IN": {
+          "display": "Mausaji",
+          "variants": [
+            "Mausaji"
+          ]
+        }
+      }
+    },
+    {
+      "code": "elder_brother",
+      "generation": "Own Generation",
+      "english": "Elder Brother",
+      "terms": {
+        "ta-IN": {
+          "display": "Aṇṇaṉ",
+          "variants": [
+            "Aṇṇaṉ",
+            "Anna"
+          ]
+        },
+        "ml-IN": {
+          "display": "Chetan",
+          "variants": [
+            "Chetan",
+            "Etan",
+            "Annan"
+          ]
+        },
+        "te-IN": {
+          "display": "Anna",
+          "variants": [
+            "Anna",
+            "Abbāyi (elder)"
+          ]
+        },
+        "kn-IN": {
+          "display": "Anna",
+          "variants": [
+            "Anna",
+            "Tamma (elder)"
+          ]
+        },
+        "hi-IN": {
+          "display": "Bhaiyya",
+          "variants": [
+            "Bhaiyya",
+            "Bhai",
+            "Dada"
+          ]
+        }
+      }
+    },
+    {
+      "code": "younger_brother",
+      "generation": "Own Generation",
+      "english": "Younger Brother",
+      "terms": {
+        "ta-IN": {
+          "display": "Tampi",
+          "variants": [
+            "Tampi",
+            "Tambian"
+          ]
+        },
+        "ml-IN": {
+          "display": "Aniyattan",
+          "variants": [
+            "Aniyattan",
+            "Ikka"
+          ]
+        },
+        "te-IN": {
+          "display": "Tammudu",
+          "variants": [
+            "Tammudu",
+            "Thammudu"
+          ]
+        },
+        "kn-IN": {
+          "display": "Tamma",
+          "variants": [
+            "Tamma",
+            "Anna (younger)"
+          ]
+        },
+        "hi-IN": {
+          "display": "Chota Bhai",
+          "variants": [
+            "Chota Bhai",
+            "Bhai"
+          ]
+        }
+      }
+    },
+    {
+      "code": "elder_sister",
+      "generation": "Own Generation",
+      "english": "Elder Sister",
+      "terms": {
+        "ta-IN": {
+          "display": "Akka",
+          "variants": [
+            "Akka",
+            "Anni"
+          ]
+        },
+        "ml-IN": {
+          "display": "Chechi",
+          "variants": [
+            "Chechi",
+            "Cheche"
+          ]
+        },
+        "te-IN": {
+          "display": "Akka",
+          "variants": [
+            "Akka",
+            "Didi"
+          ]
+        },
+        "kn-IN": {
+          "display": "Akka",
+          "variants": [
+            "Akka"
+          ]
+        },
+        "hi-IN": {
+          "display": "Didi",
+          "variants": [
+            "Didi",
+            "Aapa",
+            "Behen"
+          ]
+        }
+      }
+    },
+    {
+      "code": "younger_sister",
+      "generation": "Own Generation",
+      "english": "Younger Sister",
+      "terms": {
+        "ta-IN": {
+          "display": "Taṅkai",
+          "variants": [
+            "Taṅkai",
+            "Tangi"
+          ]
+        },
+        "ml-IN": {
+          "display": "Aniyathi",
+          "variants": [
+            "Aniyathi",
+            "Kutty"
+          ]
+        },
+        "te-IN": {
+          "display": "Chellelu",
+          "variants": [
+            "Chellelu",
+            "Chelli"
+          ]
+        },
+        "kn-IN": {
+          "display": "Thangi",
+          "variants": [
+            "Thangi",
+            "Tayi"
+          ]
+        },
+        "hi-IN": {
+          "display": "Choti Behen",
+          "variants": [
+            "Choti Behen",
+            "Behen"
+          ]
+        }
+      }
+    },
+    {
+      "code": "male_cousin_paternal_elder",
+      "generation": "Own Generation",
+      "english": "Male Cousin (paternal, elder)",
+      "terms": {
+        "ta-IN": {
+          "display": "Aṇṇan (chittappa paiyan)",
+          "variants": [
+            "Aṇṇan (chittappa paiyan)"
+          ]
+        },
+        "ml-IN": {
+          "display": "Chechi makan (appante)",
+          "variants": [
+            "Chechi makan (appante)"
+          ]
+        },
+        "te-IN": {
+          "display": "Abbayi (Pedda Naanna koduku)",
+          "variants": [
+            "Abbayi (Pedda Naanna koduku)"
+          ]
+        },
+        "kn-IN": {
+          "display": "Dodda appa maganu",
+          "variants": [
+            "Dodda appa maganu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Tauji ka beta",
+          "variants": [
+            "Tauji ka beta",
+            "Chacha ka beta"
+          ]
+        }
+      }
+    },
+    {
+      "code": "female_cousin_paternal_elder",
+      "generation": "Own Generation",
+      "english": "Female Cousin (paternal, elder)",
+      "terms": {
+        "ta-IN": {
+          "display": "Akka (chittappa magal)",
+          "variants": [
+            "Akka (chittappa magal)"
+          ]
+        },
+        "ml-IN": {
+          "display": "Chechi (appante)",
+          "variants": [
+            "Chechi (appante)"
+          ]
+        },
+        "te-IN": {
+          "display": "Akka (Pedda Naanna kuthuru)",
+          "variants": [
+            "Akka (Pedda Naanna kuthuru)"
+          ]
+        },
+        "kn-IN": {
+          "display": "Dodda appa magaLu",
+          "variants": [
+            "Dodda appa magaLu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Taai ki beti",
+          "variants": [
+            "Taai ki beti",
+            "Bua ki beti"
+          ]
+        }
+      }
+    },
+    {
+      "code": "male_cousin_maternal_elder",
+      "generation": "Own Generation",
+      "english": "Male Cousin (maternal, elder)",
+      "terms": {
+        "ta-IN": {
+          "display": "Māmā magaṉ",
+          "variants": [
+            "Māmā magaṉ",
+            "Māccāṉ"
+          ]
+        },
+        "ml-IN": {
+          "display": "Ammaavan makan",
+          "variants": [
+            "Ammaavan makan"
+          ]
+        },
+        "te-IN": {
+          "display": "Māmayya koduku",
+          "variants": [
+            "Māmayya koduku"
+          ]
+        },
+        "kn-IN": {
+          "display": "Mava maganu",
+          "variants": [
+            "Mava maganu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Mama ka beta",
+          "variants": [
+            "Mama ka beta"
+          ]
+        }
+      }
+    },
+    {
+      "code": "female_cousin_maternal_elder",
+      "generation": "Own Generation",
+      "english": "Female Cousin (maternal, elder)",
+      "terms": {
+        "ta-IN": {
+          "display": "Māmā magal",
+          "variants": [
+            "Māmā magal"
+          ]
+        },
+        "ml-IN": {
+          "display": "Ammaavan molu",
+          "variants": [
+            "Ammaavan molu"
+          ]
+        },
+        "te-IN": {
+          "display": "Māmayya kuthuru",
+          "variants": [
+            "Māmayya kuthuru"
+          ]
+        },
+        "kn-IN": {
+          "display": "Mava magaLu",
+          "variants": [
+            "Mava magaLu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Mama ki beti",
+          "variants": [
+            "Mama ki beti"
+          ]
+        }
+      }
+    },
+    {
+      "code": "brother_in_law_sisters_husband",
+      "generation": "Own Generation",
+      "english": "Brother-in-law (sister's husband)",
+      "terms": {
+        "ta-IN": {
+          "display": "Māppiḷḷai",
+          "variants": [
+            "Māppiḷḷai",
+            "Macchan"
+          ]
+        },
+        "ml-IN": {
+          "display": "ALiyar",
+          "variants": [
+            "ALiyar",
+            "Bhartav"
+          ]
+        },
+        "te-IN": {
+          "display": "Bāvagāru",
+          "variants": [
+            "Bāvagāru",
+            "Maidunu"
+          ]
+        },
+        "kn-IN": {
+          "display": "Bhava",
+          "variants": [
+            "Bhava",
+            "ALiya"
+          ]
+        },
+        "hi-IN": {
+          "display": "Jijaji",
+          "variants": [
+            "Jijaji",
+            "Bhaisaab"
+          ]
+        }
+      }
+    },
+    {
+      "code": "sister_in_law_brothers_wife",
+      "generation": "Own Generation",
+      "english": "Sister-in-law (brother's wife)",
+      "terms": {
+        "ta-IN": {
+          "display": "Māccāni",
+          "variants": [
+            "Māccāni",
+            "Anni"
+          ]
+        },
+        "ml-IN": {
+          "display": "Bharyavu",
+          "variants": [
+            "Bharyavu",
+            "Anni"
+          ]
+        },
+        "te-IN": {
+          "display": "Vadina",
+          "variants": [
+            "Vadina",
+            "Maradalu"
+          ]
+        },
+        "kn-IN": {
+          "display": "Vadini",
+          "variants": [
+            "Vadini",
+            "ANNana hendati"
+          ]
+        },
+        "hi-IN": {
+          "display": "Bhabhi",
+          "variants": [
+            "Bhabhi",
+            "Bhabi"
+          ]
+        }
+      }
+    },
+    {
+      "code": "brother_in_law_wifes_husbands_brother",
+      "generation": "Own Generation",
+      "english": "Brother-in-law (wife's/husband's brother)",
+      "terms": {
+        "ta-IN": {
+          "display": "Māccāṉ",
+          "variants": [
+            "Māccāṉ",
+            "Kuḷḷantai"
+          ]
+        },
+        "ml-IN": {
+          "display": "Bhavaan",
+          "variants": [
+            "Bhavaan",
+            "Ammaavani makan"
+          ]
+        },
+        "te-IN": {
+          "display": "Mārdālu",
+          "variants": [
+            "Mārdālu",
+            "Bāvagāru"
+          ]
+        },
+        "kn-IN": {
+          "display": "Maava",
+          "variants": [
+            "Maava",
+            "Bhava"
+          ]
+        },
+        "hi-IN": {
+          "display": "Devar (younger)",
+          "variants": [
+            "Devar (younger)",
+            "Jeth (elder)"
+          ]
+        }
+      }
+    },
+    {
+      "code": "sister_in_law_wifes_husbands_sister",
+      "generation": "Own Generation",
+      "english": "Sister-in-law (wife's/husband's sister)",
+      "terms": {
+        "ta-IN": {
+          "display": "Māccāni",
+          "variants": [
+            "Māccāni",
+            "Aṭṭai"
+          ]
+        },
+        "ml-IN": {
+          "display": "Nanand",
+          "variants": [
+            "Nanand",
+            "Bhaasurathi"
+          ]
+        },
+        "te-IN": {
+          "display": "Maradalu",
+          "variants": [
+            "Maradalu",
+            "Naathenamma"
+          ]
+        },
+        "kn-IN": {
+          "display": "Naadini",
+          "variants": [
+            "Naadini",
+            "Maradaalu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Nanad (husband's sis)",
+          "variants": [
+            "Nanad (husband's sis)",
+            "Saali (wife's sis)"
+          ]
+        }
+      }
+    },
+    {
+      "code": "husband",
+      "generation": "Spouse & In-Laws",
+      "english": "Husband",
+      "terms": {
+        "ta-IN": {
+          "display": "Kaṇavaṉ",
+          "variants": [
+            "Kaṇavaṉ",
+            "Nātar"
+          ]
+        },
+        "ml-IN": {
+          "display": "Bhartav",
+          "variants": [
+            "Bhartav",
+            "Pennin bhartav"
+          ]
+        },
+        "te-IN": {
+          "display": "Māripidi",
+          "variants": [
+            "Māripidi",
+            "Bharta"
+          ]
+        },
+        "kn-IN": {
+          "display": "Ganda",
+          "variants": [
+            "Ganda",
+            "Husband"
+          ]
+        },
+        "hi-IN": {
+          "display": "Pati",
+          "variants": [
+            "Pati",
+            "Shohar"
+          ]
+        }
+      }
+    },
+    {
+      "code": "wife",
+      "generation": "Spouse & In-Laws",
+      "english": "Wife",
+      "terms": {
+        "ta-IN": {
+          "display": "Maṉaivi",
+          "variants": [
+            "Maṉaivi",
+            "Manam"
+          ]
+        },
+        "ml-IN": {
+          "display": "Bharya",
+          "variants": [
+            "Bharya",
+            "Penn"
+          ]
+        },
+        "te-IN": {
+          "display": "Bhārya",
+          "variants": [
+            "Bhārya",
+            "Pellam"
+          ]
+        },
+        "kn-IN": {
+          "display": "Hendati",
+          "variants": [
+            "Hendati",
+            "Beli"
+          ]
+        },
+        "hi-IN": {
+          "display": "Patni",
+          "variants": [
+            "Patni",
+            "Biwi"
+          ]
+        }
+      }
+    },
+    {
+      "code": "father_in_law",
+      "generation": "Spouse & In-Laws",
+      "english": "Father-in-law",
+      "terms": {
+        "ta-IN": {
+          "display": "Marumagaṉ Appā",
+          "variants": [
+            "Marumagaṉ Appā",
+            "Mamaṉ"
+          ]
+        },
+        "ml-IN": {
+          "display": "Appan",
+          "variants": [
+            "Appan",
+            "Shvasuran"
+          ]
+        },
+        "te-IN": {
+          "display": "Māvagāru",
+          "variants": [
+            "Māvagāru",
+            "Mamma"
+          ]
+        },
+        "kn-IN": {
+          "display": "Mava",
+          "variants": [
+            "Mava",
+            "Maava"
+          ]
+        },
+        "hi-IN": {
+          "display": "Sasur",
+          "variants": [
+            "Sasur",
+            "Susarji"
+          ]
+        }
+      }
+    },
+    {
+      "code": "mother_in_law",
+      "generation": "Spouse & In-Laws",
+      "english": "Mother-in-law",
+      "terms": {
+        "ta-IN": {
+          "display": "Marumagal Ammā",
+          "variants": [
+            "Marumagal Ammā",
+            "Mamaṉ"
+          ]
+        },
+        "ml-IN": {
+          "display": "Amma",
+          "variants": [
+            "Amma",
+            "Shvasru"
+          ]
+        },
+        "te-IN": {
+          "display": "Attagāru",
+          "variants": [
+            "Attagāru",
+            "Atha"
+          ]
+        },
+        "kn-IN": {
+          "display": "Atte",
+          "variants": [
+            "Atte",
+            "Attheyavaru"
+          ]
+        },
+        "hi-IN": {
+          "display": "Saas",
+          "variants": [
+            "Saas",
+            "Saasuma"
+          ]
+        }
+      }
+    },
+    {
+      "code": "son_in_law",
+      "generation": "Spouse & In-Laws",
+      "english": "Son-in-law",
+      "terms": {
+        "ta-IN": {
+          "display": "Marumagaṉ",
+          "variants": [
+            "Marumagaṉ"
+          ]
+        },
+        "ml-IN": {
+          "display": "Aḷiyar",
+          "variants": [
+            "Aḷiyar"
+          ]
+        },
+        "te-IN": {
+          "display": "Abbayi",
+          "variants": [
+            "Abbayi",
+            "Alludu"
+          ]
+        },
+        "kn-IN": {
+          "display": "Aliya",
+          "variants": [
+            "Aliya",
+            "Marumaganu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Damad",
+          "variants": [
+            "Damad",
+            "Jamai"
+          ]
+        }
+      }
+    },
+    {
+      "code": "daughter_in_law",
+      "generation": "Spouse & In-Laws",
+      "english": "Daughter-in-law",
+      "terms": {
+        "ta-IN": {
+          "display": "Marumagal",
+          "variants": [
+            "Marumagal"
+          ]
+        },
+        "ml-IN": {
+          "display": "Marumagal",
+          "variants": [
+            "Marumagal"
+          ]
+        },
+        "te-IN": {
+          "display": "Kodallu",
+          "variants": [
+            "Kodallu",
+            "Kallu"
+          ]
+        },
+        "kn-IN": {
+          "display": "Sose",
+          "variants": [
+            "Sose",
+            "Marumagaḷu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Bahu",
+          "variants": [
+            "Bahu",
+            "Patohoo"
+          ]
+        }
+      }
+    },
+    {
+      "code": "son",
+      "generation": "Child Generation",
+      "english": "Son",
+      "terms": {
+        "ta-IN": {
+          "display": "Makaṉ",
+          "variants": [
+            "Makaṉ",
+            "Paiyan"
+          ]
+        },
+        "ml-IN": {
+          "display": "Makan",
+          "variants": [
+            "Makan"
+          ]
+        },
+        "te-IN": {
+          "display": "Koduku",
+          "variants": [
+            "Koduku",
+            "Abbayi"
+          ]
+        },
+        "kn-IN": {
+          "display": "Maganu",
+          "variants": [
+            "Maganu",
+            "Maga"
+          ]
+        },
+        "hi-IN": {
+          "display": "Beta",
+          "variants": [
+            "Beta",
+            "Putra",
+            "Ladka"
+          ]
+        }
+      }
+    },
+    {
+      "code": "daughter",
+      "generation": "Child Generation",
+      "english": "Daughter",
+      "terms": {
+        "ta-IN": {
+          "display": "Magal",
+          "variants": [
+            "Magal",
+            "Penu"
+          ]
+        },
+        "ml-IN": {
+          "display": "Mol",
+          "variants": [
+            "Mol",
+            "Molu"
+          ]
+        },
+        "te-IN": {
+          "display": "Kuthuru",
+          "variants": [
+            "Kuthuru",
+            "Ammayi"
+          ]
+        },
+        "kn-IN": {
+          "display": "MagaLu",
+          "variants": [
+            "MagaLu",
+            "Magaḷu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Beti",
+          "variants": [
+            "Beti",
+            "Ladki",
+            "Putri"
+          ]
+        }
+      }
+    },
+    {
+      "code": "nephew_brothers_son",
+      "generation": "Child Generation",
+      "english": "Nephew (brother's son)",
+      "terms": {
+        "ta-IN": {
+          "display": "Marumakaṉ",
+          "variants": [
+            "Marumakaṉ",
+            "Aṇṇan makaṉ"
+          ]
+        },
+        "ml-IN": {
+          "display": "Annan makan",
+          "variants": [
+            "Annan makan"
+          ]
+        },
+        "te-IN": {
+          "display": "Alludi",
+          "variants": [
+            "Alludi",
+            "Anna koduku"
+          ]
+        },
+        "kn-IN": {
+          "display": "Anna",
+          "variants": [
+            "Anna",
+            "Tamma maganu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Bhatija",
+          "variants": [
+            "Bhatija"
+          ]
+        }
+      }
+    },
+    {
+      "code": "niece_brothers_daughter",
+      "generation": "Child Generation",
+      "english": "Niece (brother's daughter)",
+      "terms": {
+        "ta-IN": {
+          "display": "Marumakkal",
+          "variants": [
+            "Marumakkal",
+            "Aṇṇan magal"
+          ]
+        },
+        "ml-IN": {
+          "display": "Annan mol",
+          "variants": [
+            "Annan mol"
+          ]
+        },
+        "te-IN": {
+          "display": "Alludannu",
+          "variants": [
+            "Alludannu",
+            "Anna kuthuru"
+          ]
+        },
+        "kn-IN": {
+          "display": "Anna",
+          "variants": [
+            "Anna",
+            "Tamma magaLu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Bhatiji",
+          "variants": [
+            "Bhatiji"
+          ]
+        }
+      }
+    },
+    {
+      "code": "nephew_sisters_son",
+      "generation": "Child Generation",
+      "english": "Nephew (sister's son)",
+      "terms": {
+        "ta-IN": {
+          "display": "Marumakaṉ (akka makaṉ)",
+          "variants": [
+            "Marumakaṉ (akka makaṉ)"
+          ]
+        },
+        "ml-IN": {
+          "display": "Chechi makan",
+          "variants": [
+            "Chechi makan"
+          ]
+        },
+        "te-IN": {
+          "display": "Akka koduku",
+          "variants": [
+            "Akka koduku"
+          ]
+        },
+        "kn-IN": {
+          "display": "Akka maganu",
+          "variants": [
+            "Akka maganu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Bhanja",
+          "variants": [
+            "Bhanja"
+          ]
+        }
+      }
+    },
+    {
+      "code": "niece_sisters_daughter",
+      "generation": "Child Generation",
+      "english": "Niece (sister's daughter)",
+      "terms": {
+        "ta-IN": {
+          "display": "Marumagal (akka magal)",
+          "variants": [
+            "Marumagal (akka magal)"
+          ]
+        },
+        "ml-IN": {
+          "display": "Chechi mol",
+          "variants": [
+            "Chechi mol"
+          ]
+        },
+        "te-IN": {
+          "display": "Akka kuthuru",
+          "variants": [
+            "Akka kuthuru"
+          ]
+        },
+        "kn-IN": {
+          "display": "Akka magaLu",
+          "variants": [
+            "Akka magaLu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Bhanji",
+          "variants": [
+            "Bhanji"
+          ]
+        }
+      }
+    },
+    {
+      "code": "grandson_sons_son",
+      "generation": "Child Generation",
+      "english": "Grandson (son's son)",
+      "terms": {
+        "ta-IN": {
+          "display": "Peraṉ",
+          "variants": [
+            "Peraṉ",
+            "Pēraṉ"
+          ]
+        },
+        "ml-IN": {
+          "display": "Perappattu",
+          "variants": [
+            "Perappattu",
+            "Makante makan"
+          ]
+        },
+        "te-IN": {
+          "display": "Manavarālu",
+          "variants": [
+            "Manavarālu"
+          ]
+        },
+        "kn-IN": {
+          "display": "Mommaga",
+          "variants": [
+            "Mommaga",
+            "Moddukavanu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Pota",
+          "variants": [
+            "Pota"
+          ]
+        }
+      }
+    },
+    {
+      "code": "granddaughter_sons_daughter",
+      "generation": "Child Generation",
+      "english": "Granddaughter (son's daughter)",
+      "terms": {
+        "ta-IN": {
+          "display": "Peṭṭi",
+          "variants": [
+            "Peṭṭi",
+            "Pētti"
+          ]
+        },
+        "ml-IN": {
+          "display": "Makante mol",
+          "variants": [
+            "Makante mol"
+          ]
+        },
+        "te-IN": {
+          "display": "Manavarālu (female)",
+          "variants": [
+            "Manavarālu (female)"
+          ]
+        },
+        "kn-IN": {
+          "display": "Mommaga (female)",
+          "variants": [
+            "Mommaga (female)"
+          ]
+        },
+        "hi-IN": {
+          "display": "Poti",
+          "variants": [
+            "Poti"
+          ]
+        }
+      }
+    },
+    {
+      "code": "grandson_daughters_son",
+      "generation": "Child Generation",
+      "english": "Grandson (daughter's son)",
+      "terms": {
+        "ta-IN": {
+          "display": "Mākkaḷ makaṉ",
+          "variants": [
+            "Mākkaḷ makaṉ"
+          ]
+        },
+        "ml-IN": {
+          "display": "Molute makan",
+          "variants": [
+            "Molute makan"
+          ]
+        },
+        "te-IN": {
+          "display": "Kuthuru koduku",
+          "variants": [
+            "Kuthuru koduku"
+          ]
+        },
+        "kn-IN": {
+          "display": "MagaLu maganu",
+          "variants": [
+            "MagaLu maganu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Navasa",
+          "variants": [
+            "Navasa",
+            "Dohita"
+          ]
+        }
+      }
+    },
+    {
+      "code": "granddaughter_daughters_daughter",
+      "generation": "Child Generation",
+      "english": "Granddaughter (daughter's daughter)",
+      "terms": {
+        "ta-IN": {
+          "display": "Mākkaḷ magal",
+          "variants": [
+            "Mākkaḷ magal"
+          ]
+        },
+        "ml-IN": {
+          "display": "Molute mol",
+          "variants": [
+            "Molute mol"
+          ]
+        },
+        "te-IN": {
+          "display": "Kuthuru kuthuru",
+          "variants": [
+            "Kuthuru kuthuru"
+          ]
+        },
+        "kn-IN": {
+          "display": "MagaLu magaLu",
+          "variants": [
+            "MagaLu magaLu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Navasi",
+          "variants": [
+            "Navasi",
+            "Dohiti"
+          ]
+        }
+      }
+    },
+    {
+      "code": "great_grandson",
+      "generation": "Child Generation",
+      "english": "Great-grandson",
+      "terms": {
+        "ta-IN": {
+          "display": "Koṟṟan",
+          "variants": [
+            "Koṟṟan",
+            "Kūṟṟan"
+          ]
+        },
+        "ml-IN": {
+          "display": "Kochu makan",
+          "variants": [
+            "Kochu makan",
+            "peran makan"
+          ]
+        },
+        "te-IN": {
+          "display": "Peddha Manavarālu",
+          "variants": [
+            "Peddha Manavarālu"
+          ]
+        },
+        "kn-IN": {
+          "display": "Moddukavanu maga",
+          "variants": [
+            "Moddukavanu maga"
+          ]
+        },
+        "hi-IN": {
+          "display": "Pardota",
+          "variants": [
+            "Pardota"
+          ]
+        }
+      }
+    },
+    {
+      "code": "great_granddaughter",
+      "generation": "Child Generation",
+      "english": "Great-granddaughter",
+      "terms": {
+        "ta-IN": {
+          "display": "Koṟṟi",
+          "variants": [
+            "Koṟṟi"
+          ]
+        },
+        "ml-IN": {
+          "display": "Kochu mol",
+          "variants": [
+            "Kochu mol",
+            "peran mol"
+          ]
+        },
+        "te-IN": {
+          "display": "Pedda Manavari",
+          "variants": [
+            "Pedda Manavari"
+          ]
+        },
+        "kn-IN": {
+          "display": "Moddukavanu magaLu",
+          "variants": [
+            "Moddukavanu magaLu"
+          ]
+        },
+        "hi-IN": {
+          "display": "Pardoti",
+          "variants": [
+            "Pardoti"
+          ]
+        }
+      }
+    }
+  ]
+}

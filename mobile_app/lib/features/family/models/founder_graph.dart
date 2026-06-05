@@ -1,6 +1,19 @@
 import 'family_unit.dart';
 import 'person_entity.dart';
+import 'person_profile_metadata.dart';
 import 'relationship_edge.dart';
+
+const _teluguLanguageProfile = PersonLanguageProfile(
+  uiLanguageTag: 'en-IN',
+  motherTongueTag: 'te-IN',
+  fluentLanguageTags: ['te-IN'],
+);
+
+const _hemanthLanguageProfile = PersonLanguageProfile(
+  uiLanguageTag: 'en-IN',
+  motherTongueTag: 'te-IN',
+  fluentLanguageTags: ['te-IN', 'ta-IN', 'ml-IN', 'en-IN'],
+);
 
 class FounderGraph {
   static const people = <PersonEntity>[
@@ -8,31 +21,37 @@ class FounderGraph {
       id: 'narendranath',
       gender: Gender.male,
       primaryName: 'Natakam Narendranath',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'lakshmikanthamma',
       gender: Gender.female,
       primaryName: 'Natakam Lakshmikanthamma',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'mallikarjuna',
       gender: Gender.male,
       primaryName: 'Natakam Mallikarjuna Rao',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'akalhya',
       gender: Gender.female,
       primaryName: 'Natakam Akalhya',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'sandhya',
       gender: Gender.female,
       primaryName: 'Natakam Sandhya Rani',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'usha',
       gender: Gender.female,
       primaryName: 'Natakam Usha Rani',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'prasad',
@@ -40,26 +59,31 @@ class FounderGraph {
       primaryName: 'Natakam Malakonda Prasad',
       aliases: ['N Malakonda Prasad', 'N M Prasad'],
       knownAs: ['Prasad'],
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'subbarao',
       gender: Gender.male,
       primaryName: 'Mamidi Subbarao',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'samarajamma',
       gender: Gender.female,
       primaryName: 'Mamidi Samarajamma',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'suresh',
       gender: Gender.male,
       primaryName: 'Mamidi Suresh Kumar',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'ramesh',
       gender: Gender.male,
       primaryName: 'Mamidi Ramesh Babu',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'sudha',
@@ -67,21 +91,26 @@ class FounderGraph {
       primaryName: 'Natakam Sudha Rani',
       aliases: ['Mamidi Sudha Rani'],
       knownAs: ['Sudha'],
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'radha',
       gender: Gender.female,
       primaryName: 'Mamidi Radha Rani',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'ganesh',
       gender: Gender.male,
       primaryName: 'Mamidi Ganesh Kumar',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'hemanth',
       gender: Gender.male,
       primaryName: 'Natakam Hemanth Kumar',
+      languageProfile: _hemanthLanguageProfile,
+      location: PersonLocation(countryCode: 'IN'),
     ),
     PersonEntity(
       id: 'keerthi',
@@ -89,54 +118,64 @@ class FounderGraph {
       primaryName: 'Doguparthi Keerthi',
       aliases: ['Keerthi Doguparti', 'Keerthi Doguparthi'],
       knownAs: ['Keerthi'],
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'doguparthi_siva_prasad',
       gender: Gender.male,
       primaryName: 'Doguparthi Siva Prasad',
       knownAs: ['Siva Prasad'],
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'doguparthi_jayamma',
       gender: Gender.female,
       primaryName: 'Doguparthi Jayamma',
       knownAs: ['Jayamma'],
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'doguparthi_kiran',
       gender: Gender.male,
       primaryName: 'Doguparthi Kiran Kumar',
       knownAs: ['Kiran'],
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'divya',
       gender: Gender.female,
       primaryName: 'Natakam Divya Bharathi',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'kamesh',
       gender: Gender.male,
       primaryName: 'Buduri Kamesh',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'yuvan',
       gender: Gender.male,
       primaryName: 'Natakam Yuvan Simha',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'shreasta',
       gender: Gender.female,
       primaryName: 'Buduri Shreasta',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'vedhansh',
       gender: Gender.male,
       primaryName: 'Buduri Vedhansh',
+      languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
       id: 'krithiksha',
       gender: Gender.female,
       primaryName: 'Buduri Krithiksha',
+      languageProfile: _teluguLanguageProfile,
     ),
   ];
 

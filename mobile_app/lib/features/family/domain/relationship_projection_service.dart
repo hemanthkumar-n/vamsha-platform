@@ -2,21 +2,33 @@ import '../models/family_unit.dart';
 import '../models/founder_graph.dart';
 import '../models/person_entity.dart';
 import 'relationship_projection.dart';
+import 'relationship_term_service.dart';
 
 class RelationshipProjectionService {
-  const RelationshipProjectionService();
+  final RelationshipTermService termService;
+
+  const RelationshipProjectionService({
+    this.termService = const RelationshipTermService(),
+  });
 
   RelationshipProjection project({
     required String viewerId,
     required String targetId,
   }) {
     final relationship = _relationship(viewerId: viewerId, targetId: targetId);
+    final viewer = FounderGraph.personById(viewerId);
+    final languageTag = viewer.languageProfile.primaryRelationshipLanguageTag;
+    final culturalRelationship = termService.termFor(
+      canonicalRelationship: relationship.code,
+      languageTag: languageTag,
+    );
 
     return RelationshipProjection(
       viewerId: viewerId,
       targetId: targetId,
+      canonicalRelationship: relationship.code,
       relationship: relationship.label,
-      culturalRelationship: relationship.culturalLabel,
+      culturalRelationship: culturalRelationship,
     );
   }
 
@@ -25,79 +37,78 @@ class RelationshipProjectionService {
     required String targetId,
   }) {
     if (viewerId == targetId) {
-      return const _ProjectedRelationship('You');
+      return const _ProjectedRelationship('self', 'You');
     }
 
     final target = FounderGraph.personById(targetId);
 
     if (_isParent(parentId: targetId, childId: viewerId)) {
-      return _ProjectedRelationship(_parentLabel(target.gender));
+      return _parentRelationship(target.gender);
     }
 
     if (_isParent(parentId: viewerId, childId: targetId)) {
-      return _ProjectedRelationship(_childLabel(target.gender));
+      return _childRelationship(target.gender);
     }
 
     if (_areSpouses(viewerId, targetId)) {
-      return _ProjectedRelationship(_spouseLabel(target.gender));
+      return _spouseRelationship(target.gender);
     }
 
     if (_areSiblings(viewerId, targetId)) {
-      return _ProjectedRelationship(_siblingLabel(target.gender));
+      return _siblingRelationship(target.gender);
     }
 
     final viewerParents = _parentIds(viewerId);
     for (final parentId in viewerParents) {
       if (_isParent(parentId: targetId, childId: parentId)) {
-        return _ProjectedRelationship(_grandparentLabel(target.gender));
+        final parent = FounderGraph.personById(parentId);
+        return _grandparentRelationship(
+          targetGender: target.gender,
+          parentGender: parent.gender,
+        );
       }
 
       if (_areSiblings(parentId, targetId)) {
         final parent = FounderGraph.personById(parentId);
-        return _ProjectedRelationship(
-          _parentSiblingLabel(
-            targetGender: target.gender,
-            parentGender: parent.gender,
-          ),
+        return _parentSiblingRelationship(
+          targetGender: target.gender,
+          parentGender: parent.gender,
         );
       }
     }
 
     for (final siblingId in _siblingIds(viewerId)) {
       if (_isParent(parentId: siblingId, childId: targetId)) {
-        return _ProjectedRelationship(_siblingChildLabel(target.gender));
+        return _siblingChildRelationship(target.gender);
       }
 
       if (_areSpouses(siblingId, targetId)) {
-        return _ProjectedRelationship(_siblingSpouseLabel(target.gender));
+        return _siblingSpouseRelationship(target.gender);
       }
     }
 
     for (final childId in _childIds(viewerId)) {
       if (_areSpouses(childId, targetId)) {
-        return _ProjectedRelationship(_childInLawLabel(target.gender));
+        return _childInLawRelationship(target.gender);
       }
 
       if (_isParent(parentId: childId, childId: targetId)) {
-        return _ProjectedRelationship(_grandchildLabel(target.gender));
+        return _grandchildRelationship(target.gender);
       }
     }
 
     final spouseId = _spouseId(viewerId);
     if (spouseId != null) {
       if (_isParent(parentId: targetId, childId: spouseId)) {
-        return _ProjectedRelationship(
-          _parentInLawLabel(target.gender),
-          culturalLabel: _parentInLawCulturalLabel(target.gender),
-        );
+        return _parentInLawRelationship(target.gender);
       }
 
       if (_areSiblings(spouseId, targetId)) {
-        return _ProjectedRelationship(_siblingSpouseLabel(target.gender));
+        return _siblingSpouseRelationship(target.gender);
       }
     }
 
-    return const _ProjectedRelationship('Extended family');
+    return const _ProjectedRelationship('extended_family', 'Extended family');
   }
 
   bool _isParent({required String parentId, required String childId}) {
@@ -155,37 +166,57 @@ class RelationshipProjectionService {
     return unit.partner1Id == personId || unit.partner2Id == personId;
   }
 
-  String _parentLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Father',
-        Gender.female => 'Mother',
-        Gender.unknown => 'Parent',
+  _ProjectedRelationship _parentRelationship(Gender gender) => switch (gender) {
+        Gender.male => const _ProjectedRelationship('father', 'Father'),
+        Gender.female => const _ProjectedRelationship('mother', 'Mother'),
+        Gender.unknown => const _ProjectedRelationship('parent', 'Parent'),
       };
 
-  String _childLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Son',
-        Gender.female => 'Daughter',
-        Gender.unknown => 'Child',
+  _ProjectedRelationship _childRelationship(Gender gender) => switch (gender) {
+        Gender.male => const _ProjectedRelationship('son', 'Son'),
+        Gender.female => const _ProjectedRelationship('daughter', 'Daughter'),
+        Gender.unknown => const _ProjectedRelationship('child', 'Child'),
       };
 
-  String _spouseLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Husband',
-        Gender.female => 'Wife',
-        Gender.unknown => 'Spouse',
+  _ProjectedRelationship _spouseRelationship(Gender gender) => switch (gender) {
+        Gender.male => const _ProjectedRelationship('husband', 'Husband'),
+        Gender.female => const _ProjectedRelationship('wife', 'Wife'),
+        Gender.unknown => const _ProjectedRelationship('spouse', 'Spouse'),
       };
 
-  String _siblingLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Brother',
-        Gender.female => 'Sister',
-        Gender.unknown => 'Sibling',
+  _ProjectedRelationship _siblingRelationship(Gender gender) =>
+      switch (gender) {
+        Gender.male => const _ProjectedRelationship('brother', 'Brother'),
+        Gender.female => const _ProjectedRelationship('sister', 'Sister'),
+        Gender.unknown => const _ProjectedRelationship('sibling', 'Sibling'),
       };
 
-  String _grandparentLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Grandfather',
-        Gender.female => 'Grandmother',
-        Gender.unknown => 'Grandparent',
-      };
+  _ProjectedRelationship _grandparentRelationship({
+    required Gender targetGender,
+    required Gender parentGender,
+  }) {
+    final side = switch (parentGender) {
+      Gender.male => 'paternal',
+      Gender.female => 'maternal',
+      Gender.unknown => null,
+    };
+    final relation = switch (targetGender) {
+      Gender.male => 'grandfather',
+      Gender.female => 'grandmother',
+      Gender.unknown => 'grandparent',
+    };
+    final label = switch (targetGender) {
+      Gender.male => 'Grandfather',
+      Gender.female => 'Grandmother',
+      Gender.unknown => 'Grandparent',
+    };
+    return _ProjectedRelationship(
+      side == null ? relation : '${relation}_$side',
+      label,
+    );
+  }
 
-  String _parentSiblingLabel({
+  _ProjectedRelationship _parentSiblingRelationship({
     required Gender targetGender,
     required Gender parentGender,
   }) {
@@ -199,52 +230,63 @@ class RelationshipProjectionService {
       Gender.female => 'Aunt',
       Gender.unknown => 'Parent sibling',
     };
-    return [side, relation].where((part) => part.isNotEmpty).join(' ');
+    return _ProjectedRelationship(
+      '${side.toLowerCase()}_${relation.toLowerCase()}'
+          .replaceFirst(RegExp('^_'), ''),
+      [side, relation].where((part) => part.isNotEmpty).join(' '),
+    );
   }
 
-  String _siblingChildLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Nephew',
-        Gender.female => 'Niece',
-        Gender.unknown => 'Sibling child',
+  _ProjectedRelationship _siblingChildRelationship(Gender gender) =>
+      switch (gender) {
+        Gender.male => const _ProjectedRelationship('nephew', 'Nephew'),
+        Gender.female => const _ProjectedRelationship('niece', 'Niece'),
+        Gender.unknown =>
+          const _ProjectedRelationship('sibling_child', 'Sibling child'),
       };
 
-  String _siblingSpouseLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Brother-in-law',
-        Gender.female => 'Sister-in-law',
-        Gender.unknown => 'Sibling-in-law',
+  _ProjectedRelationship _siblingSpouseRelationship(Gender gender) =>
+      switch (gender) {
+        Gender.male =>
+          const _ProjectedRelationship('brother_in_law', 'Brother-in-law'),
+        Gender.female =>
+          const _ProjectedRelationship('sister_in_law', 'Sister-in-law'),
+        Gender.unknown =>
+          const _ProjectedRelationship('sibling_in_law', 'Sibling-in-law'),
       };
 
-  String _childInLawLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Son-in-law',
-        Gender.female => 'Daughter-in-law',
-        Gender.unknown => 'Child-in-law',
+  _ProjectedRelationship _childInLawRelationship(Gender gender) =>
+      switch (gender) {
+        Gender.male => const _ProjectedRelationship('son_in_law', 'Son-in-law'),
+        Gender.female =>
+          const _ProjectedRelationship('daughter_in_law', 'Daughter-in-law'),
+        Gender.unknown =>
+          const _ProjectedRelationship('child_in_law', 'Child-in-law'),
       };
 
-  String _grandchildLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Grandson',
-        Gender.female => 'Granddaughter',
-        Gender.unknown => 'Grandchild',
+  _ProjectedRelationship _grandchildRelationship(Gender gender) =>
+      switch (gender) {
+        Gender.male => const _ProjectedRelationship('grandson', 'Grandson'),
+        Gender.female =>
+          const _ProjectedRelationship('granddaughter', 'Granddaughter'),
+        Gender.unknown =>
+          const _ProjectedRelationship('grandchild', 'Grandchild'),
       };
 
-  String _parentInLawLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Father-in-law',
-        Gender.female => 'Mother-in-law',
-        Gender.unknown => 'Parent-in-law',
-      };
-
-  String? _parentInLawCulturalLabel(Gender gender) => switch (gender) {
-        Gender.male => 'Mamayya',
-        Gender.female => 'Athamma',
-        Gender.unknown => null,
+  _ProjectedRelationship _parentInLawRelationship(Gender gender) =>
+      switch (gender) {
+        Gender.male =>
+          const _ProjectedRelationship('father_in_law', 'Father-in-law'),
+        Gender.female =>
+          const _ProjectedRelationship('mother_in_law', 'Mother-in-law'),
+        Gender.unknown =>
+          const _ProjectedRelationship('parent_in_law', 'Parent-in-law'),
       };
 }
 
 class _ProjectedRelationship {
+  final String code;
   final String label;
-  final String? culturalLabel;
 
-  const _ProjectedRelationship(
-    this.label, {
-    this.culturalLabel,
-  });
+  const _ProjectedRelationship(this.code, this.label);
 }

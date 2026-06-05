@@ -236,6 +236,7 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
               partner1Id: partner1.id,
               partner1Name: partner1.primaryName,
               partner1Relation: partner1Projection.relationship,
+              partner1CulturalRelation: partner1Projection.culturalRelationship,
               isPartner1Viewer: partner1.id == _viewerId,
               onPartner1Tap: _viewerIds.contains(partner1.id)
                   ? () => _selectViewer(partner1.id)
@@ -243,6 +244,7 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
               partner2Id: partner2.id,
               partner2Name: partner2.primaryName,
               partner2Relation: partner2Projection.relationship,
+              partner2CulturalRelation: partner2Projection.culturalRelationship,
               isPartner2Viewer: partner2.id == _viewerId,
               onPartner2Tap: _viewerIds.contains(partner2.id)
                   ? () => _selectViewer(partner2.id)
@@ -269,6 +271,7 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
         key: ValueKey('person-${node.personId}'),
         name: person.primaryName,
         relation: projection.relationship,
+        culturalRelation: projection.culturalRelationship,
         isViewer: node.personId == _viewerId,
         onTap: _viewerIds.contains(node.personId)
             ? () => _selectViewer(node.personId)
@@ -409,8 +412,13 @@ class _ViewerContextBanner extends StatelessWidget {
                         text: viewer.primaryName,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
+                      TextSpan(
+                        text:
+                            '  •  Mother tongue: ${viewer.languageProfile.motherTongueName}',
+                        style: const TextStyle(color: Color(0xFF47635F)),
+                      ),
                       const TextSpan(
-                        text: '  •  Relationship labels updated',
+                        text: '  •  Calling names updated',
                         style: TextStyle(color: Color(0xFF47635F)),
                       ),
                     ],

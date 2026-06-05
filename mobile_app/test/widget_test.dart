@@ -117,7 +117,11 @@ void main() {
         findsWidgets,
       );
       expect(
-        find.textContaining('Relationship labels updated'),
+        find.textContaining('Mother tongue: Telugu'),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining('Calling names updated'),
         findsOneWidget,
       );
       expect(
@@ -158,8 +162,8 @@ void main() {
       expect(find.text('Husband'), findsOneWidget);
       expect(find.text('Daughter'), findsOneWidget);
       expect(find.text('Father-in-law'), findsOneWidget);
-      expect(find.text('Mamayya'), findsOneWidget);
-      expect(find.text('Athamma'), findsOneWidget);
+      expect(find.text('Māvagāru'), findsOneWidget);
+      expect(find.text('Attagāru'), findsOneWidget);
     },
   );
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class PersonCard extends StatelessWidget {
   final String name;
   final String relation;
+  final String? culturalRelation;
   final bool isViewer;
   final VoidCallback? onTap;
 
@@ -10,6 +11,7 @@ class PersonCard extends StatelessWidget {
     super.key,
     required this.name,
     required this.relation,
+    this.culturalRelation,
     this.isViewer = false,
     this.onTap,
   });
@@ -77,10 +79,31 @@ class PersonCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  relation,
-                  style: const TextStyle(
-                    color: Colors.grey,
+                SizedBox(
+                  height: 38,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (culturalRelation != null)
+                        Text(
+                          culturalRelation!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Color(0xFF087F72),
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      Text(
+                        relation,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: culturalRelation == null ? 14 : 12,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

@@ -1,3 +1,5 @@
+import 'person_profile_metadata.dart';
+
 enum Gender {
   male,
   female,
@@ -10,6 +12,9 @@ class PersonEntity {
   final Gender gender;
   final List<String> aliases;
   final List<String> knownAs;
+  final PersonLanguageProfile languageProfile;
+  final PersonLocation location;
+  final PersonCulturalProfile culturalProfile;
 
   const PersonEntity({
     required this.id,
@@ -17,5 +22,8 @@ class PersonEntity {
     this.gender = Gender.unknown,
     this.aliases = const [],
     this.knownAs = const [],
+    this.languageProfile = const PersonLanguageProfile(),
+    this.location = const PersonLocation(),
+    this.culturalProfile = const PersonCulturalProfile(),
   });
 }

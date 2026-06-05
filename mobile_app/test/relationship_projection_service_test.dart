@@ -5,11 +5,14 @@ void main() {
   const service = RelationshipProjectionService();
 
   test('projects Hemanth family labels from graph structure', () {
-    expect(
-        service.project(viewerId: 'hemanth', targetId: 'prasad').relationship,
-        'Father');
-    expect(service.project(viewerId: 'hemanth', targetId: 'sudha').relationship,
-        'Mother');
+    final father = service.project(viewerId: 'hemanth', targetId: 'prasad');
+    final mother = service.project(viewerId: 'hemanth', targetId: 'sudha');
+
+    expect(father.relationship, 'Father');
+    expect(father.canonicalRelationship, 'father');
+    expect(father.culturalRelationship, 'Naanna');
+    expect(mother.relationship, 'Mother');
+    expect(mother.culturalRelationship, 'Ammā');
     expect(service.project(viewerId: 'hemanth', targetId: 'divya').relationship,
         'Sister');
     expect(
@@ -40,9 +43,9 @@ void main() {
     expect(service.project(viewerId: 'sudha', targetId: 'prasad').relationship,
         'Husband');
     expect(fatherInLaw.relationship, 'Father-in-law');
-    expect(fatherInLaw.culturalRelationship, 'Mamayya');
+    expect(fatherInLaw.culturalRelationship, 'Māvagāru');
     expect(motherInLaw.relationship, 'Mother-in-law');
-    expect(motherInLaw.culturalRelationship, 'Athamma');
+    expect(motherInLaw.culturalRelationship, 'Attagāru');
   });
 
   test('projects Sudha close family labels across marriage and descendants',
