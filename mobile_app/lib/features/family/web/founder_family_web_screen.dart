@@ -66,47 +66,70 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
           ),
           Padding(
             padding: EdgeInsets.only(right: isCompact ? 8 : 16),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (!isCompact) ...[
-                  const Text(
-                    'Viewing as',
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(width: 10),
-                ],
-                DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    key: const ValueKey('family-web-viewer-selector'),
-                    value: _viewerId,
-                    borderRadius: BorderRadius.circular(8),
-                    items: _viewerIds.map((viewerId) {
-                      final viewer = FounderGraph.personById(viewerId);
-                      return DropdownMenuItem(
-                        value: viewerId,
-                        child: Text(viewer.primaryName),
-                      );
-                    }).toList(),
-                    selectedItemBuilder: (context) {
+            child: isCompact
+                ? PopupMenuButton<String>(
+                    key: const ValueKey('family-web-viewer-menu'),
+                    tooltip: 'Change viewer',
+                    initialValue: _viewerId,
+                    constraints: const BoxConstraints(
+                      minWidth: 240,
+                      maxWidth: 280,
+                    ),
+                    onSelected: _selectViewer,
+                    itemBuilder: (context) {
                       return _viewerIds.map((viewerId) {
-                        return Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(_compactViewerName(viewerId)),
+                        return PopupMenuItem(
+                          value: viewerId,
+                          child: Row(
+                            children: [
+                              if (viewerId == _viewerId) ...[
+                                const Icon(Icons.check, size: 18),
+                                const SizedBox(width: 8),
+                              ],
+                              Text(_compactViewerName(viewerId)),
+                            ],
+                          ),
                         );
                       }).toList();
                     },
-                    onChanged: (viewerId) {
-                      if (viewerId == null) return;
-                      setState(() => _viewerId = viewerId);
-                      WidgetsBinding.instance.addPostFrameCallback(
-                        (_) => _centerOnViewer(animate: true),
-                      );
-                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.person_outline, size: 20),
+                        const SizedBox(width: 6),
+                        Text(
+                          _compactViewerName(_viewerId),
+                          key: const ValueKey('active-viewer-name'),
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        const Icon(Icons.arrow_drop_down),
+                      ],
+                    ),
+                  )
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Viewing as',
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(width: 10),
+                      SegmentedButton<String>(
+                        key: const ValueKey('family-web-viewer-selector'),
+                        showSelectedIcon: true,
+                        segments: _viewerIds.map((viewerId) {
+                          return ButtonSegment(
+                            value: viewerId,
+                            label: Text(_compactViewerName(viewerId)),
+                          );
+                        }).toList(),
+                        selected: {_viewerId},
+                        onSelectionChanged: (selection) {
+                          _selectViewer(selection.single);
+                        },
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
           ),
         ],
       ),
@@ -192,6 +215,18 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
       ),
     );
     _cameraAnimationController.forward(from: 0);
+  }
+
+  void _selectViewer(String viewerId) {
+    if (viewerId == _viewerId) {
+      _centerOnViewer(animate: true);
+      return;
+    }
+
+    setState(() => _viewerId = viewerId);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _centerOnViewer(animate: true),
+    );
   }
 
   double _responsiveScale(Size viewportSize) {

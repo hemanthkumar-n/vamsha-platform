@@ -21,12 +21,13 @@ void main() {
       );
       expect(find.byKey(const ValueKey('center-on-viewer')), findsOneWidget);
 
-      await tester
-          .tap(find.byKey(const ValueKey('family-web-viewer-selector')));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Natakam Sudha Rani').last);
+      await tester.tap(find.text('Sudha'));
       await tester.pumpAndSettle();
 
+      final selector = tester.widget<SegmentedButton<String>>(
+        find.byKey(const ValueKey('family-web-viewer-selector')),
+      );
+      expect(selector.selected, {'sudha'});
       expect(find.text('Brother-in-law'), findsWidgets);
       expect(find.text('Daughter-in-law'), findsOneWidget);
       expect(find.text('Son-in-law'), findsOneWidget);
@@ -90,16 +91,18 @@ void main() {
 
     expectViewerCentered('hemanth');
     expect(tester.takeException(), isNull);
+    expect(find.text('Hemanth'), findsOneWidget);
 
     await tester.tap(
-      find.byKey(const ValueKey('family-web-viewer-selector')),
+      find.byKey(const ValueKey('family-web-viewer-menu')),
     );
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
-    await tester.tap(find.text('Natakam Sudha Rani').last);
+    await tester.tap(find.text('Sudha').last);
     await tester.pumpAndSettle();
 
     expectViewerCentered('sudha');
+    expect(find.text('Sudha'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }
