@@ -95,4 +95,49 @@ void main() {
       'Paternal Aunt',
     );
   });
+
+  test('projects the Doguparthi birth family and Hemanth in-laws', () {
+    expect(
+      service
+          .project(
+            viewerId: 'keerthi',
+            targetId: 'doguparthi_siva_prasad',
+          )
+          .relationship,
+      'Father',
+    );
+    expect(
+      service
+          .project(viewerId: 'keerthi', targetId: 'doguparthi_jayamma')
+          .relationship,
+      'Mother',
+    );
+    expect(
+      service
+          .project(viewerId: 'keerthi', targetId: 'doguparthi_kiran')
+          .relationship,
+      'Brother',
+    );
+    expect(
+      service
+          .project(
+            viewerId: 'hemanth',
+            targetId: 'doguparthi_siva_prasad',
+          )
+          .relationship,
+      'Father-in-law',
+    );
+    expect(
+      service
+          .project(viewerId: 'hemanth', targetId: 'doguparthi_jayamma')
+          .relationship,
+      'Mother-in-law',
+    );
+    expect(
+      service
+          .project(viewerId: 'hemanth', targetId: 'doguparthi_kiran')
+          .relationship,
+      'Brother-in-law',
+    );
+  });
 }

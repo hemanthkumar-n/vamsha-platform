@@ -133,6 +133,9 @@ class FounderFamilyWebLayout {
     width: 2800,
     height: 1800,
     viewerFocalPoints: {
+      'doguparthi_siva_prasad': Offset(175, 800),
+      'doguparthi_jayamma': Offset(505, 800),
+      'doguparthi_kiran': Offset(340, 1090),
       'prasad': Offset(995, 445),
       'hemanth': Offset(1180, 830),
       'sudha': Offset(1325, 445),
@@ -174,6 +177,11 @@ class FounderFamilyWebLayout {
         familyUnitId: 'fu_prasad_sudha',
         splitPartners: true,
       ),
+      FamilyUnitLayout(
+        position: Offset(80, 700),
+        familyUnitId: 'fu_doguparthi_parents',
+        splitPartners: true,
+      ),
     ],
     people: [
       PersonNodeLayout(
@@ -211,6 +219,10 @@ class FounderFamilyWebLayout {
       PersonNodeLayout(
         position: Offset(650, 760),
         personId: 'keerthi',
+      ),
+      PersonNodeLayout(
+        position: Offset(250, 1000),
+        personId: 'doguparthi_kiran',
       ),
       PersonNodeLayout(
         position: Offset(1050, 700),
@@ -252,8 +264,8 @@ class FounderFamilyWebLayout {
         label: 'Mamidi Branch',
       ),
       BranchLabelLayout(
-        position: Offset(600, 700),
-        label: 'Doguparti Family',
+        position: Offset(235, 660),
+        label: 'Doguparthi Family',
       ),
       BranchLabelLayout(
         position: Offset(1700, 700),
@@ -294,6 +306,12 @@ class FounderFamilyWebLayout {
         childCenters: [1540, 1760, 1980],
         childTopY: 1180,
       ),
+      FamilyBranchConnector(
+        from: Offset(340, 900),
+        barY: 950,
+        childCenters: [340],
+        childTopY: 1000,
+      ),
       SpouseConnector(
         from: Offset(830, 850),
         to: Offset(1050, 850),
@@ -305,8 +323,8 @@ class FounderFamilyWebLayout {
         heart: Offset(1665, 850),
       ),
       InLawConnector(
-        from: Offset(720, 700),
-        to: Offset(720, 760),
+        from: Offset(600, 850),
+        to: Offset(650, 850),
       ),
       InLawConnector(
         from: Offset(1740, 700),

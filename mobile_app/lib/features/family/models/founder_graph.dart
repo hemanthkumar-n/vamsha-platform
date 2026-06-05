@@ -86,7 +86,27 @@ class FounderGraph {
     PersonEntity(
       id: 'keerthi',
       gender: Gender.female,
-      primaryName: 'Keerthi Doguparti',
+      primaryName: 'Doguparthi Keerthi',
+      aliases: ['Keerthi Doguparti', 'Keerthi Doguparthi'],
+      knownAs: ['Keerthi'],
+    ),
+    PersonEntity(
+      id: 'doguparthi_siva_prasad',
+      gender: Gender.male,
+      primaryName: 'Doguparthi Siva Prasad',
+      knownAs: ['Siva Prasad'],
+    ),
+    PersonEntity(
+      id: 'doguparthi_jayamma',
+      gender: Gender.female,
+      primaryName: 'Doguparthi Jayamma',
+      knownAs: ['Jayamma'],
+    ),
+    PersonEntity(
+      id: 'doguparthi_kiran',
+      gender: Gender.male,
+      primaryName: 'Doguparthi Kiran Kumar',
+      knownAs: ['Kiran'],
     ),
     PersonEntity(
       id: 'divya',
@@ -140,6 +160,11 @@ class FounderGraph {
       id: 'fu_hemanth_keerthi',
       partner1Id: 'hemanth',
       partner2Id: 'keerthi',
+    ),
+    FamilyUnit(
+      id: 'fu_doguparthi_parents',
+      partner1Id: 'doguparthi_siva_prasad',
+      partner2Id: 'doguparthi_jayamma',
     ),
     FamilyUnit(
       id: 'fu_divya_kamesh',
@@ -237,6 +262,22 @@ class FounderGraph {
         sourceId: 'hemanth', targetId: 'yuvan', type: RelationshipType.parent),
     RelationshipEdge(
         sourceId: 'keerthi', targetId: 'yuvan', type: RelationshipType.parent),
+    RelationshipEdge(
+        sourceId: 'doguparthi_siva_prasad',
+        targetId: 'keerthi',
+        type: RelationshipType.parent),
+    RelationshipEdge(
+        sourceId: 'doguparthi_jayamma',
+        targetId: 'keerthi',
+        type: RelationshipType.parent),
+    RelationshipEdge(
+        sourceId: 'doguparthi_siva_prasad',
+        targetId: 'doguparthi_kiran',
+        type: RelationshipType.parent),
+    RelationshipEdge(
+        sourceId: 'doguparthi_jayamma',
+        targetId: 'doguparthi_kiran',
+        type: RelationshipType.parent),
     RelationshipEdge(
         sourceId: 'divya', targetId: 'shreasta', type: RelationshipType.parent),
     RelationshipEdge(

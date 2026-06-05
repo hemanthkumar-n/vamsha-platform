@@ -45,7 +45,22 @@ void main() {
         find.byKey(const ValueKey('couple-person-samarajamma')),
         findsOneWidget,
       );
-      expect(find.text('Married'), findsNWidgets(5));
+      expect(
+        find.byKey(
+          const ValueKey('couple-person-doguparthi_siva_prasad'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const ValueKey('couple-person-doguparthi_jayamma')),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const ValueKey('person-doguparthi_kiran')),
+        findsOneWidget,
+      );
+      expect(find.text('Doguparthi Family'), findsOneWidget);
+      expect(find.text('Married'), findsNWidgets(6));
       expect(find.text('Father'), findsOneWidget);
       expect(find.text('Mother'), findsOneWidget);
       expect(
@@ -77,6 +92,9 @@ void main() {
         findsOneWidget,
       );
       expect(find.text('Mother-in-law'), findsWidgets);
+      expect(find.text('Father'), findsOneWidget);
+      expect(find.text('Mother'), findsOneWidget);
+      expect(find.text('Brother'), findsOneWidget);
 
       await tester.tap(
         find.byKey(const ValueKey('couple-person-sudha')),
@@ -185,7 +203,7 @@ void main() {
       findsOneWidget,
     );
 
-    await tester.tap(find.byKey(const ValueKey('select-viewer-sudha')));
+    await tester.tap(find.byKey(const ValueKey('couple-person-sudha')));
     await tester.pumpAndSettle();
 
     expectViewerCentered('sudha');

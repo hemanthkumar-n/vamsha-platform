@@ -6,6 +6,18 @@ void main() {
   test('founder family web layout references valid graph entities', () {
     const layout = FounderFamilyWebLayout.layout;
 
+    expect(
+      layout.focalPointForViewer('doguparthi_siva_prasad'),
+      const Offset(175, 800),
+    );
+    expect(
+      layout.focalPointForViewer('doguparthi_jayamma'),
+      const Offset(505, 800),
+    );
+    expect(
+      layout.focalPointForViewer('doguparthi_kiran'),
+      const Offset(340, 1090),
+    );
     for (final node in layout.people) {
       expect(FounderGraph.personById(node.personId).id, node.personId);
     }
@@ -50,5 +62,14 @@ void main() {
     );
     expect(natakamRoot.position, const Offset(530, 100));
     expect(mamidiRoot.position, const Offset(1330, 100));
+
+    final doguparthiParents = layout.familyUnits.singleWhere(
+      (unit) => unit.familyUnitId == 'fu_doguparthi_parents',
+    );
+    expect(doguparthiParents.position, const Offset(80, 700));
+    expect(
+      layout.people.any((node) => node.personId == 'doguparthi_kiran'),
+      isTrue,
+    );
   });
 }

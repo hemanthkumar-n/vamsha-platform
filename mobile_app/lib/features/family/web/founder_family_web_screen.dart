@@ -21,6 +21,9 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
   static const _layout = FounderFamilyWebLayout.layout;
   static const _projectionService = RelationshipProjectionService();
   static const _viewerIds = [
+    'doguparthi_siva_prasad',
+    'doguparthi_jayamma',
+    'doguparthi_kiran',
     'prasad',
     'sudha',
     'hemanth',
