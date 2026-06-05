@@ -6,6 +6,7 @@ class PersonCard extends StatelessWidget {
   final String? culturalRelation;
   final bool isViewer;
   final VoidCallback? onTap;
+  final VoidCallback? onProfileTap;
 
   const PersonCard({
     super.key,
@@ -14,6 +15,7 @@ class PersonCard extends StatelessWidget {
     this.culturalRelation,
     this.isViewer = false,
     this.onTap,
+    this.onProfileTap,
   });
 
   @override
@@ -44,67 +46,82 @@ class PersonCard extends StatelessWidget {
                 ),
               ],
             ),
-            child: Column(
+            child: Stack(
               children: [
-                if (isViewer)
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 4,
+                if (onProfileTap != null)
+                  Positioned(
+                    right: -8,
+                    top: -8,
+                    child: IconButton(
+                      tooltip: 'View profile',
+                      onPressed: onProfileTap,
+                      icon: const Icon(Icons.info_outline, size: 18),
+                      visualDensity: VisualDensity.compact,
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(20),
+                  ),
+                Column(
+                  children: [
+                    if (isViewer)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Text(
+                          'YOU',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    const SizedBox(height: 12),
+                    CircleAvatar(
+                      radius: isViewer ? 42 : 24,
+                      child: const Icon(Icons.person),
                     ),
-                    child: const Text(
-                      'YOU',
+                    const SizedBox(height: 12),
+                    Text(
+                      name,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
+                        fontSize: isViewer ? 22 : 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                const SizedBox(height: 12),
-                CircleAvatar(
-                  radius: isViewer ? 42 : 24,
-                  child: const Icon(Icons.person),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: isViewer ? 22 : 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                SizedBox(
-                  height: 38,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (culturalRelation != null)
-                        Text(
-                          culturalRelation!,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Color(0xFF087F72),
-                            fontWeight: FontWeight.w700,
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      height: 38,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (culturalRelation != null)
+                            Text(
+                              culturalRelation!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Color(0xFF087F72),
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          Text(
+                            relation,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: culturalRelation == null ? 14 : 12,
+                            ),
                           ),
-                        ),
-                      Text(
-                        relation,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: culturalRelation == null ? 14 : 12,
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),

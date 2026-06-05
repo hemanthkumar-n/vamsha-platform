@@ -13,6 +13,8 @@ class MarriedCoupleCard extends StatelessWidget {
   final bool isPartner2Viewer;
   final VoidCallback? onPartner1Tap;
   final VoidCallback? onPartner2Tap;
+  final VoidCallback? onPartner1ProfileTap;
+  final VoidCallback? onPartner2ProfileTap;
 
   const MarriedCoupleCard({
     super.key,
@@ -28,6 +30,8 @@ class MarriedCoupleCard extends StatelessWidget {
     required this.isPartner2Viewer,
     this.onPartner1Tap,
     this.onPartner2Tap,
+    this.onPartner1ProfileTap,
+    this.onPartner2ProfileTap,
   });
 
   @override
@@ -45,6 +49,7 @@ class MarriedCoupleCard extends StatelessWidget {
             culturalRelation: partner1CulturalRelation,
             isViewer: isPartner1Viewer,
             onTap: onPartner1Tap,
+            onProfileTap: onPartner1ProfileTap,
           ),
           const Expanded(
             child: _MarriageBond(),
@@ -56,6 +61,7 @@ class MarriedCoupleCard extends StatelessWidget {
             culturalRelation: partner2CulturalRelation,
             isViewer: isPartner2Viewer,
             onTap: onPartner2Tap,
+            onProfileTap: onPartner2ProfileTap,
           ),
         ],
       ),
@@ -69,6 +75,7 @@ class _PartnerCard extends StatelessWidget {
   final String? culturalRelation;
   final bool isViewer;
   final VoidCallback? onTap;
+  final VoidCallback? onProfileTap;
 
   const _PartnerCard({
     super.key,
@@ -77,6 +84,7 @@ class _PartnerCard extends StatelessWidget {
     this.culturalRelation,
     required this.isViewer,
     this.onTap,
+    this.onProfileTap,
   });
 
   @override
@@ -108,71 +116,86 @@ class _PartnerCard extends StatelessWidget {
                 ),
               ],
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                if (isViewer) ...[
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(8),
+                if (onProfileTap != null)
+                  Positioned(
+                    right: -6,
+                    top: -6,
+                    child: IconButton(
+                      tooltip: 'View profile',
+                      onPressed: onProfileTap,
+                      icon: const Icon(Icons.info_outline, size: 17),
+                      visualDensity: VisualDensity.compact,
                     ),
-                    child: const Text(
-                      'YOU',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
+                  ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (isViewer) ...[
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Text(
+                          'YOU',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                    ],
+                    const CircleAvatar(
+                      radius: 22,
+                      child: Icon(Icons.person),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 6),
-                ],
-                const CircleAvatar(
-                  radius: 22,
-                  child: Icon(Icons.person),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 3),
-                SizedBox(
-                  height: 34,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (culturalRelation != null)
-                        Text(
-                          culturalRelation!,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Color(0xFF087F72),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
+                    const SizedBox(height: 3),
+                    SizedBox(
+                      height: 34,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (culturalRelation != null)
+                            Text(
+                              culturalRelation!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Color(0xFF087F72),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          Text(
+                            relation,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: culturalRelation == null ? 13 : 11,
+                            ),
                           ),
-                        ),
-                      Text(
-                        relation,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: culturalRelation == null ? 13 : 11,
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),

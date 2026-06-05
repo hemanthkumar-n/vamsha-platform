@@ -30,3 +30,9 @@ comment on column human_entities.locality is
   'City, town, village, or comparable locality.';
 comment on column human_entities.religion is
   'Optional self-described religion; never inferred from name or location.';
+
+alter table public.human_entities enable row level security;
+
+revoke all on table public.human_entities from anon, authenticated;
+grant select, insert, update, delete on table public.human_entities
+  to service_role;

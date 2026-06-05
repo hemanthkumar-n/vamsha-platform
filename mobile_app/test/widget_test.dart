@@ -17,6 +17,26 @@ void main() {
       );
       await tester.pumpAndSettle();
 
+      final hemanthProfileButton = find.descendant(
+        of: find.byKey(const ValueKey('person-hemanth')),
+        matching: find.byTooltip('View profile'),
+      );
+      expect(hemanthProfileButton, findsOneWidget);
+      await tester.tap(hemanthProfileButton);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Mother tongue'), findsOneWidget);
+      expect(find.text('Telugu'), findsWidgets);
+      expect(
+        find.text('Telugu, Tamil, Malayalam, English'),
+        findsOneWidget,
+      );
+      expect(find.text('You call them'), findsOneWidget);
+      expect(find.text('You'), findsWidgets);
+
+      await tester.tap(find.widgetWithText(TextButton, 'Close'));
+      await tester.pumpAndSettle();
+
       expect(find.text('Vamsha Family Web'), findsOneWidget);
       expect(find.text('Family Web'), findsOneWidget);
       expect(find.text('Projection'), findsOneWidget);
