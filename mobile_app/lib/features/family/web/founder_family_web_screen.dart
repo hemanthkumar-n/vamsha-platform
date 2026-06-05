@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../domain/relationship_projection_service.dart';
 import '../models/founder_graph.dart';
 import 'family_web_layout.dart';
 import 'widgets/family_unit_card.dart';
@@ -11,6 +12,8 @@ class FounderFamilyWebScreen extends StatelessWidget {
   const FounderFamilyWebScreen({super.key});
 
   static const _layout = FounderFamilyWebLayout.layout;
+  static const _viewerId = 'hemanth';
+  static const _projectionService = RelationshipProjectionService();
 
   @override
   Widget build(BuildContext context) {
@@ -71,13 +74,17 @@ class FounderFamilyWebScreen extends StatelessWidget {
 
   Widget _personNode(PersonNodeLayout node) {
     final person = FounderGraph.personById(node.personId);
+    final projection = _projectionService.project(
+      viewerId: _viewerId,
+      targetId: node.personId,
+    );
 
     return Positioned(
       left: node.position.dx,
       top: node.position.dy,
       child: PersonCard(
         name: person.primaryName,
-        relation: node.relation,
+        relation: projection.relationship,
         isViewer: node.isViewer,
       ),
     );

@@ -6,94 +6,116 @@ class FounderGraph {
   static const people = <PersonEntity>[
     PersonEntity(
       id: 'narendranath',
+      gender: Gender.male,
       primaryName: 'Natakam Narendranath',
     ),
     PersonEntity(
       id: 'lakshmikanthamma',
+      gender: Gender.female,
       primaryName: 'Natakam Lakshmikanthamma',
     ),
     PersonEntity(
       id: 'mallikarjuna',
+      gender: Gender.male,
       primaryName: 'Natakam Mallikarjuna Rao',
     ),
     PersonEntity(
       id: 'akalhya',
+      gender: Gender.female,
       primaryName: 'Natakam Akalhya',
     ),
     PersonEntity(
       id: 'sandhya',
+      gender: Gender.female,
       primaryName: 'Natakam Sandhya Rani',
     ),
     PersonEntity(
       id: 'usha',
+      gender: Gender.female,
       primaryName: 'Natakam Usha Rani',
     ),
     PersonEntity(
       id: 'prasad',
+      gender: Gender.male,
       primaryName: 'Natakam Malakonda Prasad',
       aliases: ['N Malakonda Prasad', 'N M Prasad'],
       knownAs: ['Prasad'],
     ),
     PersonEntity(
       id: 'subbarao',
+      gender: Gender.male,
       primaryName: 'Mamidi Subbarao',
     ),
     PersonEntity(
       id: 'samarajamma',
+      gender: Gender.female,
       primaryName: 'Mamidi Samarajamma',
     ),
     PersonEntity(
       id: 'suresh',
+      gender: Gender.male,
       primaryName: 'Mamidi Suresh Kumar',
     ),
     PersonEntity(
       id: 'ramesh',
+      gender: Gender.male,
       primaryName: 'Mamidi Ramesh Babu',
     ),
     PersonEntity(
       id: 'sudha',
+      gender: Gender.female,
       primaryName: 'Natakam Sudha Rani',
       aliases: ['Mamidi Sudha Rani'],
       knownAs: ['Sudha'],
     ),
     PersonEntity(
       id: 'radha',
+      gender: Gender.female,
       primaryName: 'Mamidi Radha Rani',
     ),
     PersonEntity(
       id: 'ganesh',
+      gender: Gender.male,
       primaryName: 'Mamidi Ganesh Kumar',
     ),
     PersonEntity(
       id: 'hemanth',
+      gender: Gender.male,
       primaryName: 'Natakam Hemanth Kumar',
     ),
     PersonEntity(
       id: 'keerthi',
+      gender: Gender.female,
       primaryName: 'Keerthi Doguparti',
     ),
     PersonEntity(
       id: 'divya',
+      gender: Gender.female,
       primaryName: 'Natakam Divya Bharathi',
     ),
     PersonEntity(
       id: 'kamesh',
+      gender: Gender.male,
       primaryName: 'Buduri Kamesh',
     ),
     PersonEntity(
       id: 'yuvan',
+      gender: Gender.male,
       primaryName: 'Natakam Yuvan Simha',
     ),
     PersonEntity(
       id: 'shreasta',
+      gender: Gender.female,
       primaryName: 'Buduri Shreasta',
     ),
     PersonEntity(
       id: 'vedhansh',
+      gender: Gender.male,
       primaryName: 'Buduri Vedhansh',
     ),
     PersonEntity(
       id: 'krithiksha',
+      gender: Gender.female,
       primaryName: 'Buduri Krithiksha',
     ),
   ];

@@ -43,13 +43,11 @@ class FamilyUnitLayout {
 class PersonNodeLayout {
   final Offset position;
   final String personId;
-  final String relation;
   final bool isViewer;
 
   const PersonNodeLayout({
     required this.position,
     required this.personId,
-    required this.relation,
     this.isViewer = false,
   });
 }
@@ -162,83 +160,67 @@ class FounderFamilyWebLayout {
       PersonNodeLayout(
         position: Offset(80, 380),
         personId: 'mallikarjuna',
-        relation: 'Paternal Uncle',
       ),
       PersonNodeLayout(
         position: Offset(300, 380),
         personId: 'akalhya',
-        relation: 'Paternal Aunt',
       ),
       PersonNodeLayout(
         position: Offset(520, 380),
         personId: 'sandhya',
-        relation: 'Paternal Aunt',
       ),
       PersonNodeLayout(
         position: Offset(740, 380),
         personId: 'usha',
-        relation: 'Paternal Aunt',
       ),
       PersonNodeLayout(
         position: Offset(1450, 380),
         personId: 'suresh',
-        relation: 'Maternal Uncle',
       ),
       PersonNodeLayout(
         position: Offset(1670, 380),
         personId: 'ramesh',
-        relation: 'Maternal Uncle',
       ),
       PersonNodeLayout(
         position: Offset(1890, 380),
         personId: 'radha',
-        relation: 'Maternal Aunt',
       ),
       PersonNodeLayout(
         position: Offset(2110, 380),
         personId: 'ganesh',
-        relation: 'Maternal Uncle',
       ),
       PersonNodeLayout(
         position: Offset(650, 760),
         personId: 'keerthi',
-        relation: 'Wife',
       ),
       PersonNodeLayout(
         position: Offset(1050, 700),
         personId: 'hemanth',
-        relation: 'Founder',
         isViewer: true,
       ),
       PersonNodeLayout(
         position: Offset(1450, 760),
         personId: 'divya',
-        relation: 'Sister',
       ),
       PersonNodeLayout(
         position: Offset(1700, 760),
         personId: 'kamesh',
-        relation: 'Brother-in-law',
       ),
       PersonNodeLayout(
         position: Offset(900, 1180),
         personId: 'yuvan',
-        relation: 'Son',
       ),
       PersonNodeLayout(
         position: Offset(1450, 1180),
         personId: 'shreasta',
-        relation: 'Niece',
       ),
       PersonNodeLayout(
         position: Offset(1670, 1180),
         personId: 'vedhansh',
-        relation: 'Nephew',
       ),
       PersonNodeLayout(
         position: Offset(1890, 1180),
         personId: 'krithiksha',
-        relation: 'Niece',
       ),
     ],
     branchLabels: [
