@@ -7,9 +7,15 @@ void main() {
   testWidgets(
     'family web stays primary and projection demo is navigable',
     (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(1440, 1000);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
       await tester.pumpWidget(
         const VamshaApp(),
       );
+      await tester.pumpAndSettle();
 
       expect(find.text('Vamsha Family Web'), findsOneWidget);
       expect(find.text('Family Web'), findsOneWidget);
@@ -56,8 +62,24 @@ void main() {
       );
       expect(find.byKey(const ValueKey('center-on-viewer')), findsOneWidget);
 
+      await tester.tap(find.byKey(const ValueKey('person-keerthi')));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.byKey(const ValueKey('viewer-context-keerthi')),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('person-keerthi')),
+          matching: find.text('YOU'),
+        ),
+        findsOneWidget,
+      );
+      expect(find.text('Mother-in-law'), findsWidgets);
+
       await tester.tap(
-        find.byKey(const ValueKey('select-viewer-sudha')),
+        find.byKey(const ValueKey('couple-person-sudha')),
       );
       await tester.pumpAndSettle();
 

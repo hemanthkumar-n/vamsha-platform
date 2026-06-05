@@ -133,8 +133,12 @@ class FounderFamilyWebLayout {
     width: 2800,
     height: 1800,
     viewerFocalPoints: {
+      'prasad': Offset(995, 445),
       'hemanth': Offset(1180, 830),
-      'sudha': Offset(1305, 445),
+      'sudha': Offset(1325, 445),
+      'keerthi': Offset(780, 850),
+      'divya': Offset(1580, 850),
+      'yuvan': Offset(1030, 1270),
     },
     generationSections: [
       GenerationSectionLayout(

@@ -9,6 +9,8 @@ class MarriedCoupleCard extends StatelessWidget {
   final String partner2Name;
   final String partner2Relation;
   final bool isPartner2Viewer;
+  final VoidCallback? onPartner1Tap;
+  final VoidCallback? onPartner2Tap;
 
   const MarriedCoupleCard({
     super.key,
@@ -20,6 +22,8 @@ class MarriedCoupleCard extends StatelessWidget {
     required this.partner2Name,
     required this.partner2Relation,
     required this.isPartner2Viewer,
+    this.onPartner1Tap,
+    this.onPartner2Tap,
   });
 
   @override
@@ -35,6 +39,7 @@ class MarriedCoupleCard extends StatelessWidget {
             name: partner1Name,
             relation: partner1Relation,
             isViewer: isPartner1Viewer,
+            onTap: onPartner1Tap,
           ),
           const Expanded(
             child: _MarriageBond(),
@@ -44,6 +49,7 @@ class MarriedCoupleCard extends StatelessWidget {
             name: partner2Name,
             relation: partner2Relation,
             isViewer: isPartner2Viewer,
+            onTap: onPartner2Tap,
           ),
         ],
       ),
@@ -55,78 +61,93 @@ class _PartnerCard extends StatelessWidget {
   final String name;
   final String relation;
   final bool isViewer;
+  final VoidCallback? onTap;
 
   const _PartnerCard({
     super.key,
     required this.name,
     required this.relation,
     required this.isViewer,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 190,
-      height: 184,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: isViewer ? Colors.blue : Colors.grey.shade300,
-          width: isViewer ? 3 : 1,
-        ),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 10,
-            color: Colors.black12,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (isViewer) ...[
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(8),
+    return Semantics(
+      button: onTap != null,
+      selected: isViewer,
+      label: onTap == null ? null : 'View family as $name',
+      child: MouseRegion(
+        cursor: onTap == null ? MouseCursor.defer : SystemMouseCursors.click,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onTap,
+          child: Container(
+            width: 190,
+            height: 184,
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: isViewer ? Colors.blue : Colors.grey.shade300,
+                width: isViewer ? 3 : 1,
               ),
-              child: const Text(
-                'YOU',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
+              boxShadow: const [
+                BoxShadow(
+                  blurRadius: 10,
+                  color: Colors.black12,
                 ),
-              ),
+              ],
             ),
-            const SizedBox(height: 6),
-          ],
-          const CircleAvatar(
-            radius: 22,
-            child: Icon(Icons.person),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            name,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (isViewer) ...[
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Text(
+                      'YOU',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                ],
+                const CircleAvatar(
+                  radius: 22,
+                  child: Icon(Icons.person),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  relation,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 3),
-          Text(
-            relation,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: Colors.grey),
-          ),
-        ],
+        ),
       ),
     );
   }

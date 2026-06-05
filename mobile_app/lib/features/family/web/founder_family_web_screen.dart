@@ -20,7 +20,14 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
     with SingleTickerProviderStateMixin {
   static const _layout = FounderFamilyWebLayout.layout;
   static const _projectionService = RelationshipProjectionService();
-  static const _viewerIds = ['hemanth', 'sudha'];
+  static const _viewerIds = [
+    'prasad',
+    'sudha',
+    'hemanth',
+    'keerthi',
+    'divya',
+    'yuvan',
+  ];
 
   final TransformationController _transformationController =
       TransformationController();
@@ -227,10 +234,16 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
               partner1Name: partner1.primaryName,
               partner1Relation: partner1Projection.relationship,
               isPartner1Viewer: partner1.id == _viewerId,
+              onPartner1Tap: _viewerIds.contains(partner1.id)
+                  ? () => _selectViewer(partner1.id)
+                  : null,
               partner2Id: partner2.id,
               partner2Name: partner2.primaryName,
               partner2Relation: partner2Projection.relationship,
               isPartner2Viewer: partner2.id == _viewerId,
+              onPartner2Tap: _viewerIds.contains(partner2.id)
+                  ? () => _selectViewer(partner2.id)
+                  : null,
             )
           : FamilyUnitCard(
               husband: partner1.primaryName,
@@ -250,9 +263,13 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
       left: node.position.dx,
       top: node.position.dy,
       child: PersonCard(
+        key: ValueKey('person-${node.personId}'),
         name: person.primaryName,
         relation: projection.relationship,
         isViewer: node.personId == _viewerId,
+        onTap: _viewerIds.contains(node.personId)
+            ? () => _selectViewer(node.personId)
+            : null,
       ),
     );
   }

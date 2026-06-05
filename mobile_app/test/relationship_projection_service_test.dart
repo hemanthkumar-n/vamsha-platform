@@ -68,4 +68,31 @@ void main() {
       'Granddaughter',
     );
   });
+
+  test('projects Keerthi and Yuvan viewer relationships', () {
+    expect(
+      service.project(viewerId: 'keerthi', targetId: 'hemanth').relationship,
+      'Husband',
+    );
+    expect(
+      service.project(viewerId: 'keerthi', targetId: 'yuvan').relationship,
+      'Son',
+    );
+    expect(
+      service.project(viewerId: 'keerthi', targetId: 'sudha').relationship,
+      'Mother-in-law',
+    );
+    expect(
+      service.project(viewerId: 'yuvan', targetId: 'keerthi').relationship,
+      'Mother',
+    );
+    expect(
+      service.project(viewerId: 'yuvan', targetId: 'hemanth').relationship,
+      'Father',
+    );
+    expect(
+      service.project(viewerId: 'yuvan', targetId: 'divya').relationship,
+      'Paternal Aunt',
+    );
+  });
 }

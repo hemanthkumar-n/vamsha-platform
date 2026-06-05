@@ -20,8 +20,12 @@ void main() {
   test('founder family web layout defines viewer camera focal points', () {
     const layout = FounderFamilyWebLayout.layout;
 
+    expect(layout.focalPointForViewer('prasad'), const Offset(995, 445));
     expect(layout.focalPointForViewer('hemanth'), const Offset(1180, 830));
-    expect(layout.focalPointForViewer('sudha'), const Offset(1305, 445));
+    expect(layout.focalPointForViewer('sudha'), const Offset(1325, 445));
+    expect(layout.focalPointForViewer('keerthi'), const Offset(780, 850));
+    expect(layout.focalPointForViewer('divya'), const Offset(1580, 850));
+    expect(layout.focalPointForViewer('yuvan'), const Offset(1030, 1270));
     expect(
       layout.focalPointForViewer('unknown'),
       Offset(layout.width / 2, layout.height / 2),
