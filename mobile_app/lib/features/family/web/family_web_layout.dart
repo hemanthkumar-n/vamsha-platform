@@ -39,10 +39,12 @@ class GenerationSectionLayout {
 class FamilyUnitLayout {
   final Offset position;
   final String familyUnitId;
+  final bool splitPartners;
 
   const FamilyUnitLayout({
     required this.position,
     required this.familyUnitId,
+    this.splitPartners = false,
   });
 }
 
@@ -132,7 +134,7 @@ class FounderFamilyWebLayout {
     height: 1800,
     viewerFocalPoints: {
       'hemanth': Offset(1180, 830),
-      'sudha': Offset(1160, 410),
+      'sudha': Offset(1305, 445),
     },
     generationSections: [
       GenerationSectionLayout(
@@ -162,8 +164,9 @@ class FounderFamilyWebLayout {
         familyUnitId: 'fu_mamidi_root',
       ),
       FamilyUnitLayout(
-        position: Offset(1020, 350),
+        position: Offset(900, 350),
         familyUnitId: 'fu_prasad_sudha',
+        splitPartners: true,
       ),
     ],
     people: [
@@ -267,7 +270,7 @@ class FounderFamilyWebLayout {
         parentChildTopY: 350,
       ),
       FamilyBranchConnector(
-        from: Offset(1160, 464),
+        from: Offset(1160, 550),
         barY: 650,
         childCenters: [1180, 1540],
         childTopY: 760,

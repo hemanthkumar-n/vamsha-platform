@@ -5,6 +5,7 @@ import '../models/founder_graph.dart';
 import 'family_web_layout.dart';
 import 'widgets/family_unit_card.dart';
 import 'widgets/generation_section.dart';
+import 'widgets/married_couple_card.dart';
 import 'widgets/person_card.dart';
 import 'widgets/relationship_connector.dart';
 
@@ -203,14 +204,34 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
     final familyUnit = FounderGraph.familyUnitById(unit.familyUnitId);
     final partner1 = FounderGraph.personById(familyUnit.partner1Id);
     final partner2 = FounderGraph.personById(familyUnit.partner2Id);
+    final partner1Projection = _projectionService.project(
+      viewerId: _viewerId,
+      targetId: partner1.id,
+    );
+    final partner2Projection = _projectionService.project(
+      viewerId: _viewerId,
+      targetId: partner2.id,
+    );
 
     return Positioned(
       left: unit.position.dx,
       top: unit.position.dy,
-      child: FamilyUnitCard(
-        husband: partner1.primaryName,
-        wife: partner2.primaryName,
-      ),
+      child: unit.splitPartners
+          ? MarriedCoupleCard(
+              key: ValueKey('married-couple-${familyUnit.id}'),
+              partner1Id: partner1.id,
+              partner1Name: partner1.primaryName,
+              partner1Relation: partner1Projection.relationship,
+              isPartner1Viewer: partner1.id == _viewerId,
+              partner2Id: partner2.id,
+              partner2Name: partner2.primaryName,
+              partner2Relation: partner2Projection.relationship,
+              isPartner2Viewer: partner2.id == _viewerId,
+            )
+          : FamilyUnitCard(
+              husband: partner1.primaryName,
+              wife: partner2.primaryName,
+            ),
     );
   }
 

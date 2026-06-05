@@ -21,10 +21,20 @@ void main() {
     const layout = FounderFamilyWebLayout.layout;
 
     expect(layout.focalPointForViewer('hemanth'), const Offset(1180, 830));
-    expect(layout.focalPointForViewer('sudha'), const Offset(1160, 410));
+    expect(layout.focalPointForViewer('sudha'), const Offset(1305, 445));
     expect(
       layout.focalPointForViewer('unknown'),
       Offset(layout.width / 2, layout.height / 2),
     );
+  });
+
+  test('parents render as a split married couple', () {
+    const layout = FounderFamilyWebLayout.layout;
+    final parents = layout.familyUnits.singleWhere(
+      (unit) => unit.familyUnitId == 'fu_prasad_sudha',
+    );
+
+    expect(parents.splitPartners, isTrue);
+    expect(parents.position, const Offset(900, 350));
   });
 }

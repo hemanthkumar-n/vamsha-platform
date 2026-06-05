@@ -16,6 +16,17 @@ void main() {
       expect(find.text('Projection'), findsOneWidget);
       expect(find.text('Paternal Uncle'), findsOneWidget);
       expect(
+        find.byKey(const ValueKey('couple-person-prasad')),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const ValueKey('couple-person-sudha')),
+        findsOneWidget,
+      );
+      expect(find.text('Married'), findsOneWidget);
+      expect(find.text('Father'), findsOneWidget);
+      expect(find.text('Mother'), findsOneWidget);
+      expect(
         find.byKey(const ValueKey('family-web-interactive-viewer')),
         findsOneWidget,
       );
@@ -30,6 +41,20 @@ void main() {
         find.descendant(
           of: find.byKey(const ValueKey('select-viewer-sudha')),
           matching: find.byIcon(Icons.check),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('couple-person-sudha')),
+          matching: find.text('YOU'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('couple-person-prasad')),
+          matching: find.text('Husband'),
         ),
         findsOneWidget,
       );
