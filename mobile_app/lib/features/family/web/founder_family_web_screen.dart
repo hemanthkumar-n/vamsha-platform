@@ -8,18 +8,60 @@ import 'widgets/generation_section.dart';
 import 'widgets/person_card.dart';
 import 'widgets/relationship_connector.dart';
 
-class FounderFamilyWebScreen extends StatelessWidget {
+class FounderFamilyWebScreen extends StatefulWidget {
   const FounderFamilyWebScreen({super.key});
 
+  @override
+  State<FounderFamilyWebScreen> createState() => _FounderFamilyWebScreenState();
+}
+
+class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen> {
   static const _layout = FounderFamilyWebLayout.layout;
-  static const _viewerId = 'hemanth';
   static const _projectionService = RelationshipProjectionService();
+  static const _viewerIds = ['hemanth', 'sudha'];
+
+  String _viewerId = 'hemanth';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Vamsha Family Web'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Viewing as',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(width: 10),
+                DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    key: const ValueKey('family-web-viewer-selector'),
+                    value: _viewerId,
+                    borderRadius: BorderRadius.circular(8),
+                    items: _viewerIds.map((viewerId) {
+                      final viewer = FounderGraph.personById(viewerId);
+                      return DropdownMenuItem(
+                        value: viewerId,
+                        child: Text(viewer.knownAs.isNotEmpty
+                            ? viewer.knownAs.first
+                            : viewer.primaryName),
+                      );
+                    }).toList(),
+                    onChanged: (viewerId) {
+                      if (viewerId == null) return;
+                      setState(() => _viewerId = viewerId);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       body: InteractiveViewer(
         minScale: 0.2,
@@ -85,7 +127,7 @@ class FounderFamilyWebScreen extends StatelessWidget {
       child: PersonCard(
         name: person.primaryName,
         relation: projection.relationship,
-        isViewer: node.isViewer,
+        isViewer: node.personId == _viewerId,
       ),
     );
   }

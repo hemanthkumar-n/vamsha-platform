@@ -44,4 +44,28 @@ void main() {
     expect(motherInLaw.relationship, 'Mother-in-law');
     expect(motherInLaw.culturalRelationship, 'Athamma');
   });
+
+  test('projects Sudha close family labels across marriage and descendants',
+      () {
+    expect(
+      service.project(viewerId: 'sudha', targetId: 'mallikarjuna').relationship,
+      'Brother-in-law',
+    );
+    expect(
+      service.project(viewerId: 'sudha', targetId: 'keerthi').relationship,
+      'Daughter-in-law',
+    );
+    expect(
+      service.project(viewerId: 'sudha', targetId: 'kamesh').relationship,
+      'Son-in-law',
+    );
+    expect(
+      service.project(viewerId: 'sudha', targetId: 'yuvan').relationship,
+      'Grandson',
+    );
+    expect(
+      service.project(viewerId: 'sudha', targetId: 'shreasta').relationship,
+      'Granddaughter',
+    );
+  });
 }

@@ -73,12 +73,28 @@ class RelationshipProjectionService {
       }
     }
 
+    for (final childId in _childIds(viewerId)) {
+      if (_areSpouses(childId, targetId)) {
+        return _ProjectedRelationship(_childInLawLabel(target.gender));
+      }
+
+      if (_isParent(parentId: childId, childId: targetId)) {
+        return _ProjectedRelationship(_grandchildLabel(target.gender));
+      }
+    }
+
     final spouseId = _spouseId(viewerId);
-    if (spouseId != null && _isParent(parentId: targetId, childId: spouseId)) {
-      return _ProjectedRelationship(
-        _parentInLawLabel(target.gender),
-        culturalLabel: _parentInLawCulturalLabel(target.gender),
-      );
+    if (spouseId != null) {
+      if (_isParent(parentId: targetId, childId: spouseId)) {
+        return _ProjectedRelationship(
+          _parentInLawLabel(target.gender),
+          culturalLabel: _parentInLawCulturalLabel(target.gender),
+        );
+      }
+
+      if (_areSiblings(spouseId, targetId)) {
+        return _ProjectedRelationship(_siblingSpouseLabel(target.gender));
+      }
     }
 
     return const _ProjectedRelationship('Extended family');
@@ -94,6 +110,14 @@ class RelationshipProjectionService {
     return FounderGraph.relationships
         .where((edge) => edge.targetId == personId)
         .map((edge) => edge.sourceId)
+        .toSet()
+        .toList();
+  }
+
+  List<String> _childIds(String personId) {
+    return FounderGraph.relationships
+        .where((edge) => edge.sourceId == personId)
+        .map((edge) => edge.targetId)
         .toSet()
         .toList();
   }
@@ -188,6 +212,18 @@ class RelationshipProjectionService {
         Gender.male => 'Brother-in-law',
         Gender.female => 'Sister-in-law',
         Gender.unknown => 'Sibling-in-law',
+      };
+
+  String _childInLawLabel(Gender gender) => switch (gender) {
+        Gender.male => 'Son-in-law',
+        Gender.female => 'Daughter-in-law',
+        Gender.unknown => 'Child-in-law',
+      };
+
+  String _grandchildLabel(Gender gender) => switch (gender) {
+        Gender.male => 'Grandson',
+        Gender.female => 'Granddaughter',
+        Gender.unknown => 'Grandchild',
       };
 
   String _parentInLawLabel(Gender gender) => switch (gender) {

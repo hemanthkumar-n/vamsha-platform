@@ -13,6 +13,19 @@ void main() {
       expect(find.text('Vamsha Family Web'), findsOneWidget);
       expect(find.text('Family Web'), findsOneWidget);
       expect(find.text('Projection'), findsOneWidget);
+      expect(find.text('Paternal Uncle'), findsOneWidget);
+
+      await tester
+          .tap(find.byKey(const ValueKey('family-web-viewer-selector')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Sudha').last);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Brother-in-law'), findsWidgets);
+      expect(find.text('Daughter-in-law'), findsOneWidget);
+      expect(find.text('Son-in-law'), findsOneWidget);
+      expect(find.text('Grandson'), findsWidgets);
+      expect(find.text('Granddaughter'), findsWidgets);
 
       await tester
           .tap(find.widgetWithText(NavigationDestination, 'Projection'));
