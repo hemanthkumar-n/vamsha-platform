@@ -64,117 +64,63 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
             onPressed: () => _centerOnViewer(animate: true),
             icon: const Icon(Icons.center_focus_strong),
           ),
-          Padding(
-            padding: EdgeInsets.only(right: isCompact ? 8 : 16),
-            child: isCompact
-                ? PopupMenuButton<String>(
-                    key: const ValueKey('family-web-viewer-menu'),
-                    tooltip: 'Change viewer',
-                    initialValue: _viewerId,
-                    constraints: const BoxConstraints(
-                      minWidth: 240,
-                      maxWidth: 280,
-                    ),
-                    onSelected: _selectViewer,
-                    itemBuilder: (context) {
-                      return _viewerIds.map((viewerId) {
-                        return PopupMenuItem(
-                          value: viewerId,
-                          child: Row(
-                            children: [
-                              if (viewerId == _viewerId) ...[
-                                const Icon(Icons.check, size: 18),
-                                const SizedBox(width: 8),
-                              ],
-                              Text(_compactViewerName(viewerId)),
-                            ],
-                          ),
-                        );
-                      }).toList();
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.person_outline, size: 20),
-                        const SizedBox(width: 6),
-                        Text(
-                          _compactViewerName(_viewerId),
-                          key: const ValueKey('active-viewer-name'),
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        const Icon(Icons.arrow_drop_down),
-                      ],
-                    ),
-                  )
-                : Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        'Viewing as',
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(width: 10),
-                      SegmentedButton<String>(
-                        key: const ValueKey('family-web-viewer-selector'),
-                        showSelectedIcon: true,
-                        segments: _viewerIds.map((viewerId) {
-                          return ButtonSegment(
-                            value: viewerId,
-                            label: Text(_compactViewerName(viewerId)),
-                          );
-                        }).toList(),
-                        selected: {_viewerId},
-                        onSelectionChanged: (selection) {
-                          _selectViewer(selection.single);
-                        },
-                      ),
-                    ],
-                  ),
-          ),
+          const SizedBox(width: 8),
         ],
       ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final viewportSize = constraints.biggest;
-          if (_viewportSize != viewportSize) {
-            _viewportSize = viewportSize;
-            WidgetsBinding.instance.addPostFrameCallback(
-              (_) => _centerOnViewer(animate: false),
-            );
-          }
+      body: Column(
+        children: [
+          _ViewerToolbar(
+            viewerIds: _viewerIds,
+            viewerId: _viewerId,
+            compactViewerName: _compactViewerName,
+            onViewerSelected: _selectViewer,
+          ),
+          Expanded(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final viewportSize = constraints.biggest;
+                if (_viewportSize != viewportSize) {
+                  _viewportSize = viewportSize;
+                  WidgetsBinding.instance.addPostFrameCallback(
+                    (_) => _centerOnViewer(animate: false),
+                  );
+                }
 
-          return ClipRect(
-            child: InteractiveViewer(
-              key: const ValueKey('family-web-interactive-viewer'),
-              transformationController: _transformationController,
-              constrained: false,
-              alignment: Alignment.topLeft,
-              minScale: 0.2,
-              maxScale: 4,
-              boundaryMargin: const EdgeInsets.all(1000),
-              child: Container(
-                width: _layout.width,
-                height: _layout.height,
-                color: const Color(0xFFF7F7F7),
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: FamilyConnectorLayer(
-                        width: _layout.width,
-                        height: _layout.height,
-                        connectors: _layout.connectors,
+                return ClipRect(
+                  child: InteractiveViewer(
+                    key: const ValueKey('family-web-interactive-viewer'),
+                    transformationController: _transformationController,
+                    constrained: false,
+                    alignment: Alignment.topLeft,
+                    minScale: 0.2,
+                    maxScale: 4,
+                    boundaryMargin: const EdgeInsets.all(1000),
+                    child: Container(
+                      width: _layout.width,
+                      height: _layout.height,
+                      color: const Color(0xFFF7F7F7),
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            child: FamilyConnectorLayer(
+                              width: _layout.width,
+                              height: _layout.height,
+                              connectors: _layout.connectors,
+                            ),
+                          ),
+                          ..._layout.generationSections.map(_generationSection),
+                          ..._layout.familyUnits.map(_familyUnit),
+                          ..._layout.people.map(_personNode),
+                          ..._layout.branchLabels.map(_branchLabel),
+                        ],
                       ),
                     ),
-                    ..._layout.generationSections.map(_generationSection),
-                    ..._layout.familyUnits.map(_familyUnit),
-                    ..._layout.people.map(_personNode),
-                    ..._layout.branchLabels.map(_branchLabel),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
@@ -291,6 +237,72 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
       left: branch.position.dx,
       top: branch.position.dy,
       child: _Label(text: branch.label),
+    );
+  }
+}
+
+class _ViewerToolbar extends StatelessWidget {
+  final List<String> viewerIds;
+  final String viewerId;
+  final String Function(String viewerId) compactViewerName;
+  final ValueChanged<String> onViewerSelected;
+
+  const _ViewerToolbar({
+    required this.viewerIds,
+    required this.viewerId,
+    required this.compactViewerName,
+    required this.onViewerSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      child: SizedBox(
+        width: double.infinity,
+        height: 64,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isCompact = constraints.maxWidth < 500;
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: isCompact ? 12 : 16),
+              child: Row(
+                children: [
+                  if (!isCompact) ...[
+                    const Icon(Icons.visibility_outlined, size: 20),
+                    const SizedBox(width: 8),
+                    const Text(
+                      'Viewing as',
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(width: 12),
+                  ],
+                  for (final candidateId in viewerIds) ...[
+                    if (candidateId == viewerId)
+                      FilledButton.icon(
+                        key: ValueKey('select-viewer-$candidateId'),
+                        onPressed: () => onViewerSelected(candidateId),
+                        icon: const Icon(Icons.check, size: 18),
+                        label: Text(
+                          compactViewerName(candidateId),
+                          key: const ValueKey('active-viewer-name'),
+                        ),
+                      )
+                    else
+                      OutlinedButton(
+                        key: ValueKey('select-viewer-$candidateId'),
+                        onPressed: () => onViewerSelected(candidateId),
+                        child: Text(compactViewerName(candidateId)),
+                      ),
+                    const SizedBox(width: 8),
+                  ],
+                ],
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

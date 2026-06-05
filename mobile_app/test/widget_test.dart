@@ -21,13 +21,18 @@ void main() {
       );
       expect(find.byKey(const ValueKey('center-on-viewer')), findsOneWidget);
 
-      await tester.tap(find.text('Sudha'));
+      await tester.tap(
+        find.byKey(const ValueKey('select-viewer-sudha')),
+      );
       await tester.pumpAndSettle();
 
-      final selector = tester.widget<SegmentedButton<String>>(
-        find.byKey(const ValueKey('family-web-viewer-selector')),
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('select-viewer-sudha')),
+          matching: find.byIcon(Icons.check),
+        ),
+        findsOneWidget,
       );
-      expect(selector.selected, {'sudha'});
       expect(find.text('Brother-in-law'), findsWidgets);
       expect(find.text('Daughter-in-law'), findsOneWidget);
       expect(find.text('Son-in-law'), findsOneWidget);
@@ -93,12 +98,7 @@ void main() {
     expect(tester.takeException(), isNull);
     expect(find.text('Hemanth'), findsOneWidget);
 
-    await tester.tap(
-      find.byKey(const ValueKey('family-web-viewer-menu')),
-    );
-    await tester.pumpAndSettle();
-    expect(tester.takeException(), isNull);
-    await tester.tap(find.text('Sudha').last);
+    await tester.tap(find.byKey(const ValueKey('select-viewer-sudha')));
     await tester.pumpAndSettle();
 
     expectViewerCentered('sudha');
