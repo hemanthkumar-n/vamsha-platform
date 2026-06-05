@@ -16,4 +16,15 @@ void main() {
       expect(FounderGraph.personById(unit.partner2Id).id, unit.partner2Id);
     }
   });
+
+  test('founder family web layout defines viewer camera focal points', () {
+    const layout = FounderFamilyWebLayout.layout;
+
+    expect(layout.focalPointForViewer('hemanth'), const Offset(1180, 830));
+    expect(layout.focalPointForViewer('sudha'), const Offset(1160, 410));
+    expect(
+      layout.focalPointForViewer('unknown'),
+      Offset(layout.width / 2, layout.height / 2),
+    );
+  });
 }

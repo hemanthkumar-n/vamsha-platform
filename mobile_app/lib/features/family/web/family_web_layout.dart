@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class FamilyWebLayout {
   final double width;
   final double height;
+  final Map<String, Offset> viewerFocalPoints;
   final List<GenerationSectionLayout> generationSections;
   final List<FamilyUnitLayout> familyUnits;
   final List<PersonNodeLayout> people;
@@ -12,12 +13,17 @@ class FamilyWebLayout {
   const FamilyWebLayout({
     required this.width,
     required this.height,
+    required this.viewerFocalPoints,
     required this.generationSections,
     required this.familyUnits,
     required this.people,
     required this.branchLabels,
     required this.connectors,
   });
+
+  Offset focalPointForViewer(String viewerId) {
+    return viewerFocalPoints[viewerId] ?? Offset(width / 2, height / 2);
+  }
 }
 
 class GenerationSectionLayout {
@@ -124,6 +130,10 @@ class FounderFamilyWebLayout {
   static const layout = FamilyWebLayout(
     width: 2800,
     height: 1800,
+    viewerFocalPoints: {
+      'hemanth': Offset(1180, 830),
+      'sudha': Offset(1160, 410),
+    },
     generationSections: [
       GenerationSectionLayout(
         position: Offset(1050, 20),

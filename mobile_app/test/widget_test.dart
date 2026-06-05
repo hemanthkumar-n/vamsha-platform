@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vansha_mobile/features/family/web/family_web_layout.dart';
 import 'package:vansha_mobile/main.dart';
 
 void main() {
@@ -14,11 +15,16 @@ void main() {
       expect(find.text('Family Web'), findsOneWidget);
       expect(find.text('Projection'), findsOneWidget);
       expect(find.text('Paternal Uncle'), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey('family-web-interactive-viewer')),
+        findsOneWidget,
+      );
+      expect(find.byKey(const ValueKey('center-on-viewer')), findsOneWidget);
 
       await tester
           .tap(find.byKey(const ValueKey('family-web-viewer-selector')));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Sudha').last);
+      await tester.tap(find.text('Natakam Sudha Rani').last);
       await tester.pumpAndSettle();
 
       expect(find.text('Brother-in-law'), findsWidgets);
@@ -49,4 +55,51 @@ void main() {
       expect(find.text('Athamma'), findsOneWidget);
     },
   );
+
+  testWidgets('family web centers each viewer on a phone viewport',
+      (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const VamshaApp());
+    await tester.pumpAndSettle();
+
+    void expectViewerCentered(String viewerId) {
+      final interactiveViewer = tester.widget<InteractiveViewer>(
+        find.byKey(const ValueKey('family-web-interactive-viewer')),
+      );
+      final viewportSize = tester.getSize(
+        find.byKey(const ValueKey('family-web-interactive-viewer')),
+      );
+      final visibleFocalPoint = MatrixUtils.transformPoint(
+        interactiveViewer.transformationController!.value,
+        FounderFamilyWebLayout.layout.focalPointForViewer(viewerId),
+      );
+
+      expect(
+        visibleFocalPoint.dx,
+        moreOrLessEquals(viewportSize.width / 2, epsilon: 0.5),
+      );
+      expect(
+        visibleFocalPoint.dy,
+        moreOrLessEquals(viewportSize.height / 2, epsilon: 0.5),
+      );
+    }
+
+    expectViewerCentered('hemanth');
+    expect(tester.takeException(), isNull);
+
+    await tester.tap(
+      find.byKey(const ValueKey('family-web-viewer-selector')),
+    );
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    await tester.tap(find.text('Natakam Sudha Rani').last);
+    await tester.pumpAndSettle();
+
+    expectViewerCentered('sudha');
+    expect(tester.takeException(), isNull);
+  });
 }

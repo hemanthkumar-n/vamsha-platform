@@ -15,29 +15,67 @@ class FounderFamilyWebScreen extends StatefulWidget {
   State<FounderFamilyWebScreen> createState() => _FounderFamilyWebScreenState();
 }
 
-class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen> {
+class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
+    with SingleTickerProviderStateMixin {
   static const _layout = FounderFamilyWebLayout.layout;
   static const _projectionService = RelationshipProjectionService();
   static const _viewerIds = ['hemanth', 'sudha'];
 
+  final TransformationController _transformationController =
+      TransformationController();
+
+  late final AnimationController _cameraAnimationController;
+  Animation<Matrix4>? _cameraAnimation;
   String _viewerId = 'hemanth';
+  Size? _viewportSize;
+
+  @override
+  void initState() {
+    super.initState();
+    _cameraAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 420),
+    )..addListener(() {
+        final cameraAnimation = _cameraAnimation;
+        if (cameraAnimation != null) {
+          _transformationController.value = cameraAnimation.value;
+        }
+      });
+  }
+
+  @override
+  void dispose() {
+    _cameraAnimationController.dispose();
+    _transformationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final isCompact = MediaQuery.sizeOf(context).width < 600;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Vamsha Family Web'),
+        title: Text(isCompact ? 'Vamsha' : 'Vamsha Family Web'),
         actions: [
+          IconButton(
+            key: const ValueKey('center-on-viewer'),
+            tooltip: 'Center on viewer',
+            onPressed: () => _centerOnViewer(animate: true),
+            icon: const Icon(Icons.center_focus_strong),
+          ),
           Padding(
-            padding: const EdgeInsets.only(right: 16),
+            padding: EdgeInsets.only(right: isCompact ? 8 : 16),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Viewing as',
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(width: 10),
+                if (!isCompact) ...[
+                  const Text(
+                    'Viewing as',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(width: 10),
+                ],
                 DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     key: const ValueKey('family-web-viewer-selector'),
@@ -47,14 +85,23 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen> {
                       final viewer = FounderGraph.personById(viewerId);
                       return DropdownMenuItem(
                         value: viewerId,
-                        child: Text(viewer.knownAs.isNotEmpty
-                            ? viewer.knownAs.first
-                            : viewer.primaryName),
+                        child: Text(viewer.primaryName),
                       );
                     }).toList(),
+                    selectedItemBuilder: (context) {
+                      return _viewerIds.map((viewerId) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(_compactViewerName(viewerId)),
+                        );
+                      }).toList();
+                    },
                     onChanged: (viewerId) {
                       if (viewerId == null) return;
                       setState(() => _viewerId = viewerId);
+                      WidgetsBinding.instance.addPostFrameCallback(
+                        (_) => _centerOnViewer(animate: true),
+                      );
                     },
                   ),
                 ),
@@ -63,32 +110,104 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen> {
           ),
         ],
       ),
-      body: InteractiveViewer(
-        minScale: 0.2,
-        maxScale: 4,
-        boundaryMargin: const EdgeInsets.all(1000),
-        child: Container(
-          width: _layout.width,
-          height: _layout.height,
-          color: const Color(0xFFF7F7F7),
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: FamilyConnectorLayer(
-                  width: _layout.width,
-                  height: _layout.height,
-                  connectors: _layout.connectors,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final viewportSize = constraints.biggest;
+          if (_viewportSize != viewportSize) {
+            _viewportSize = viewportSize;
+            WidgetsBinding.instance.addPostFrameCallback(
+              (_) => _centerOnViewer(animate: false),
+            );
+          }
+
+          return ClipRect(
+            child: InteractiveViewer(
+              key: const ValueKey('family-web-interactive-viewer'),
+              transformationController: _transformationController,
+              constrained: false,
+              alignment: Alignment.topLeft,
+              minScale: 0.2,
+              maxScale: 4,
+              boundaryMargin: const EdgeInsets.all(1000),
+              child: Container(
+                width: _layout.width,
+                height: _layout.height,
+                color: const Color(0xFFF7F7F7),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: FamilyConnectorLayer(
+                        width: _layout.width,
+                        height: _layout.height,
+                        connectors: _layout.connectors,
+                      ),
+                    ),
+                    ..._layout.generationSections.map(_generationSection),
+                    ..._layout.familyUnits.map(_familyUnit),
+                    ..._layout.people.map(_personNode),
+                    ..._layout.branchLabels.map(_branchLabel),
+                  ],
                 ),
               ),
-              ..._layout.generationSections.map(_generationSection),
-              ..._layout.familyUnits.map(_familyUnit),
-              ..._layout.people.map(_personNode),
-              ..._layout.branchLabels.map(_branchLabel),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
+  }
+
+  void _centerOnViewer({required bool animate}) {
+    final viewportSize = _viewportSize;
+    if (!mounted ||
+        viewportSize == null ||
+        viewportSize.width <= 0 ||
+        viewportSize.height <= 0) {
+      return;
+    }
+
+    final scale = _responsiveScale(viewportSize);
+    final focalPoint = _layout.focalPointForViewer(_viewerId);
+    final target = Matrix4.identity()
+      ..translateByDouble(
+        viewportSize.width / 2 - focalPoint.dx * scale,
+        viewportSize.height / 2 - focalPoint.dy * scale,
+        0,
+        1,
+      )
+      ..scaleByDouble(scale, scale, scale, 1);
+
+    if (!animate) {
+      _cameraAnimationController.stop();
+      _transformationController.value = target;
+      return;
+    }
+
+    _cameraAnimation = Matrix4Tween(
+      begin: _transformationController.value,
+      end: target,
+    ).animate(
+      CurvedAnimation(
+        parent: _cameraAnimationController,
+        curve: Curves.easeOutCubic,
+      ),
+    );
+    _cameraAnimationController.forward(from: 0);
+  }
+
+  double _responsiveScale(Size viewportSize) {
+    final shortestSide = viewportSize.shortestSide;
+    if (shortestSide < 480) return 0.42;
+    if (viewportSize.width < 900) return 0.52;
+    if (viewportSize.width < 1400) return 0.62;
+    return 0.72;
+  }
+
+  String _compactViewerName(String viewerId) {
+    final viewer = FounderGraph.personById(viewerId);
+    if (viewer.knownAs.isNotEmpty) return viewer.knownAs.first;
+
+    final nameParts = viewer.primaryName.split(' ');
+    return nameParts.length > 1 ? nameParts[1] : viewer.primaryName;
   }
 
   Widget _generationSection(GenerationSectionLayout section) {
