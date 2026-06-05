@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models/founder_graph.dart';
 import 'family_web_layout.dart';
 import 'widgets/family_unit_card.dart';
 import 'widgets/generation_section.dart';
@@ -54,24 +55,30 @@ class FounderFamilyWebScreen extends StatelessWidget {
   }
 
   Widget _familyUnit(FamilyUnitLayout unit) {
+    final familyUnit = FounderGraph.familyUnitById(unit.familyUnitId);
+    final partner1 = FounderGraph.personById(familyUnit.partner1Id);
+    final partner2 = FounderGraph.personById(familyUnit.partner2Id);
+
     return Positioned(
       left: unit.position.dx,
       top: unit.position.dy,
       child: FamilyUnitCard(
-        husband: unit.husband,
-        wife: unit.wife,
+        husband: partner1.primaryName,
+        wife: partner2.primaryName,
       ),
     );
   }
 
-  Widget _personNode(PersonNodeLayout person) {
+  Widget _personNode(PersonNodeLayout node) {
+    final person = FounderGraph.personById(node.personId);
+
     return Positioned(
-      left: person.position.dx,
-      top: person.position.dy,
+      left: node.position.dx,
+      top: node.position.dy,
       child: PersonCard(
-        name: person.name,
-        relation: person.relation,
-        isViewer: person.isViewer,
+        name: person.primaryName,
+        relation: node.relation,
+        isViewer: node.isViewer,
       ),
     );
   }

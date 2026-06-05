@@ -32,25 +32,23 @@ class GenerationSectionLayout {
 
 class FamilyUnitLayout {
   final Offset position;
-  final String husband;
-  final String wife;
+  final String familyUnitId;
 
   const FamilyUnitLayout({
     required this.position,
-    required this.husband,
-    required this.wife,
+    required this.familyUnitId,
   });
 }
 
 class PersonNodeLayout {
   final Offset position;
-  final String name;
+  final String personId;
   final String relation;
   final bool isViewer;
 
   const PersonNodeLayout({
     required this.position,
-    required this.name,
+    required this.personId,
     required this.relation,
     this.isViewer = false,
   });
@@ -149,100 +147,97 @@ class FounderFamilyWebLayout {
     familyUnits: [
       FamilyUnitLayout(
         position: Offset(650, 100),
-        husband: 'Natakam Narendranath',
-        wife: 'Lakshmikanthamma',
+        familyUnitId: 'fu_natakam_root',
       ),
       FamilyUnitLayout(
         position: Offset(1450, 100),
-        husband: 'Mamidi Subbarao',
-        wife: 'Samarajamma',
+        familyUnitId: 'fu_mamidi_root',
       ),
       FamilyUnitLayout(
         position: Offset(1020, 350),
-        husband: 'Malakonda Prasad',
-        wife: 'Sudha Rani',
+        familyUnitId: 'fu_prasad_sudha',
       ),
     ],
     people: [
       PersonNodeLayout(
         position: Offset(80, 380),
-        name: 'Mallikarjuna Rao',
+        personId: 'mallikarjuna',
         relation: 'Paternal Uncle',
       ),
       PersonNodeLayout(
         position: Offset(300, 380),
-        name: 'Akalhya',
+        personId: 'akalhya',
         relation: 'Paternal Aunt',
       ),
       PersonNodeLayout(
         position: Offset(520, 380),
-        name: 'Sandhya Rani',
+        personId: 'sandhya',
         relation: 'Paternal Aunt',
       ),
       PersonNodeLayout(
         position: Offset(740, 380),
-        name: 'Usha Rani',
+        personId: 'usha',
         relation: 'Paternal Aunt',
       ),
       PersonNodeLayout(
         position: Offset(1450, 380),
-        name: 'Suresh Kumar',
+        personId: 'suresh',
         relation: 'Maternal Uncle',
       ),
       PersonNodeLayout(
         position: Offset(1670, 380),
-        name: 'Ramesh Babu',
+        personId: 'ramesh',
         relation: 'Maternal Uncle',
       ),
       PersonNodeLayout(
         position: Offset(1890, 380),
-        name: 'Radha Rani',
+        personId: 'radha',
         relation: 'Maternal Aunt',
       ),
       PersonNodeLayout(
         position: Offset(2110, 380),
-        name: 'Ganesh Kumar',
+        personId: 'ganesh',
         relation: 'Maternal Uncle',
       ),
       PersonNodeLayout(
         position: Offset(650, 760),
-        name: 'Keerthi Doguparti',
+        personId: 'keerthi',
         relation: 'Wife',
       ),
       PersonNodeLayout(
         position: Offset(1050, 700),
-        name: 'Natakam Hemanth Kumar',
+        personId: 'hemanth',
         relation: 'Founder',
         isViewer: true,
       ),
       PersonNodeLayout(
         position: Offset(1450, 760),
-        name: 'Divya Bharathi',
+        personId: 'divya',
         relation: 'Sister',
       ),
       PersonNodeLayout(
         position: Offset(1700, 760),
-        name: 'Buduri Kamesh',
+        personId: 'kamesh',
         relation: 'Brother-in-law',
       ),
       PersonNodeLayout(
         position: Offset(900, 1180),
-        name: 'Yuvan Simha',
+        personId: 'yuvan',
         relation: 'Son',
       ),
       PersonNodeLayout(
         position: Offset(1450, 1180),
-        name: 'Shreasta',
+        personId: 'shreasta',
         relation: 'Niece',
       ),
       PersonNodeLayout(
         position: Offset(1670, 1180),
-        name: 'Vedhansh',
+        personId: 'vedhansh',
         relation: 'Nephew',
       ),
       PersonNodeLayout(
         position: Offset(1890, 1180),
-        name: 'Krithiksha',
+        personId: 'krithiksha',
         relation: 'Niece',
       ),
     ],
