@@ -76,6 +76,7 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
             compactViewerName: _compactViewerName,
             onViewerSelected: _selectViewer,
           ),
+          _ViewerContextBanner(viewerId: _viewerId),
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) {
@@ -333,6 +334,74 @@ class _ViewerToolbar extends StatelessWidget {
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _ViewerContextBanner extends StatelessWidget {
+  final String viewerId;
+
+  const _ViewerContextBanner({required this.viewerId});
+
+  @override
+  Widget build(BuildContext context) {
+    final viewer = FounderGraph.personById(viewerId);
+
+    return Semantics(
+      liveRegion: true,
+      label: 'Viewing as ${viewer.primaryName}. Relationship labels updated.',
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 240),
+        transitionBuilder: (child, animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: SizeTransition(
+              sizeFactor: animation,
+              alignment: Alignment.topCenter,
+              child: child,
+            ),
+          );
+        },
+        child: Container(
+          key: ValueKey('viewer-context-$viewerId'),
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          color: const Color(0xFFE8F5F2),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.visibility,
+                size: 18,
+                color: Color(0xFF087F72),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: 'Viewing as: ',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      TextSpan(
+                        text: viewer.primaryName,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const TextSpan(
+                        text: '  •  Relationship labels updated',
+                        style: TextStyle(color: Color(0xFF47635F)),
+                      ),
+                    ],
+                  ),
+                  key: const ValueKey('viewer-context-text'),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

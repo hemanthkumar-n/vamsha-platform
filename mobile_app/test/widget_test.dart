@@ -43,6 +43,14 @@ void main() {
       expect(find.text('Father'), findsOneWidget);
       expect(find.text('Mother'), findsOneWidget);
       expect(
+        find.byKey(const ValueKey('viewer-context-hemanth')),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining('Natakam Hemanth Kumar'),
+        findsWidgets,
+      );
+      expect(
         find.byKey(const ValueKey('family-web-interactive-viewer')),
         findsOneWidget,
       );
@@ -58,6 +66,18 @@ void main() {
           of: find.byKey(const ValueKey('select-viewer-sudha')),
           matching: find.byIcon(Icons.check),
         ),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const ValueKey('viewer-context-sudha')),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining('Natakam Sudha Rani'),
+        findsWidgets,
+      );
+      expect(
+        find.textContaining('Relationship labels updated'),
         findsOneWidget,
       );
       expect(
@@ -138,12 +158,20 @@ void main() {
     expectViewerCentered('hemanth');
     expect(tester.takeException(), isNull);
     expect(find.text('Hemanth'), findsOneWidget);
+    expect(
+      find.byKey(const ValueKey('viewer-context-hemanth')),
+      findsOneWidget,
+    );
 
     await tester.tap(find.byKey(const ValueKey('select-viewer-sudha')));
     await tester.pumpAndSettle();
 
     expectViewerCentered('sudha');
     expect(find.text('Sudha'), findsOneWidget);
+    expect(
+      find.byKey(const ValueKey('viewer-context-sudha')),
+      findsOneWidget,
+    );
     expect(tester.takeException(), isNull);
   });
 }
