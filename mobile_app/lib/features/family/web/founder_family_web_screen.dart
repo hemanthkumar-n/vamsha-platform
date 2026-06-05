@@ -109,6 +109,9 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
                               connectors: _layout.connectors,
                             ),
                           ),
+                          ..._layout.connectors
+                              .whereType<SpouseConnector>()
+                              .map(_marriageBadge),
                           ..._layout.generationSections.map(_generationSection),
                           ..._layout.familyUnits.map(_familyUnit),
                           ..._layout.people.map(_personNode),
@@ -260,6 +263,14 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
       child: _Label(text: branch.label),
     );
   }
+
+  Widget _marriageBadge(SpouseConnector connector) {
+    return Positioned(
+      left: connector.heart.dx - 34,
+      top: connector.heart.dy + 22,
+      child: const _MarriageBadge(),
+    );
+  }
 }
 
 class _ViewerToolbar extends StatelessWidget {
@@ -348,6 +359,32 @@ class _Label extends StatelessWidget {
         text,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+class _MarriageBadge extends StatelessWidget {
+  const _MarriageBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 68,
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFF4F4),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFFFCDD2)),
+      ),
+      child: const Text(
+        'Married',
+        style: TextStyle(
+          color: Color(0xFFB42318),
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );

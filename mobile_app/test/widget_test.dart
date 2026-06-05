@@ -23,7 +23,23 @@ void main() {
         find.byKey(const ValueKey('couple-person-sudha')),
         findsOneWidget,
       );
-      expect(find.text('Married'), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey('couple-person-narendranath')),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const ValueKey('couple-person-lakshmikanthamma')),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const ValueKey('couple-person-subbarao')),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const ValueKey('couple-person-samarajamma')),
+        findsOneWidget,
+      );
+      expect(find.text('Married'), findsNWidgets(5));
       expect(find.text('Father'), findsOneWidget);
       expect(find.text('Mother'), findsOneWidget);
       expect(

@@ -28,13 +28,23 @@ void main() {
     );
   });
 
-  test('parents render as a split married couple', () {
+  test('every family unit renders as a split married couple', () {
     const layout = FounderFamilyWebLayout.layout;
+
+    expect(layout.familyUnits.every((unit) => unit.splitPartners), isTrue);
+
     final parents = layout.familyUnits.singleWhere(
       (unit) => unit.familyUnitId == 'fu_prasad_sudha',
     );
-
-    expect(parents.splitPartners, isTrue);
     expect(parents.position, const Offset(900, 350));
+
+    final natakamRoot = layout.familyUnits.singleWhere(
+      (unit) => unit.familyUnitId == 'fu_natakam_root',
+    );
+    final mamidiRoot = layout.familyUnits.singleWhere(
+      (unit) => unit.familyUnitId == 'fu_mamidi_root',
+    );
+    expect(natakamRoot.position, const Offset(530, 100));
+    expect(mamidiRoot.position, const Offset(1330, 100));
   });
 }

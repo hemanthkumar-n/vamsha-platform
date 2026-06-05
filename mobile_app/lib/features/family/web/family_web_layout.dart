@@ -156,12 +156,14 @@ class FounderFamilyWebLayout {
     ],
     familyUnits: [
       FamilyUnitLayout(
-        position: Offset(650, 100),
+        position: Offset(530, 100),
         familyUnitId: 'fu_natakam_root',
+        splitPartners: true,
       ),
       FamilyUnitLayout(
-        position: Offset(1450, 100),
+        position: Offset(1330, 100),
         familyUnitId: 'fu_mamidi_root',
+        splitPartners: true,
       ),
       FamilyUnitLayout(
         position: Offset(900, 350),
@@ -256,14 +258,14 @@ class FounderFamilyWebLayout {
     ],
     connectors: [
       SiblingBranchConnector(
-        parent: Offset(790, 214),
+        parent: Offset(790, 300),
         barY: 330,
         childCenters: [170, 390, 610, 830, 1160],
         childTopY: 380,
         parentChildTopY: 350,
       ),
       SiblingBranchConnector(
-        parent: Offset(1590, 214),
+        parent: Offset(1590, 300),
         barY: 330,
         childCenters: [1160, 1540, 1760, 1980, 2200],
         childTopY: 380,
