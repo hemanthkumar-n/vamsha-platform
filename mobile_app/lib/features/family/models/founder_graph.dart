@@ -263,6 +263,27 @@ class FounderGraph {
       relationship: 'Son',
       culturalRelationship: 'Koduku',
     ),
+    ViewerRelationshipOverride(
+      viewerId: 'doguparthi_jayamma',
+      targetId: 'shreasta',
+      canonicalRelationship: 'granddaughter',
+      relationship: 'Granddaughter',
+      culturalRelationship: 'Kodalu',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'doguparthi_jayamma',
+      targetId: 'vedhansh',
+      canonicalRelationship: 'grandson',
+      relationship: 'Grandson',
+      culturalRelationship: 'Alludu',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'doguparthi_jayamma',
+      targetId: 'krithiksha',
+      canonicalRelationship: 'granddaughter',
+      relationship: 'Granddaughter',
+      culturalRelationship: 'Kodalu',
+    ),
   ];
 
   static const relationships = <RelationshipEdge>[

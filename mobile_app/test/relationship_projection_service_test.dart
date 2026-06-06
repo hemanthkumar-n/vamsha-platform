@@ -172,6 +172,28 @@ void main() {
     expect(kamesh.culturalRelationship, 'Koduku');
   });
 
+  test('applies Jayamma calling conventions for Kamesh children', () {
+    final shreasta = service.project(
+      viewerId: 'doguparthi_jayamma',
+      targetId: 'shreasta',
+    );
+    final vedhansh = service.project(
+      viewerId: 'doguparthi_jayamma',
+      targetId: 'vedhansh',
+    );
+    final krithiksha = service.project(
+      viewerId: 'doguparthi_jayamma',
+      targetId: 'krithiksha',
+    );
+
+    expect(shreasta.relationship, 'Granddaughter');
+    expect(shreasta.culturalRelationship, 'Kodalu');
+    expect(vedhansh.relationship, 'Grandson');
+    expect(vedhansh.culturalRelationship, 'Alludu');
+    expect(krithiksha.relationship, 'Granddaughter');
+    expect(krithiksha.culturalRelationship, 'Kodalu');
+  });
+
   test('applies Hemanth calling conventions for Divya children', () {
     final shreasta = service.project(
       viewerId: 'hemanth',
