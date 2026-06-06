@@ -98,6 +98,7 @@ class FounderGraph {
       id: 'radha',
       gender: Gender.female,
       primaryName: 'Mamidi Radha Rani',
+      aliases: ['Dhampuri Radha Rani'],
       languageProfile: _teluguLanguageProfile,
     ),
     PersonEntity(
@@ -236,6 +237,13 @@ class FounderGraph {
       canonicalRelationship: 'paternal_aunt_fathers_sister',
       relationship: 'Paternal Aunt',
       culturalRelationship: 'Attha',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'hemanth',
+      targetId: 'radha',
+      canonicalRelationship: 'maternal_aunt_mothers_younger_sister',
+      relationship: 'Maternal Aunt',
+      culturalRelationship: 'Pinni',
     ),
     ViewerRelationshipOverride(
       viewerId: 'hemanth',

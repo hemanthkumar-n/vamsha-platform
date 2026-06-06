@@ -295,6 +295,7 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
       context: context,
       builder: (context) => _PersonProfileDialog(
         personName: person.primaryName,
+        aliases: person.aliases,
         callingName: projection.culturalRelationship,
         englishRelationship: projection.relationship,
         motherTongue: person.languageProfile.motherTongueName,
@@ -518,6 +519,7 @@ class _MarriageBadge extends StatelessWidget {
 
 class _PersonProfileDialog extends StatelessWidget {
   final String personName;
+  final List<String> aliases;
   final String? callingName;
   final String englishRelationship;
   final String motherTongue;
@@ -527,6 +529,7 @@ class _PersonProfileDialog extends StatelessWidget {
 
   const _PersonProfileDialog({
     required this.personName,
+    required this.aliases,
     required this.callingName,
     required this.englishRelationship,
     required this.motherTongue,
@@ -544,6 +547,11 @@ class _PersonProfileDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            if (aliases.isNotEmpty)
+              _ProfileRow(
+                label: 'Also known as',
+                value: aliases.join(', '),
+              ),
             _ProfileRow(
               label: 'You call them',
               value: callingName == null

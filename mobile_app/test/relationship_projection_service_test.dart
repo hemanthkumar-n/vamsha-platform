@@ -60,6 +60,13 @@ void main() {
     expect(sandhya.culturalRelationship, 'Naanna Akka');
     expect(usha.relationship, 'Paternal Aunt');
     expect(usha.culturalRelationship, 'Attha');
+
+    final radha = service.project(
+      viewerId: 'hemanth',
+      targetId: 'radha',
+    );
+    expect(radha.relationship, 'Maternal Aunt');
+    expect(radha.culturalRelationship, 'Pinni');
   });
 
   test('uses sibling order for Anna and younger sibling relationships', () {

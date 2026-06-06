@@ -52,5 +52,8 @@ void main() {
       containsAll(['te-IN', 'ta-IN', 'ml-IN', 'en-IN']),
     );
     expect(hemanth.languageProfile.motherTongueName, 'Telugu');
+
+    final radha = FounderGraph.personById('radha');
+    expect(radha.aliases, contains('Dhampuri Radha Rani'));
   });
 }
