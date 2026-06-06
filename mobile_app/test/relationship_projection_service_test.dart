@@ -166,9 +166,31 @@ void main() {
       targetId: 'kamesh',
     );
 
-    expect(divya.relationship, 'Daughter');
-    expect(divya.culturalRelationship, 'Kuthuru');
-    expect(kamesh.relationship, 'Son-in-law');
-    expect(kamesh.culturalRelationship, 'Alludu');
+    expect(divya.relationship, 'Daughter-in-law');
+    expect(divya.culturalRelationship, 'Kodalu');
+    expect(kamesh.relationship, 'Son');
+    expect(kamesh.culturalRelationship, 'Koduku');
+  });
+
+  test('applies Hemanth calling conventions for Divya children', () {
+    final shreasta = service.project(
+      viewerId: 'hemanth',
+      targetId: 'shreasta',
+    );
+    final vedhansh = service.project(
+      viewerId: 'hemanth',
+      targetId: 'vedhansh',
+    );
+    final krithiksha = service.project(
+      viewerId: 'hemanth',
+      targetId: 'krithiksha',
+    );
+
+    expect(shreasta.relationship, 'Niece');
+    expect(shreasta.culturalRelationship, 'Kodalu');
+    expect(vedhansh.relationship, 'Nephew');
+    expect(vedhansh.culturalRelationship, 'Alludu');
+    expect(krithiksha.relationship, 'Niece');
+    expect(krithiksha.culturalRelationship, 'Kodalu');
   });
 }
