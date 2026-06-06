@@ -237,6 +237,19 @@ class RelationshipProjectionService {
     required Gender targetGender,
     required Gender parentGender,
   }) {
+    if (parentGender == Gender.male && targetGender == Gender.female) {
+      return const _ProjectedRelationship(
+        'paternal_aunt_fathers_sister',
+        'Paternal Aunt',
+      );
+    }
+    if (parentGender == Gender.female && targetGender == Gender.male) {
+      return const _ProjectedRelationship(
+        'maternal_uncle_mothers_brother',
+        'Maternal Uncle',
+      );
+    }
+
     final side = switch (parentGender) {
       Gender.male => 'Paternal',
       Gender.female => 'Maternal',

@@ -34,6 +34,34 @@ void main() {
     expect(kamesh.culturalRelationship, 'Bava');
   });
 
+  test('applies Hemanth paternal family calling memories', () {
+    final mallikarjuna = service.project(
+      viewerId: 'hemanth',
+      targetId: 'mallikarjuna',
+    );
+    final akalhya = service.project(
+      viewerId: 'hemanth',
+      targetId: 'akalhya',
+    );
+    final sandhya = service.project(
+      viewerId: 'hemanth',
+      targetId: 'sandhya',
+    );
+    final usha = service.project(
+      viewerId: 'hemanth',
+      targetId: 'usha',
+    );
+
+    expect(mallikarjuna.relationship, 'Paternal Uncle');
+    expect(mallikarjuna.culturalRelationship, 'Pedhananna');
+    expect(akalhya.relationship, 'Paternal Aunt');
+    expect(akalhya.culturalRelationship, 'Pedha Attha');
+    expect(sandhya.relationship, 'Paternal Aunt');
+    expect(sandhya.culturalRelationship, 'Naanna Akka');
+    expect(usha.relationship, 'Paternal Aunt');
+    expect(usha.culturalRelationship, 'Attha');
+  });
+
   test('projects Sudha in-law labels and cultural terms from graph structure',
       () {
     final fatherInLaw =

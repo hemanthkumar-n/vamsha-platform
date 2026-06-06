@@ -216,6 +216,27 @@ class FounderGraph {
   static const viewerRelationshipOverrides = <ViewerRelationshipOverride>[
     ViewerRelationshipOverride(
       viewerId: 'hemanth',
+      targetId: 'mallikarjuna',
+      canonicalRelationship: 'paternal_uncle_fathers_elder_brother',
+      relationship: 'Paternal Uncle',
+      culturalRelationship: 'Pedhananna',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'hemanth',
+      targetId: 'akalhya',
+      canonicalRelationship: 'paternal_aunt_fathers_sister',
+      relationship: 'Paternal Aunt',
+      culturalRelationship: 'Pedha Attha',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'hemanth',
+      targetId: 'usha',
+      canonicalRelationship: 'paternal_aunt_fathers_sister',
+      relationship: 'Paternal Aunt',
+      culturalRelationship: 'Attha',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'hemanth',
       targetId: 'divya',
       canonicalRelationship: 'younger_sister',
       relationship: 'Sister',
