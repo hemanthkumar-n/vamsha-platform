@@ -28,9 +28,9 @@ void main() {
     expect(
         service.project(viewerId: 'hemanth', targetId: 'vedhansh').relationship,
         'Nephew');
-    expect(
-        service.project(viewerId: 'hemanth', targetId: 'kamesh').relationship,
-        'Brother-in-law');
+    final kamesh = service.project(viewerId: 'hemanth', targetId: 'kamesh');
+    expect(kamesh.relationship, 'Brother-in-law');
+    expect(kamesh.culturalRelationship, 'Bava');
   });
 
   test('projects Sudha in-law labels and cultural terms from graph structure',
@@ -153,5 +153,21 @@ void main() {
       expect(hemanthAsSonInLaw.relationship, 'Son-in-law');
       expect(hemanthAsSonInLaw.culturalRelationship, 'Alludu');
     }
+  });
+
+  test('applies Jayamma family calling conventions', () {
+    final divya = service.project(
+      viewerId: 'doguparthi_jayamma',
+      targetId: 'divya',
+    );
+    final kamesh = service.project(
+      viewerId: 'doguparthi_jayamma',
+      targetId: 'kamesh',
+    );
+
+    expect(divya.relationship, 'Daughter');
+    expect(divya.culturalRelationship, 'Kuthuru');
+    expect(kamesh.relationship, 'Son-in-law');
+    expect(kamesh.culturalRelationship, 'Alludu');
   });
 }

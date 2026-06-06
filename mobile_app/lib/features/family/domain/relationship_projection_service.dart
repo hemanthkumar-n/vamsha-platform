@@ -15,13 +15,24 @@ class RelationshipProjectionService {
     required String viewerId,
     required String targetId,
   }) {
-    final relationship = _relationship(viewerId: viewerId, targetId: targetId);
+    final override = FounderGraph.relationshipOverride(
+      viewerId: viewerId,
+      targetId: targetId,
+    );
+    final relationship = override == null
+        ? _relationship(viewerId: viewerId, targetId: targetId)
+        : _ProjectedRelationship(
+            override.canonicalRelationship,
+            override.relationship,
+            culturalLabel: override.culturalRelationship,
+          );
     final viewer = FounderGraph.personById(viewerId);
     final languageTag = viewer.languageProfile.primaryRelationshipLanguageTag;
-    final culturalRelationship = termService.termFor(
-      canonicalRelationship: relationship.code,
-      languageTag: languageTag,
-    );
+    final culturalRelationship = relationship.culturalLabel ??
+        termService.termFor(
+          canonicalRelationship: relationship.code,
+          languageTag: languageTag,
+        );
 
     return RelationshipProjection(
       viewerId: viewerId,
@@ -287,6 +298,11 @@ class RelationshipProjectionService {
 class _ProjectedRelationship {
   final String code;
   final String label;
+  final String? culturalLabel;
 
-  const _ProjectedRelationship(this.code, this.label);
+  const _ProjectedRelationship(
+    this.code,
+    this.label, {
+    this.culturalLabel,
+  });
 }

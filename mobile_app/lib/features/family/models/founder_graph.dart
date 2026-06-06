@@ -2,6 +2,7 @@ import 'family_unit.dart';
 import 'person_entity.dart';
 import 'person_profile_metadata.dart';
 import 'relationship_edge.dart';
+import 'viewer_relationship_override.dart';
 
 const _teluguLanguageProfile = PersonLanguageProfile(
   uiLanguageTag: 'en-IN',
@@ -212,6 +213,29 @@ class FounderGraph {
     ),
   ];
 
+  static const viewerRelationshipOverrides = <ViewerRelationshipOverride>[
+    ViewerRelationshipOverride(
+      viewerId: 'hemanth',
+      targetId: 'kamesh',
+      canonicalRelationship: 'brother_in_law_sisters_husband',
+      relationship: 'Brother-in-law',
+      culturalRelationship: 'Bava',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'doguparthi_jayamma',
+      targetId: 'divya',
+      canonicalRelationship: 'daughter',
+      relationship: 'Daughter',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'doguparthi_jayamma',
+      targetId: 'kamesh',
+      canonicalRelationship: 'son_in_law',
+      relationship: 'Son-in-law',
+      culturalRelationship: 'Alludu',
+    ),
+  ];
+
   static const relationships = <RelationshipEdge>[
     RelationshipEdge(
         sourceId: 'narendranath',
@@ -345,5 +369,17 @@ class FounderGraph {
 
   static FamilyUnit familyUnitById(String id) {
     return familyUnits.firstWhere((unit) => unit.id == id);
+  }
+
+  static ViewerRelationshipOverride? relationshipOverride({
+    required String viewerId,
+    required String targetId,
+  }) {
+    for (final override in viewerRelationshipOverrides) {
+      if (override.viewerId == viewerId && override.targetId == targetId) {
+        return override;
+      }
+    }
+    return null;
   }
 }
