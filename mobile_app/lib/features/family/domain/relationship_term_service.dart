@@ -3,6 +3,11 @@ import 'relationship_terms_generated.dart';
 class RelationshipTermService {
   const RelationshipTermService();
 
+  static const _canonicalFallbacks = <String, String>{
+    'grandson': 'grandson_sons_son',
+    'granddaughter': 'granddaughter_sons_daughter',
+  };
+
   String? termFor({
     required String canonicalRelationship,
     required String languageTag,
@@ -11,7 +16,8 @@ class RelationshipTermService {
       return null;
     }
 
-    final terms = relationshipTermsByCode[canonicalRelationship];
+    final terms = relationshipTermsByCode[canonicalRelationship] ??
+        relationshipTermsByCode[_canonicalFallbacks[canonicalRelationship]];
     if (terms == null) return null;
 
     final exactMatch = terms[languageTag];

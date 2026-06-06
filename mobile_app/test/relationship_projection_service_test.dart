@@ -62,10 +62,9 @@ void main() {
       service.project(viewerId: 'sudha', targetId: 'kamesh').relationship,
       'Son-in-law',
     );
-    expect(
-      service.project(viewerId: 'sudha', targetId: 'yuvan').relationship,
-      'Grandson',
-    );
+    final grandson = service.project(viewerId: 'sudha', targetId: 'yuvan');
+    expect(grandson.relationship, 'Grandson');
+    expect(grandson.culturalRelationship, 'Manavadu');
     expect(
       service.project(viewerId: 'sudha', targetId: 'shreasta').relationship,
       'Granddaughter',

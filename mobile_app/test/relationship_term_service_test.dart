@@ -54,4 +54,21 @@ void main() {
       isNull,
     );
   });
+
+  test('uses gender-correct Telugu grandchild terms', () {
+    expect(
+      service.termFor(
+        canonicalRelationship: 'grandson',
+        languageTag: 'te-IN',
+      ),
+      'Manavadu',
+    );
+    expect(
+      service.termFor(
+        canonicalRelationship: 'granddaughter',
+        languageTag: 'te-IN',
+      ),
+      'Manavaralu',
+    );
+  });
 }

@@ -333,14 +333,14 @@ const relationshipTermsByCode = <String, Map<String, String>>{
   'grandson_sons_son': {
     'ta-IN': 'Peraṉ',
     'ml-IN': 'Perappattu',
-    'te-IN': 'Manavarālu',
+    'te-IN': 'Manavadu',
     'kn-IN': 'Mommaga',
     'hi-IN': 'Pota',
   },
   'granddaughter_sons_daughter': {
     'ta-IN': 'Peṭṭi',
     'ml-IN': 'Makante mol',
-    'te-IN': 'Manavarālu (female)',
+    'te-IN': 'Manavaralu',
     'kn-IN': 'Mommaga (female)',
     'hi-IN': 'Poti',
   },
