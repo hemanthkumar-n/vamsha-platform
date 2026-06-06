@@ -241,7 +241,7 @@ values
   ('Saas', 'Mother-in-law', 'mother_in_law', 'Hindi', 'hi-IN', 'Spouse & In-Laws', array['Saas', 'Saasuma']::text[], 'Family_Relationship_Words-languages.numbers', 'workbook'),
   ('Marumagaṉ', 'Son-in-law', 'son_in_law', 'Tamil', 'ta-IN', 'Spouse & In-Laws', array['Marumagaṉ']::text[], 'Family_Relationship_Words-languages.numbers', 'workbook'),
   ('Aḷiyar', 'Son-in-law', 'son_in_law', 'Malayalam', 'ml-IN', 'Spouse & In-Laws', array['Aḷiyar']::text[], 'Family_Relationship_Words-languages.numbers', 'workbook'),
-  ('Abbayi', 'Son-in-law', 'son_in_law', 'Telugu', 'te-IN', 'Spouse & In-Laws', array['Abbayi', 'Alludu']::text[], 'Family_Relationship_Words-languages.numbers', 'workbook'),
+  ('Alludu', 'Son-in-law', 'son_in_law', 'Telugu', 'te-IN', 'Spouse & In-Laws', array['Alludu', 'Abbayi']::text[], 'Family_Relationship_Words-languages.numbers', 'workbook'),
   ('Aliya', 'Son-in-law', 'son_in_law', 'Kannada', 'kn-IN', 'Spouse & In-Laws', array['Aliya', 'Marumaganu']::text[], 'Family_Relationship_Words-languages.numbers', 'workbook'),
   ('Damad', 'Son-in-law', 'son_in_law', 'Hindi', 'hi-IN', 'Spouse & In-Laws', array['Damad', 'Jamai']::text[], 'Family_Relationship_Words-languages.numbers', 'workbook'),
   ('Marumagal', 'Daughter-in-law', 'daughter_in_law', 'Tamil', 'ta-IN', 'Spouse & In-Laws', array['Marumagal']::text[], 'Family_Relationship_Words-languages.numbers', 'workbook'),

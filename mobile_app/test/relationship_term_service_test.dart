@@ -71,4 +71,14 @@ void main() {
       'Manavaralu',
     );
   });
+
+  test('uses Alludu as the preferred Telugu son-in-law term', () {
+    expect(
+      service.termFor(
+        canonicalRelationship: 'son_in_law',
+        languageTag: 'te-IN',
+      ),
+      'Alludu',
+    );
+  });
 }

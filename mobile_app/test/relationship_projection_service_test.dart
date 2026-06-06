@@ -141,5 +141,17 @@ void main() {
           .relationship,
       'Brother-in-law',
     );
+
+    for (final parentId in [
+      'doguparthi_siva_prasad',
+      'doguparthi_jayamma',
+    ]) {
+      final hemanthAsSonInLaw = service.project(
+        viewerId: parentId,
+        targetId: 'hemanth',
+      );
+      expect(hemanthAsSonInLaw.relationship, 'Son-in-law');
+      expect(hemanthAsSonInLaw.culturalRelationship, 'Alludu');
+    }
   });
 }

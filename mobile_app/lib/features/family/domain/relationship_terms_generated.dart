@@ -277,7 +277,7 @@ const relationshipTermsByCode = <String, Map<String, String>>{
   'son_in_law': {
     'ta-IN': 'Marumagaṉ',
     'ml-IN': 'Aḷiyar',
-    'te-IN': 'Abbayi',
+    'te-IN': 'Alludu',
     'kn-IN': 'Aliya',
     'hi-IN': 'Damad',
   },
