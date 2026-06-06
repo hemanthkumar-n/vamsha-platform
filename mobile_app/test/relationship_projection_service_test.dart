@@ -156,6 +156,40 @@ void main() {
     }
   });
 
+  test('projects Kiran relationships using precise graph paths', () {
+    final father = service.project(
+      viewerId: 'doguparthi_kiran',
+      targetId: 'doguparthi_siva_prasad',
+    );
+    final mother = service.project(
+      viewerId: 'doguparthi_kiran',
+      targetId: 'doguparthi_jayamma',
+    );
+    final sister = service.project(
+      viewerId: 'doguparthi_kiran',
+      targetId: 'keerthi',
+    );
+    final sistersHusband = service.project(
+      viewerId: 'doguparthi_kiran',
+      targetId: 'hemanth',
+    );
+    final sistersSon = service.project(
+      viewerId: 'doguparthi_kiran',
+      targetId: 'yuvan',
+    );
+
+    expect(father.relationship, 'Father');
+    expect(mother.relationship, 'Mother');
+    expect(sister.relationship, 'Sister');
+    expect(
+        sistersHusband.canonicalRelationship, 'brother_in_law_sisters_husband');
+    expect(sistersHusband.relationship, 'Brother-in-law');
+    expect(sistersHusband.culturalRelationship, 'Bāvagāru');
+    expect(sistersSon.canonicalRelationship, 'nephew_sisters_son');
+    expect(sistersSon.relationship, 'Nephew');
+    expect(sistersSon.culturalRelationship, 'Akka koduku');
+  });
+
   test('applies Jayamma family calling conventions', () {
     final divya = service.project(
       viewerId: 'doguparthi_jayamma',

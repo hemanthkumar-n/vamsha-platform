@@ -90,11 +90,17 @@ class RelationshipProjectionService {
 
     for (final siblingId in _siblingIds(viewerId)) {
       if (_isParent(parentId: siblingId, childId: targetId)) {
-        return _siblingChildRelationship(target.gender);
+        return _siblingChildRelationship(
+          targetGender: target.gender,
+          siblingGender: FounderGraph.personById(siblingId).gender,
+        );
       }
 
       if (_areSpouses(siblingId, targetId)) {
-        return _siblingSpouseRelationship(target.gender);
+        return _siblingSpouseRelationship(
+          targetGender: target.gender,
+          siblingGender: FounderGraph.personById(siblingId).gender,
+        );
       }
     }
 
@@ -115,7 +121,7 @@ class RelationshipProjectionService {
       }
 
       if (_areSiblings(spouseId, targetId)) {
-        return _siblingSpouseRelationship(target.gender);
+        return _spouseSiblingRelationship(target.gender);
       }
     }
 
@@ -248,16 +254,56 @@ class RelationshipProjectionService {
     );
   }
 
-  _ProjectedRelationship _siblingChildRelationship(Gender gender) =>
-      switch (gender) {
-        Gender.male => const _ProjectedRelationship('nephew', 'Nephew'),
-        Gender.female => const _ProjectedRelationship('niece', 'Niece'),
-        Gender.unknown =>
-          const _ProjectedRelationship('sibling_child', 'Sibling child'),
-      };
+  _ProjectedRelationship _siblingChildRelationship({
+    required Gender targetGender,
+    required Gender siblingGender,
+  }) {
+    final branch = switch (siblingGender) {
+      Gender.male => 'brothers',
+      Gender.female => 'sisters',
+      Gender.unknown => null,
+    };
+    final relation = switch (targetGender) {
+      Gender.male => ('nephew', 'Nephew', 'son'),
+      Gender.female => ('niece', 'Niece', 'daughter'),
+      Gender.unknown => ('sibling_child', 'Sibling child', 'child'),
+    };
 
-  _ProjectedRelationship _siblingSpouseRelationship(Gender gender) =>
-      switch (gender) {
+    return _ProjectedRelationship(
+      branch == null ? relation.$1 : '${relation.$1}_${branch}_${relation.$3}',
+      relation.$2,
+    );
+  }
+
+  _ProjectedRelationship _siblingSpouseRelationship({
+    required Gender targetGender,
+    required Gender siblingGender,
+  }) {
+    if (siblingGender == Gender.female && targetGender == Gender.male) {
+      return const _ProjectedRelationship(
+        'brother_in_law_sisters_husband',
+        'Brother-in-law',
+      );
+    }
+    if (siblingGender == Gender.male && targetGender == Gender.female) {
+      return const _ProjectedRelationship(
+        'sister_in_law_brothers_wife',
+        'Sister-in-law',
+      );
+    }
+
+    return switch (targetGender) {
+      Gender.male =>
+        const _ProjectedRelationship('brother_in_law', 'Brother-in-law'),
+      Gender.female =>
+        const _ProjectedRelationship('sister_in_law', 'Sister-in-law'),
+      Gender.unknown =>
+        const _ProjectedRelationship('sibling_in_law', 'Sibling-in-law'),
+    };
+  }
+
+  _ProjectedRelationship _spouseSiblingRelationship(Gender targetGender) =>
+      switch (targetGender) {
         Gender.male =>
           const _ProjectedRelationship('brother_in_law', 'Brother-in-law'),
         Gender.female =>
