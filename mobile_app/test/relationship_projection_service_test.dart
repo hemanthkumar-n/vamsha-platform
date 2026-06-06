@@ -13,8 +13,9 @@ void main() {
     expect(father.culturalRelationship, 'Naanna');
     expect(mother.relationship, 'Mother');
     expect(mother.culturalRelationship, 'Ammā');
-    expect(service.project(viewerId: 'hemanth', targetId: 'divya').relationship,
-        'Sister');
+    final divya = service.project(viewerId: 'hemanth', targetId: 'divya');
+    expect(divya.relationship, 'Sister');
+    expect(divya.culturalRelationship, 'Chelli');
     expect(
         service.project(viewerId: 'hemanth', targetId: 'keerthi').relationship,
         'Wife');
