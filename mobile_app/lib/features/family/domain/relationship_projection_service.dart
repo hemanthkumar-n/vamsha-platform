@@ -66,7 +66,10 @@ class RelationshipProjectionService {
     }
 
     if (_areSiblings(viewerId, targetId)) {
-      return _siblingRelationship(target.gender);
+      return _siblingRelationship(
+        viewer: FounderGraph.personById(viewerId),
+        target: target,
+      );
     }
 
     final viewerParents = _parentIds(viewerId);
@@ -201,12 +204,34 @@ class RelationshipProjectionService {
         Gender.unknown => const _ProjectedRelationship('spouse', 'Spouse'),
       };
 
-  _ProjectedRelationship _siblingRelationship(Gender gender) =>
-      switch (gender) {
-        Gender.male => const _ProjectedRelationship('brother', 'Brother'),
-        Gender.female => const _ProjectedRelationship('sister', 'Sister'),
+  _ProjectedRelationship _siblingRelationship({
+    required PersonEntity viewer,
+    required PersonEntity target,
+  }) {
+    final viewerOrder = viewer.siblingOrder;
+    final targetOrder = target.siblingOrder;
+
+    if (viewerOrder != null && targetOrder != null) {
+      final agePosition = targetOrder < viewerOrder ? 'elder' : 'younger';
+      return switch (target.gender) {
+        Gender.male => _ProjectedRelationship(
+            '${agePosition}_brother',
+            agePosition == 'elder' ? 'Elder Brother' : 'Younger Brother',
+          ),
+        Gender.female => _ProjectedRelationship(
+            '${agePosition}_sister',
+            agePosition == 'elder' ? 'Elder Sister' : 'Younger Sister',
+          ),
         Gender.unknown => const _ProjectedRelationship('sibling', 'Sibling'),
       };
+    }
+
+    return switch (target.gender) {
+      Gender.male => const _ProjectedRelationship('brother', 'Brother'),
+      Gender.female => const _ProjectedRelationship('sister', 'Sister'),
+      Gender.unknown => const _ProjectedRelationship('sibling', 'Sibling'),
+    };
+  }
 
   _ProjectedRelationship _grandparentRelationship({
     required Gender targetGender,

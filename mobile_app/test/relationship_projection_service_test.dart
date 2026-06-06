@@ -62,6 +62,24 @@ void main() {
     expect(usha.culturalRelationship, 'Attha');
   });
 
+  test('uses sibling order for Anna and younger sibling relationships', () {
+    final hemanthFromDivya = service.project(
+      viewerId: 'divya',
+      targetId: 'hemanth',
+    );
+    final divyaFromHemanth = service.project(
+      viewerId: 'hemanth',
+      targetId: 'divya',
+    );
+
+    expect(hemanthFromDivya.canonicalRelationship, 'elder_brother');
+    expect(hemanthFromDivya.relationship, 'Elder Brother');
+    expect(hemanthFromDivya.culturalRelationship, 'Anna');
+    expect(divyaFromHemanth.canonicalRelationship, 'younger_sister');
+    expect(divyaFromHemanth.relationship, 'Sister');
+    expect(divyaFromHemanth.culturalRelationship, 'Chelli');
+  });
+
   test('projects Sudha in-law labels and cultural terms from graph structure',
       () {
     final fatherInLaw =

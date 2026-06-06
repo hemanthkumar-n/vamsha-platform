@@ -109,6 +109,7 @@ class FounderGraph {
     PersonEntity(
       id: 'hemanth',
       gender: Gender.male,
+      siblingOrder: 1,
       primaryName: 'Natakam Hemanth Kumar',
       languageProfile: _hemanthLanguageProfile,
       location: PersonLocation(countryCode: 'IN'),
@@ -145,6 +146,7 @@ class FounderGraph {
     PersonEntity(
       id: 'divya',
       gender: Gender.female,
+      siblingOrder: 2,
       primaryName: 'Natakam Divya Bharathi',
       languageProfile: _teluguLanguageProfile,
     ),
