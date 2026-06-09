@@ -54,8 +54,11 @@ Status: **Completed**
 
 ## Milestone 4: Editable Family Graph
 
-Status: **Next**
+Status: **In progress**
 
+- Read-only responsive person profile panel completed
+- Immediate family, language, alias, and location display completed
+- Explicit profile-to-viewer switching completed
 - Authenticated development user
 - Person profile create and edit
 - Parent, child, spouse, and sibling editing

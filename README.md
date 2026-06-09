@@ -23,6 +23,7 @@ The working founder experience includes:
 
 - A zoomable and pannable family web
 - Viewer switching across multiple family members
+- Responsive person profiles opened directly from the family canvas
 - Automatic relationship projection from graph structure
 - Telugu cultural calling names alongside English relationships
 - Family-specific calling memories such as `Pedhananna`, `Chelli`, and `Pinni`
@@ -266,6 +267,7 @@ authenticated, family-scoped RLS policies before launch.
 | Family-specific calling overrides | Working |
 | Supabase graph loading | Working |
 | Offline fallback | Working |
+| Person profile inspection | Working |
 | Automated Flutter tests | Working |
 | Editable person profiles | Next |
 | Authenticated private family spaces | Planned |

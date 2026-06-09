@@ -50,12 +50,17 @@ Primary modules:
 - `founder_family_web_screen.dart`
 - `family_web_layout.dart`
 - `person_card.dart`
+- `person_profile_panel.dart`
 - `married_couple_card.dart`
 - `relationship_connector.dart`
 
 The family web uses a large logical canvas inside `InteractiveViewer`. Layout
 coordinates, connector paths, generation labels, and viewer focal points are
 kept separate from relationship inference.
+
+Person cards open a responsive profile surface. Desktop uses a right-side
+panel; compact screens use a bottom sheet. Changing the active viewer remains
+an explicit action inside the profile or viewer toolbar.
 
 ### Domain
 

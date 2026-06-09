@@ -17,24 +17,28 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      final hemanthProfileButton = find.descendant(
-        of: find.byKey(const ValueKey('person-hemanth')),
-        matching: find.byTooltip('View profile'),
-      );
-      expect(hemanthProfileButton, findsOneWidget);
-      await tester.tap(hemanthProfileButton);
+      await tester.tap(find.byKey(const ValueKey('person-hemanth')));
       await tester.pumpAndSettle();
 
+      expect(
+        find.byKey(const ValueKey('person-profile-panel')),
+        findsOneWidget,
+      );
+      expect(find.text('Current viewer'), findsOneWidget);
+      expect(find.text('Relationship to current viewer'), findsOneWidget);
       expect(find.text('Mother tongue'), findsOneWidget);
       expect(find.text('Telugu'), findsWidgets);
       expect(
         find.text('Telugu, Tamil, Malayalam, English'),
         findsOneWidget,
       );
-      expect(find.text('You call them'), findsOneWidget);
       expect(find.text('You'), findsWidgets);
+      expect(find.text('Doguparthi Keerthi'), findsWidgets);
+      expect(find.text('Natakam Yuvan Simha'), findsWidgets);
 
-      await tester.tap(find.widgetWithText(TextButton, 'Close'));
+      await tester.tap(
+        find.byKey(const ValueKey('person-profile-close')),
+      );
       await tester.pumpAndSettle();
 
       expect(find.text('Vamsha Family Web'), findsOneWidget);
@@ -100,6 +104,20 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('person-keerthi')));
       await tester.pumpAndSettle();
 
+      expect(find.text('Viewed from Natakam Hemanth Kumar'), findsOneWidget);
+      expect(find.text('Spouse'), findsWidgets);
+      expect(find.text('Doguparthi Siva Prasad'), findsWidgets);
+      expect(find.text('Doguparthi Jayamma'), findsWidgets);
+      expect(
+        find.byKey(const ValueKey('profile-view-as-keerthi')),
+        findsOneWidget,
+      );
+
+      await tester.tap(
+        find.byKey(const ValueKey('profile-view-as-keerthi')),
+      );
+      await tester.pumpAndSettle();
+
       expect(
         find.byKey(const ValueKey('viewer-context-keerthi')),
         findsOneWidget,
@@ -118,6 +136,16 @@ void main() {
 
       await tester.tap(
         find.byKey(const ValueKey('couple-person-sudha')),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Viewed from Doguparthi Keerthi'), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey('profile-view-as-sudha')),
+        findsOneWidget,
+      );
+      await tester.tap(
+        find.byKey(const ValueKey('profile-view-as-sudha')),
       );
       await tester.pumpAndSettle();
 
@@ -228,6 +256,15 @@ void main() {
     );
 
     await tester.tap(find.byKey(const ValueKey('couple-person-sudha')));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.byKey(const ValueKey('profile-view-as-sudha')),
+      findsOneWidget,
+    );
+    await tester.tap(
+      find.byKey(const ValueKey('profile-view-as-sudha')),
+    );
     await tester.pumpAndSettle();
 
     expectViewerCentered('sudha');

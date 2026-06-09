@@ -6,7 +6,6 @@ class PersonCard extends StatelessWidget {
   final String? culturalRelation;
   final bool isViewer;
   final VoidCallback? onTap;
-  final VoidCallback? onProfileTap;
 
   const PersonCard({
     super.key,
@@ -15,7 +14,6 @@ class PersonCard extends StatelessWidget {
     this.culturalRelation,
     this.isViewer = false,
     this.onTap,
-    this.onProfileTap,
   });
 
   @override
@@ -23,7 +21,7 @@ class PersonCard extends StatelessWidget {
     return Semantics(
       button: onTap != null,
       selected: isViewer,
-      label: onTap == null ? null : 'View family as $name',
+      label: onTap == null ? null : 'Open profile for $name',
       child: MouseRegion(
         cursor: onTap == null ? MouseCursor.defer : SystemMouseCursors.click,
         child: GestureDetector(
@@ -48,17 +46,6 @@ class PersonCard extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                if (onProfileTap != null)
-                  Positioned(
-                    right: -8,
-                    top: -8,
-                    child: IconButton(
-                      tooltip: 'View profile',
-                      onPressed: onProfileTap,
-                      icon: const Icon(Icons.info_outline, size: 18),
-                      visualDensity: VisualDensity.compact,
-                    ),
-                  ),
                 Column(
                   children: [
                     if (isViewer)

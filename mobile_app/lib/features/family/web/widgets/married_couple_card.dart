@@ -13,8 +13,6 @@ class MarriedCoupleCard extends StatelessWidget {
   final bool isPartner2Viewer;
   final VoidCallback? onPartner1Tap;
   final VoidCallback? onPartner2Tap;
-  final VoidCallback? onPartner1ProfileTap;
-  final VoidCallback? onPartner2ProfileTap;
 
   const MarriedCoupleCard({
     super.key,
@@ -30,8 +28,6 @@ class MarriedCoupleCard extends StatelessWidget {
     required this.isPartner2Viewer,
     this.onPartner1Tap,
     this.onPartner2Tap,
-    this.onPartner1ProfileTap,
-    this.onPartner2ProfileTap,
   });
 
   @override
@@ -49,7 +45,6 @@ class MarriedCoupleCard extends StatelessWidget {
             culturalRelation: partner1CulturalRelation,
             isViewer: isPartner1Viewer,
             onTap: onPartner1Tap,
-            onProfileTap: onPartner1ProfileTap,
           ),
           const Expanded(
             child: _MarriageBond(),
@@ -61,7 +56,6 @@ class MarriedCoupleCard extends StatelessWidget {
             culturalRelation: partner2CulturalRelation,
             isViewer: isPartner2Viewer,
             onTap: onPartner2Tap,
-            onProfileTap: onPartner2ProfileTap,
           ),
         ],
       ),
@@ -75,7 +69,6 @@ class _PartnerCard extends StatelessWidget {
   final String? culturalRelation;
   final bool isViewer;
   final VoidCallback? onTap;
-  final VoidCallback? onProfileTap;
 
   const _PartnerCard({
     super.key,
@@ -84,7 +77,6 @@ class _PartnerCard extends StatelessWidget {
     this.culturalRelation,
     required this.isViewer,
     this.onTap,
-    this.onProfileTap,
   });
 
   @override
@@ -92,7 +84,7 @@ class _PartnerCard extends StatelessWidget {
     return Semantics(
       button: onTap != null,
       selected: isViewer,
-      label: onTap == null ? null : 'View family as $name',
+      label: onTap == null ? null : 'Open profile for $name',
       child: MouseRegion(
         cursor: onTap == null ? MouseCursor.defer : SystemMouseCursors.click,
         child: GestureDetector(
@@ -118,17 +110,6 @@ class _PartnerCard extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                if (onProfileTap != null)
-                  Positioned(
-                    right: -6,
-                    top: -6,
-                    child: IconButton(
-                      tooltip: 'View profile',
-                      onPressed: onProfileTap,
-                      icon: const Icon(Icons.info_outline, size: 17),
-                      visualDensity: VisualDensity.compact,
-                    ),
-                  ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../domain/relationship_projection_service.dart';
 import '../models/founder_graph.dart';
 import '../models/person_profile_metadata.dart';
+import '../models/relationship_edge.dart';
 import 'family_web_layout.dart';
 import 'widgets/family_unit_card.dart';
 import 'widgets/generation_section.dart';
 import 'widgets/married_couple_card.dart';
 import 'widgets/person_card.dart';
+import 'widgets/person_profile_panel.dart';
 import 'widgets/relationship_connector.dart';
 
 class FounderFamilyWebScreen extends StatefulWidget {
@@ -239,19 +241,13 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
               partner1Relation: partner1Projection.relationship,
               partner1CulturalRelation: partner1Projection.culturalRelationship,
               isPartner1Viewer: partner1.id == _viewerId,
-              onPartner1Tap: _viewerIds.contains(partner1.id)
-                  ? () => _selectViewer(partner1.id)
-                  : null,
-              onPartner1ProfileTap: () => _showPersonProfile(partner1.id),
+              onPartner1Tap: () => _showPersonProfile(partner1.id),
               partner2Id: partner2.id,
               partner2Name: partner2.primaryName,
               partner2Relation: partner2Projection.relationship,
               partner2CulturalRelation: partner2Projection.culturalRelationship,
               isPartner2Viewer: partner2.id == _viewerId,
-              onPartner2Tap: _viewerIds.contains(partner2.id)
-                  ? () => _selectViewer(partner2.id)
-                  : null,
-              onPartner2ProfileTap: () => _showPersonProfile(partner2.id),
+              onPartner2Tap: () => _showPersonProfile(partner2.id),
             )
           : FamilyUnitCard(
               husband: partner1.primaryName,
@@ -276,37 +272,90 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
         relation: projection.relationship,
         culturalRelation: projection.culturalRelationship,
         isViewer: node.personId == _viewerId,
-        onTap: _viewerIds.contains(node.personId)
-            ? () => _selectViewer(node.personId)
-            : null,
-        onProfileTap: () => _showPersonProfile(node.personId),
+        onTap: () => _showPersonProfile(node.personId),
       ),
     );
   }
 
   Future<void> _showPersonProfile(String personId) {
     final person = FounderGraph.personById(personId);
+    final viewer = FounderGraph.personById(_viewerId);
     final projection = _projectionService.project(
       viewerId: _viewerId,
       targetId: personId,
     );
 
-    return showDialog<void>(
+    return showPersonProfilePanel(
       context: context,
-      builder: (context) => _PersonProfileDialog(
+      data: PersonProfilePanelData(
+        personId: person.id,
         personName: person.primaryName,
+        viewerName: viewer.primaryName,
         aliases: person.aliases,
-        callingName: projection.culturalRelationship,
+        knownAs: person.knownAs,
+        culturalRelationship: projection.culturalRelationship,
         englishRelationship: projection.relationship,
         motherTongue: person.languageProfile.motherTongueName,
         fluentLanguages: person.languageProfile.fluentLanguageTags
             .map(PersonLanguageProfile.languageName)
             .toSet()
-            .join(', '),
-        state: person.location.administrativeArea,
+            .toList(),
+        location: _profileLocation(personId),
         religion: person.culturalProfile.religion,
+        parents: _parentNames(personId),
+        spouses: _spouseNames(personId),
+        children: _childNames(personId),
+        isViewer: personId == _viewerId,
+        canViewFamilyAs: _viewerIds.contains(personId),
       ),
+      onViewFamilyAs: _viewerIds.contains(personId) && personId != _viewerId
+          ? () => _selectViewer(personId)
+          : null,
     );
+  }
+
+  List<String> _parentNames(String personId) {
+    return FounderGraph.relationships
+        .where(
+          (edge) =>
+              edge.type == RelationshipType.parent && edge.targetId == personId,
+        )
+        .map((edge) => FounderGraph.personById(edge.sourceId).primaryName)
+        .toList();
+  }
+
+  List<String> _childNames(String personId) {
+    return FounderGraph.relationships
+        .where(
+          (edge) =>
+              edge.type == RelationshipType.parent && edge.sourceId == personId,
+        )
+        .map((edge) => FounderGraph.personById(edge.targetId).primaryName)
+        .toList();
+  }
+
+  List<String> _spouseNames(String personId) {
+    return FounderGraph.familyUnits
+        .where(
+          (unit) => unit.partner1Id == personId || unit.partner2Id == personId,
+        )
+        .map(
+          (unit) => FounderGraph.personById(
+            unit.partner1Id == personId ? unit.partner2Id : unit.partner1Id,
+          ).primaryName,
+        )
+        .toList();
+  }
+
+  String _profileLocation(String personId) {
+    final location = FounderGraph.personById(personId).location;
+    final values = [
+      location.locality,
+      location.administrativeArea,
+      location.nativePlace,
+      if (location.countryCode == 'IN') 'India' else location.countryCode,
+    ].whereType<String>().where((value) => value.isNotEmpty).toSet().toList();
+    return values.isEmpty ? 'Not specified' : values.join(', ');
   }
 
   Widget _branchLabel(BranchLabelLayout branch) {
@@ -512,104 +561,6 @@ class _MarriageBadge extends StatelessWidget {
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
-      ),
-    );
-  }
-}
-
-class _PersonProfileDialog extends StatelessWidget {
-  final String personName;
-  final List<String> aliases;
-  final String? callingName;
-  final String englishRelationship;
-  final String motherTongue;
-  final String fluentLanguages;
-  final String? state;
-  final String? religion;
-
-  const _PersonProfileDialog({
-    required this.personName,
-    required this.aliases,
-    required this.callingName,
-    required this.englishRelationship,
-    required this.motherTongue,
-    required this.fluentLanguages,
-    required this.state,
-    required this.religion,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(personName),
-      content: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 420),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (aliases.isNotEmpty)
-              _ProfileRow(
-                label: 'Also known as',
-                value: aliases.join(', '),
-              ),
-            _ProfileRow(
-              label: 'You call them',
-              value: callingName == null
-                  ? englishRelationship
-                  : '$callingName · $englishRelationship',
-            ),
-            _ProfileRow(label: 'Mother tongue', value: motherTongue),
-            _ProfileRow(
-              label: 'Fluent languages',
-              value:
-                  fluentLanguages.isEmpty ? 'Not specified' : fluentLanguages,
-            ),
-            _ProfileRow(label: 'State', value: state ?? 'Not specified'),
-            _ProfileRow(
-              label: 'Religion',
-              value: religion ?? 'Not specified',
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Close'),
-        ),
-      ],
-    );
-  }
-}
-
-class _ProfileRow extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const _ProfileRow({
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 128,
-            child: Text(
-              label,
-              style: const TextStyle(
-                color: Color(0xFF5F6B69),
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Expanded(child: Text(value)),
-        ],
       ),
     );
   }

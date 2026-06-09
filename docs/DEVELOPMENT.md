@@ -113,6 +113,8 @@ Current tests cover:
 - Remote fallback behavior
 - Runtime graph installation
 - Responsive phone layout
+- Responsive person profile panels
+- Explicit profile-to-viewer switching
 
 ## Graph Data Workflow
 
