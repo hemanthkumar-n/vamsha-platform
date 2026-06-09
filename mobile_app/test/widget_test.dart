@@ -100,6 +100,8 @@ void main() {
         findsOneWidget,
       );
       expect(find.byKey(const ValueKey('center-on-viewer')), findsOneWidget);
+      expect(find.byKey(const ValueKey('zoom-in')), findsOneWidget);
+      expect(find.byKey(const ValueKey('zoom-out')), findsOneWidget);
 
       await tester.tap(find.byKey(const ValueKey('person-keerthi')));
       await tester.pumpAndSettle();

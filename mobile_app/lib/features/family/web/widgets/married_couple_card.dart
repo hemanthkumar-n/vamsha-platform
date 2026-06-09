@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_colors.dart';
+import '../../models/person_entity.dart';
+
 class MarriedCoupleCard extends StatelessWidget {
   final String partner1Id;
   final String partner1Name;
   final String partner1Relation;
   final String? partner1CulturalRelation;
+  final Gender partner1Gender;
   final bool isPartner1Viewer;
   final String partner2Id;
   final String partner2Name;
   final String partner2Relation;
   final String? partner2CulturalRelation;
+  final Gender partner2Gender;
   final bool isPartner2Viewer;
   final VoidCallback? onPartner1Tap;
   final VoidCallback? onPartner2Tap;
@@ -20,11 +25,13 @@ class MarriedCoupleCard extends StatelessWidget {
     required this.partner1Name,
     required this.partner1Relation,
     this.partner1CulturalRelation,
+    required this.partner1Gender,
     required this.isPartner1Viewer,
     required this.partner2Id,
     required this.partner2Name,
     required this.partner2Relation,
     this.partner2CulturalRelation,
+    required this.partner2Gender,
     required this.isPartner2Viewer,
     this.onPartner1Tap,
     this.onPartner2Tap,
@@ -43,17 +50,17 @@ class MarriedCoupleCard extends StatelessWidget {
             name: partner1Name,
             relation: partner1Relation,
             culturalRelation: partner1CulturalRelation,
+            gender: partner1Gender,
             isViewer: isPartner1Viewer,
             onTap: onPartner1Tap,
           ),
-          const Expanded(
-            child: _MarriageBond(),
-          ),
+          const Expanded(child: _MarriageBond()),
           _PartnerCard(
             key: ValueKey('couple-person-$partner2Id'),
             name: partner2Name,
             relation: partner2Relation,
             culturalRelation: partner2CulturalRelation,
+            gender: partner2Gender,
             isViewer: isPartner2Viewer,
             onTap: onPartner2Tap,
           ),
@@ -63,10 +70,11 @@ class MarriedCoupleCard extends StatelessWidget {
   }
 }
 
-class _PartnerCard extends StatelessWidget {
+class _PartnerCard extends StatefulWidget {
   final String name;
   final String relation;
   final String? culturalRelation;
+  final Gender gender;
   final bool isViewer;
   final VoidCallback? onTap;
 
@@ -75,108 +83,152 @@ class _PartnerCard extends StatelessWidget {
     required this.name,
     required this.relation,
     this.culturalRelation,
+    required this.gender,
     required this.isViewer,
     this.onTap,
   });
 
   @override
+  State<_PartnerCard> createState() => _PartnerCardState();
+}
+
+class _PartnerCardState extends State<_PartnerCard> {
+  bool _hovered = false;
+
+  @override
   Widget build(BuildContext context) {
+    final accent = widget.isViewer
+        ? AppColors.viewer
+        : widget.gender == Gender.female
+            ? AppColors.female
+            : AppColors.male;
+    final surface = widget.isViewer
+        ? AppColors.viewerSoft
+        : widget.gender == Gender.female
+            ? AppColors.femaleSoft
+            : AppColors.maleSoft;
+    final avatar = widget.isViewer
+        ? const Color(0xFFDCEAFF)
+        : widget.gender == Gender.female
+            ? const Color(0xFFFFE2E8)
+            : const Color(0xFFDDEFD8);
+    final border = widget.isViewer
+        ? const Color(0xFF72A4DE)
+        : widget.gender == Gender.female
+            ? const Color(0xFFF1CCD5)
+            : const Color(0xFFCDDFCA);
+
     return Semantics(
-      button: onTap != null,
-      selected: isViewer,
-      label: onTap == null ? null : 'Open profile for $name',
+      button: widget.onTap != null,
+      selected: widget.isViewer,
+      label: widget.onTap == null ? null : 'Open profile for ${widget.name}',
       child: MouseRegion(
-        cursor: onTap == null ? MouseCursor.defer : SystemMouseCursors.click,
+        cursor:
+            widget.onTap == null ? MouseCursor.defer : SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _hovered = true),
+        onExit: (_) => setState(() => _hovered = false),
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: onTap,
-          child: Container(
+          onTap: widget.onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 160),
+            curve: Curves.easeOut,
+            transform: Matrix4.translationValues(0, _hovered ? -3 : 0, 0),
             width: 190,
             height: 184,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: surface,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: isViewer ? Colors.blue : Colors.grey.shade300,
-                width: isViewer ? 3 : 1,
+                color: border,
+                width: widget.isViewer ? 2.5 : 1,
               ),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  blurRadius: 10,
-                  color: Colors.black12,
+                  blurRadius: _hovered ? 16 : 9,
+                  offset: Offset(0, _hovered ? 7 : 4),
+                  color: Colors.black.withValues(
+                    alpha: _hovered ? 0.11 : 0.07,
+                  ),
                 ),
               ],
             ),
-            child: Stack(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (isViewer) ...[
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Text(
-                          'YOU',
+                if (widget.isViewer) ...[
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: accent,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Text(
+                      'YOU',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                ],
+                CircleAvatar(
+                  radius: 23,
+                  backgroundColor: avatar,
+                  foregroundColor: accent,
+                  child: Icon(
+                    widget.gender == Gender.female
+                        ? Icons.person_2
+                        : Icons.person,
+                    size: 26,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  widget.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: AppColors.ink,
+                    fontSize: 14,
+                    height: 1.15,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                SizedBox(
+                  height: 34,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (widget.culturalRelation != null)
+                        Text(
+                          widget.culturalRelation!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
+                            color: accent,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
+                      Text(
+                        widget.relation,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: AppColors.mutedInk,
+                          fontSize: widget.culturalRelation == null ? 13 : 11,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                      const SizedBox(height: 6),
                     ],
-                    const CircleAvatar(
-                      radius: 22,
-                      child: Icon(Icons.person),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      name,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    SizedBox(
-                      height: 34,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (culturalRelation != null)
-                            Text(
-                              culturalRelation!,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Color(0xFF087F72),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          Text(
-                            relation,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: culturalRelation == null ? 13 : 11,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
@@ -197,39 +249,41 @@ class _MarriageBond extends StatelessWidget {
       children: [
         Row(
           children: [
-            Expanded(child: Divider(color: Colors.grey.shade500)),
+            const Expanded(child: Divider(color: AppColors.line)),
             Container(
               width: 34,
               height: 34,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.surface,
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.red.shade200),
+                border: Border.all(
+                  color: AppColors.marriage.withValues(alpha: 0.35),
+                ),
               ),
               child: const Icon(
                 Icons.favorite,
-                size: 19,
-                color: Colors.red,
+                size: 18,
+                color: AppColors.marriage,
               ),
             ),
-            Expanded(child: Divider(color: Colors.grey.shade500)),
+            const Expanded(child: Divider(color: AppColors.line)),
           ],
         ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
           decoration: BoxDecoration(
-            color: const Color(0xFFFFF4F4),
+            color: AppColors.femaleSoft,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: const Color(0xFFFFCDD2)),
+            border: Border.all(color: const Color(0xFFF1CCD5)),
           ),
           child: const Text(
             'Married',
             style: TextStyle(
-              color: Color(0xFFB42318),
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
+              color: AppColors.marriage,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),

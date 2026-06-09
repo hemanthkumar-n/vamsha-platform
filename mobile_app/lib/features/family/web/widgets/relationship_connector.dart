@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_colors.dart';
 import '../family_web_layout.dart';
 
 class FamilyConnectorLayer extends StatelessWidget {
@@ -30,24 +31,24 @@ class FamilyConnectorLayer extends StatelessWidget {
 class _FamilyConnectorPainter extends CustomPainter {
   final List<FamilyConnectorSpec> connectors;
 
-  static const _lineColor = Color(0xFF263238);
-  static const _spouseColor = Color(0xFFEF4444);
-  static const _inLawColor = Color(0xFF7C3AED);
+  static const _lineColor = AppColors.line;
+  static const _spouseColor = AppColors.marriage;
+  static const _inLawColor = AppColors.lavender;
 
   const _FamilyConnectorPainter(this.connectors);
 
   @override
   void paint(Canvas canvas, Size size) {
     final lineagePaint = Paint()
-      ..color = _lineColor.withValues(alpha: 0.72)
-      ..strokeWidth = 3
+      ..color = _lineColor.withValues(alpha: 0.68)
+      ..strokeWidth = 2.3
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..style = PaintingStyle.stroke;
 
     final spousePaint = Paint()
-      ..color = _lineColor.withValues(alpha: 0.72)
-      ..strokeWidth = 2.4
+      ..color = _lineColor.withValues(alpha: 0.68)
+      ..strokeWidth = 2.1
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'core/theme/app_theme.dart';
 import 'features/family/data/family_graph_bootstrap.dart';
 import 'features/family/models/founder_graph.dart';
 import 'features/family/presentation/vamsha_home_screen.dart';
@@ -15,10 +16,11 @@ class VamshaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Vamsha',
       debugShowCheckedModeBanner: false,
-      home: VamshaHomeScreen(),
+      theme: AppTheme.lightTheme,
+      home: const VamshaHomeScreen(),
     );
   }
 }

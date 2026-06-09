@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_colors.dart';
 import '../domain/relationship_projection_service.dart';
 import '../models/founder_graph.dart';
 import '../models/person_profile_metadata.dart';
@@ -70,8 +71,45 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isCompact ? 'Vamsha' : 'Vamsha Family Web'),
+        shape: const Border(
+          bottom: BorderSide(color: Color(0xFFE7E8E4)),
+        ),
+        titleSpacing: 16,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 34,
+              height: 34,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: AppColors.maleSoft,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: const Color(0xFFCDDFCA)),
+              ),
+              child: const Icon(
+                Icons.family_restroom,
+                size: 20,
+                color: AppColors.male,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Text(isCompact ? 'Vamsha' : 'Vamsha Family Web'),
+          ],
+        ),
         actions: [
+          IconButton(
+            key: const ValueKey('zoom-out'),
+            tooltip: 'Zoom out',
+            onPressed: () => _zoomBy(0.82),
+            icon: const Icon(Icons.remove),
+          ),
+          IconButton(
+            key: const ValueKey('zoom-in'),
+            tooltip: 'Zoom in',
+            onPressed: () => _zoomBy(1.22),
+            icon: const Icon(Icons.add),
+          ),
           IconButton(
             key: const ValueKey('center-on-viewer'),
             tooltip: 'Center on viewer',
@@ -113,7 +151,7 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
                     child: Container(
                       width: _layout.width,
                       height: _layout.height,
-                      color: const Color(0xFFF7F7F7),
+                      color: AppColors.background,
                       child: Stack(
                         children: [
                           Positioned.fill(
@@ -193,6 +231,38 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
     );
   }
 
+  void _zoomBy(double factor) {
+    final viewportSize = _viewportSize;
+    if (viewportSize == null) return;
+
+    final viewportCenter = Offset(
+      viewportSize.width / 2,
+      viewportSize.height / 2,
+    );
+    final scenePoint = _transformationController.toScene(viewportCenter);
+    final currentScale = _transformationController.value.getMaxScaleOnAxis();
+    final targetScale = (currentScale * factor).clamp(0.2, 4.0);
+    final target = Matrix4.identity()
+      ..translateByDouble(
+        viewportCenter.dx - scenePoint.dx * targetScale,
+        viewportCenter.dy - scenePoint.dy * targetScale,
+        0,
+        1,
+      )
+      ..scaleByDouble(targetScale, targetScale, targetScale, 1);
+
+    _cameraAnimation = Matrix4Tween(
+      begin: _transformationController.value,
+      end: target,
+    ).animate(
+      CurvedAnimation(
+        parent: _cameraAnimationController,
+        curve: Curves.easeOutCubic,
+      ),
+    );
+    _cameraAnimationController.forward(from: 0);
+  }
+
   double _responsiveScale(Size viewportSize) {
     final shortestSide = viewportSize.shortestSide;
     if (shortestSide < 480) return 0.42;
@@ -240,12 +310,14 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
               partner1Name: partner1.primaryName,
               partner1Relation: partner1Projection.relationship,
               partner1CulturalRelation: partner1Projection.culturalRelationship,
+              partner1Gender: partner1.gender,
               isPartner1Viewer: partner1.id == _viewerId,
               onPartner1Tap: () => _showPersonProfile(partner1.id),
               partner2Id: partner2.id,
               partner2Name: partner2.primaryName,
               partner2Relation: partner2Projection.relationship,
               partner2CulturalRelation: partner2Projection.culturalRelationship,
+              partner2Gender: partner2.gender,
               isPartner2Viewer: partner2.id == _viewerId,
               onPartner2Tap: () => _showPersonProfile(partner2.id),
             )
@@ -271,6 +343,7 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
         name: person.primaryName,
         relation: projection.relationship,
         culturalRelation: projection.culturalRelationship,
+        gender: person.gender,
         isViewer: node.personId == _viewerId,
         onTap: () => _showPersonProfile(node.personId),
       ),
@@ -391,10 +464,10 @@ class _ViewerToolbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      color: AppColors.surface,
       child: SizedBox(
         width: double.infinity,
-        height: 64,
+        height: 68,
         child: LayoutBuilder(
           builder: (context, constraints) {
             final isCompact = constraints.maxWidth < 500;
@@ -449,6 +522,7 @@ class _ViewerContextBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewer = FounderGraph.personById(viewerId);
+    final isCompact = MediaQuery.sizeOf(context).width < 600;
 
     return Semantics(
       liveRegion: true,
@@ -468,8 +542,13 @@ class _ViewerContextBanner extends StatelessWidget {
         child: Container(
           key: ValueKey('viewer-context-$viewerId'),
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          color: const Color(0xFFE8F5F2),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+          decoration: const BoxDecoration(
+            color: Color(0xFFEEF7F4),
+            border: Border(
+              bottom: BorderSide(color: Color(0xFFD8E9E4)),
+            ),
+          ),
           child: Row(
             children: [
               const Icon(
@@ -502,7 +581,7 @@ class _ViewerContextBanner extends StatelessWidget {
                     ],
                   ),
                   key: const ValueKey('viewer-context-text'),
-                  maxLines: 2,
+                  maxLines: isCompact ? 2 : 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -527,14 +606,27 @@ class _Label extends StatelessWidget {
         vertical: 6,
       ),
       decoration: BoxDecoration(
-        color: Colors.green.shade50,
-        borderRadius: BorderRadius.circular(12),
+        color: AppColors.maleSoft,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFCDDFCA)),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.account_tree_outlined,
+            size: 15,
+            color: AppColors.male,
+          ),
+          const SizedBox(width: 6),
+          Text(
+            text,
+            style: const TextStyle(
+              color: Color(0xFF315F41),
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -550,14 +642,14 @@ class _MarriageBadge extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF4F4),
+        color: AppColors.femaleSoft,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: const Color(0xFFFFCDD2)),
       ),
       child: const Text(
         'Married',
         style: TextStyle(
-          color: Color(0xFFB42318),
+          color: AppColors.marriage,
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
