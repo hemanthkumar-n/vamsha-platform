@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'features/family/data/family_graph_bootstrap.dart';
+import 'features/family/models/founder_graph.dart';
 import 'features/family/presentation/vamsha_home_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  FounderGraph.install(await FamilyGraphBootstrap.load());
   runApp(const VamshaApp());
 }
 

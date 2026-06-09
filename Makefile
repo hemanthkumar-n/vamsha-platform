@@ -1,5 +1,5 @@
 run:
-	cd mobile_app && flutter run -d chrome
+	./scripts/run-web.sh
 
 get:
 	cd mobile_app && flutter pub get

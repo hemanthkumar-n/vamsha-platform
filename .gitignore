@@ -5,6 +5,7 @@ docs/private/
 # Flutter
 mobile_app/.dart_tool/
 mobile_app/build/
+.env.local
 
 # Founder private files
 docs/private/

@@ -1,4 +1,5 @@
 import 'family_unit.dart';
+import 'family_graph_data.dart';
 import 'person_entity.dart';
 import 'person_profile_metadata.dart';
 import 'relationship_edge.dart';
@@ -17,7 +18,9 @@ const _hemanthLanguageProfile = PersonLanguageProfile(
 );
 
 class FounderGraph {
-  static const people = <PersonEntity>[
+  static FamilyGraphData? _runtimeData;
+
+  static const _localPeople = <PersonEntity>[
     PersonEntity(
       id: 'narendranath',
       gender: Gender.male,
@@ -183,7 +186,7 @@ class FounderGraph {
     ),
   ];
 
-  static const familyUnits = <FamilyUnit>[
+  static const _localFamilyUnits = <FamilyUnit>[
     FamilyUnit(
       id: 'fu_natakam_root',
       partner1Id: 'narendranath',
@@ -216,7 +219,7 @@ class FounderGraph {
     ),
   ];
 
-  static const viewerRelationshipOverrides = <ViewerRelationshipOverride>[
+  static const _localViewerRelationshipOverrides = <ViewerRelationshipOverride>[
     ViewerRelationshipOverride(
       viewerId: 'hemanth',
       targetId: 'mallikarjuna',
@@ -317,7 +320,7 @@ class FounderGraph {
     ),
   ];
 
-  static const relationships = <RelationshipEdge>[
+  static const _localRelationships = <RelationshipEdge>[
     RelationshipEdge(
         sourceId: 'narendranath',
         targetId: 'mallikarjuna',
@@ -443,6 +446,28 @@ class FounderGraph {
         targetId: 'krithiksha',
         type: RelationshipType.parent),
   ];
+
+  static const localData = FamilyGraphData(
+    people: _localPeople,
+    familyUnits: _localFamilyUnits,
+    relationships: _localRelationships,
+    viewerRelationshipOverrides: _localViewerRelationshipOverrides,
+  );
+
+  static FamilyGraphData get data => _runtimeData ?? localData;
+  static List<PersonEntity> get people => data.people;
+  static List<FamilyUnit> get familyUnits => data.familyUnits;
+  static List<RelationshipEdge> get relationships => data.relationships;
+  static List<ViewerRelationshipOverride> get viewerRelationshipOverrides =>
+      data.viewerRelationshipOverrides;
+
+  static void install(FamilyGraphData graph) {
+    _runtimeData = graph;
+  }
+
+  static void reset() {
+    _runtimeData = null;
+  }
 
   static PersonEntity personById(String id) {
     return people.firstWhere((person) => person.id == id);
