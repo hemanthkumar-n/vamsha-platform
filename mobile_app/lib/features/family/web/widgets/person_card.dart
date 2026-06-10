@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_dimensions.dart';
 import '../../models/person_entity.dart';
 
 class PersonCard extends StatefulWidget {
@@ -34,122 +35,142 @@ class _PersonCardState extends State<PersonCard> {
       gender: widget.gender,
       isViewer: widget.isViewer,
     );
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final relationshipDescription = [
+      if (widget.culturalRelation != null) widget.culturalRelation,
+      widget.relation,
+    ].join(', ');
 
     return Semantics(
       button: widget.onTap != null,
       selected: widget.isViewer,
-      label: widget.onTap == null ? null : 'Open profile for ${widget.name}',
+      label: widget.onTap == null
+          ? '${widget.name}. $relationshipDescription.'
+          : '${widget.name}. $relationshipDescription. Open profile.',
       child: MouseRegion(
         cursor:
             widget.onTap == null ? MouseCursor.defer : SystemMouseCursors.click,
         onEnter: (_) => setState(() => _hovered = true),
         onExit: (_) => setState(() => _hovered = false),
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: widget.onTap,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 160),
-            curve: Curves.easeOut,
-            transform: Matrix4.translationValues(0, _hovered ? -3 : 0, 0),
-            width: widget.isViewer ? 260 : 180,
-            height: widget.isViewer ? 252 : 192,
-            padding: EdgeInsets.all(widget.isViewer ? 12 : 10),
-            decoration: BoxDecoration(
-              color: palette.surface,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: palette.border,
-                width: widget.isViewer ? 2.5 : 1,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: _hovered ? 18 : 10,
-                  offset: Offset(0, _hovered ? 8 : 4),
-                  color: Colors.black.withValues(
-                    alpha: _hovered ? 0.12 : 0.07,
-                  ),
-                ),
-              ],
+        child: AnimatedContainer(
+          duration:
+              reduceMotion ? Duration.zero : const Duration(milliseconds: 160),
+          curve: Curves.easeOut,
+          transform: Matrix4.translationValues(
+            0,
+            _hovered && !reduceMotion ? -3 : 0,
+            0,
+          ),
+          width: widget.isViewer
+              ? AppDimensions.viewerCardWidth
+              : AppDimensions.personCardWidth,
+          height: widget.isViewer
+              ? AppDimensions.viewerCardHeight
+              : AppDimensions.personCardHeight,
+          padding: EdgeInsets.all(widget.isViewer ? 12 : 10),
+          decoration: BoxDecoration(
+            color: palette.surface,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: palette.border,
+              width: widget.isViewer ? 2.5 : 1,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (widget.isViewer) ...[
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: palette.accent,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Text(
-                      'YOU',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w800,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: _hovered ? 18 : 10,
+                offset: Offset(0, _hovered ? 8 : 4),
+                color: Colors.black.withValues(
+                  alpha: _hovered ? 0.12 : 0.07,
+                ),
+              ),
+            ],
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: widget.onTap,
+              borderRadius: BorderRadius.circular(AppDimensions.radius),
+              focusColor: AppColors.focus.withValues(alpha: 0.14),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (widget.isViewer) ...[
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: palette.accent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Text(
+                        'YOU',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
+                    const SizedBox(height: 8),
+                  ],
+                  CircleAvatar(
+                    radius: widget.isViewer ? 38 : 22,
+                    backgroundColor: palette.avatar,
+                    foregroundColor: palette.accent,
+                    child: Icon(
+                      widget.gender == Gender.female
+                          ? Icons.person_2
+                          : Icons.person,
+                      size: widget.isViewer ? 40 : 24,
+                    ),
                   ),
-                  const SizedBox(height: 8),
-                ],
-                CircleAvatar(
-                  radius: widget.isViewer ? 38 : 22,
-                  backgroundColor: palette.avatar,
-                  foregroundColor: palette.accent,
-                  child: Icon(
-                    widget.gender == Gender.female
-                        ? Icons.person_2
-                        : Icons.person,
-                    size: widget.isViewer ? 40 : 24,
+                  SizedBox(height: widget.isViewer ? 10 : 8),
+                  Text(
+                    widget.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColors.ink,
+                      fontSize: widget.isViewer ? 19 : 13,
+                      height: 1.16,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
-                ),
-                SizedBox(height: widget.isViewer ? 10 : 8),
-                Text(
-                  widget.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: AppColors.ink,
-                    fontSize: widget.isViewer ? 19 : 13,
-                    height: 1.16,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                SizedBox(
-                  height: 34,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (widget.culturalRelation != null)
+                  const SizedBox(height: 6),
+                  SizedBox(
+                    height: 34,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (widget.culturalRelation != null)
+                          Text(
+                            widget.culturalRelation!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: palette.accent,
+                              fontSize: widget.isViewer ? 14 : 12,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
                         Text(
-                          widget.culturalRelation!,
+                          widget.relation,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: palette.accent,
-                            fontSize: widget.isViewer ? 14 : 12,
-                            fontWeight: FontWeight.w800,
+                            color: AppColors.mutedInk,
+                            fontSize: widget.culturalRelation == null ? 13 : 11,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                      Text(
-                        widget.relation,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColors.mutedInk,
-                          fontSize: widget.culturalRelation == null ? 13 : 11,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

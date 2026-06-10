@@ -201,7 +201,7 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
       )
       ..scaleByDouble(scale, scale, scale, 1);
 
-    if (!animate) {
+    if (!animate || MediaQuery.disableAnimationsOf(context)) {
       _cameraAnimationController.stop();
       _transformationController.value = target;
       return;
@@ -250,6 +250,12 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
         1,
       )
       ..scaleByDouble(targetScale, targetScale, targetScale, 1);
+
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _cameraAnimationController.stop();
+      _transformationController.value = target;
+      return;
+    }
 
     _cameraAnimation = Matrix4Tween(
       begin: _transformationController.value,
@@ -528,7 +534,9 @@ class _ViewerContextBanner extends StatelessWidget {
       liveRegion: true,
       label: 'Viewing as ${viewer.primaryName}. Relationship labels updated.',
       child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 240),
+        duration: MediaQuery.disableAnimationsOf(context)
+            ? Duration.zero
+            : const Duration(milliseconds: 240),
         transitionBuilder: (child, animation) {
           return FadeTransition(
             opacity: animation,

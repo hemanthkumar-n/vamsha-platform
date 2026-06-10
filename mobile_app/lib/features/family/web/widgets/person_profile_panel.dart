@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_dimensions.dart';
+
 class PersonProfilePanelData {
   final String personId;
   final String personName;
@@ -44,6 +47,7 @@ Future<void> showPersonProfilePanel({
   VoidCallback? onViewFamilyAs,
 }) {
   final compact = MediaQuery.sizeOf(context).width < 700;
+  final reduceMotion = MediaQuery.disableAnimationsOf(context);
 
   if (compact) {
     return showModalBottomSheet<void>(
@@ -51,7 +55,7 @@ Future<void> showPersonProfilePanel({
       isScrollControlled: true,
       showDragHandle: true,
       useSafeArea: true,
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
       ),
@@ -76,7 +80,8 @@ Future<void> showPersonProfilePanel({
     barrierDismissible: true,
     barrierLabel: 'Close person profile',
     barrierColor: Colors.black38,
-    transitionDuration: const Duration(milliseconds: 220),
+    transitionDuration:
+        reduceMotion ? Duration.zero : const Duration(milliseconds: 220),
     transitionBuilder: (context, animation, secondaryAnimation, child) {
       final offset = Tween<Offset>(
         begin: const Offset(0.08, 0),
@@ -96,7 +101,7 @@ Future<void> showPersonProfilePanel({
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Material(
-              color: Colors.white,
+              color: AppColors.surface,
               elevation: 16,
               borderRadius: BorderRadius.circular(8),
               clipBehavior: Clip.antiAlias,
@@ -227,8 +232,8 @@ class _ProfileHeader extends StatelessWidget {
         children: [
           const CircleAvatar(
             radius: 30,
-            backgroundColor: Color(0xFFE8E0FF),
-            foregroundColor: Color(0xFF4F378B),
+            backgroundColor: AppColors.lavenderSoft,
+            foregroundColor: AppColors.lavender,
             child: Icon(Icons.person, size: 30),
           ),
           const SizedBox(width: 16),
@@ -249,7 +254,7 @@ class _ProfileHeader extends StatelessWidget {
                       ? 'Current viewer'
                       : 'Viewed from ${data.viewerName}',
                   style: const TextStyle(
-                    color: Color(0xFF66706E),
+                    color: AppColors.mutedInk,
                     fontSize: 13,
                   ),
                 ),
@@ -280,7 +285,7 @@ class _RelationshipSummary extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFE8F5F2),
+        color: const Color(0xFFEEF7F4),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: const Color(0xFFC5E5DE)),
       ),
@@ -289,7 +294,7 @@ class _RelationshipSummary extends StatelessWidget {
         children: [
           const Icon(
             Icons.hub_outlined,
-            color: Color(0xFF087F72),
+            color: AppColors.primary,
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -299,7 +304,7 @@ class _RelationshipSummary extends StatelessWidget {
                 const Text(
                   'Relationship to current viewer',
                   style: TextStyle(
-                    color: Color(0xFF47635F),
+                    color: AppColors.mutedInk,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
@@ -309,7 +314,7 @@ class _RelationshipSummary extends StatelessWidget {
                   calling ?? data.englishRelationship,
                   key: const ValueKey('person-profile-calling-name'),
                   style: const TextStyle(
-                    color: Color(0xFF075E54),
+                    color: AppColors.primary,
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
                   ),
@@ -318,7 +323,7 @@ class _RelationshipSummary extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     data.englishRelationship,
-                    style: const TextStyle(color: Color(0xFF47635F)),
+                    style: const TextStyle(color: AppColors.mutedInk),
                   ),
                 ],
               ],
@@ -345,7 +350,7 @@ class _SectionTitle extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
-          Icon(icon, size: 19, color: const Color(0xFF4F378B)),
+          Icon(icon, size: 19, color: AppColors.lavender),
           const SizedBox(width: 8),
           Text(
             title,
@@ -381,7 +386,7 @@ class _DetailRow extends StatelessWidget {
             child: Text(
               label,
               style: const TextStyle(
-                color: Color(0xFF66706E),
+                color: AppColors.mutedInk,
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
               ),
@@ -434,14 +439,14 @@ class _ProfileActions extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.visibility, size: 18, color: Color(0xFF087F72)),
+            Icon(Icons.visibility, size: 18, color: AppColors.primary),
             SizedBox(width: 8),
             Flexible(
               child: Text(
                 'You are viewing the family from this person',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color(0xFF075E54),
+                  color: AppColors.primary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -457,7 +462,7 @@ class _ProfileActions extends StatelessWidget {
         child: Text(
           'Viewer mode for this person will be available as the graph expands.',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Color(0xFF66706E)),
+          style: TextStyle(color: AppColors.mutedInk),
         ),
       );
     }
@@ -469,6 +474,12 @@ class _ProfileActions extends StatelessWidget {
         child: FilledButton.icon(
           key: ValueKey('profile-view-as-${data.personId}'),
           onPressed: onViewFamilyAs,
+          style: FilledButton.styleFrom(
+            minimumSize: const Size(
+              AppDimensions.minimumTouchTarget,
+              AppDimensions.minimumTouchTarget,
+            ),
+          ),
           icon: const Icon(Icons.visibility_outlined),
           label: Text('View family as ${_shortName(data.personName)}'),
         ),

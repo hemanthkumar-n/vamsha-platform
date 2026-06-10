@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
+import 'app_dimensions.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
@@ -14,6 +15,10 @@ class AppTheme {
       colorScheme: colorScheme,
       scaffoldBackgroundColor: AppColors.background,
       useMaterial3: true,
+      materialTapTargetSize: MaterialTapTargetSize.padded,
+      visualDensity: VisualDensity.standard,
+      focusColor: AppColors.focus.withValues(alpha: 0.16),
+      hoverColor: AppColors.focus.withValues(alpha: 0.06),
       textTheme: ThemeData.light().textTheme.apply(
             bodyColor: AppColors.ink,
             displayColor: AppColors.ink,
@@ -59,9 +64,13 @@ class AppTheme {
           backgroundColor: AppColors.lavender,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(AppDimensions.radius),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          minimumSize: const Size(
+            AppDimensions.minimumTouchTarget,
+            AppDimensions.minimumTouchTarget,
+          ),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -69,16 +78,21 @@ class AppTheme {
           foregroundColor: AppColors.lavender,
           side: const BorderSide(color: Color(0xFFC7BEDD)),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(AppDimensions.radius),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          minimumSize: const Size(
+            AppDimensions.minimumTouchTarget,
+            AppDimensions.minimumTouchTarget,
+          ),
         ),
       ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
           foregroundColor: AppColors.mutedInk,
+          minimumSize: const Size.square(AppDimensions.minimumTouchTarget),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(AppDimensions.radius),
           ),
         ),
       ),
