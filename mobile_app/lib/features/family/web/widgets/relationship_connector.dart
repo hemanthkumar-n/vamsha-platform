@@ -20,9 +20,11 @@ class FamilyConnectorLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
-      child: CustomPaint(
-        size: Size(width, height),
-        painter: _FamilyConnectorPainter(connectors),
+      child: RepaintBoundary(
+        child: CustomPaint(
+          size: Size(width, height),
+          painter: _FamilyConnectorPainter(connectors),
+        ),
       ),
     );
   }
@@ -47,8 +49,8 @@ class _FamilyConnectorPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     final spousePaint = Paint()
-      ..color = _lineColor.withValues(alpha: 0.68)
-      ..strokeWidth = 2.1
+      ..color = _spouseColor.withValues(alpha: 0.54)
+      ..strokeWidth = 2.3
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
@@ -182,6 +184,11 @@ class _FamilyConnectorPainter extends CustomPainter {
     const gapLength = 7.0;
     final delta = to - from;
     final distance = delta.distance;
+
+    if (distance == 0) {
+      return;
+    }
+
     final direction = delta / distance;
     var traveled = 0.0;
 
