@@ -1,10 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
 
 class PersonProfilePanelData {
   final String personId;
+  final Uint8List? photoBytes;
   final String personName;
   final String viewerName;
   final String englishRelationship;
@@ -23,6 +25,7 @@ class PersonProfilePanelData {
 
   const PersonProfilePanelData({
     required this.personId,
+    this.photoBytes,
     required this.personName,
     required this.viewerName,
     required this.englishRelationship,
@@ -45,6 +48,7 @@ Future<void> showPersonProfilePanel({
   required BuildContext context,
   required PersonProfilePanelData data,
   VoidCallback? onViewFamilyAs,
+  VoidCallback? onEdit,
 }) {
   final compact = MediaQuery.sizeOf(context).width < 700;
   final reduceMotion = MediaQuery.disableAnimationsOf(context);
@@ -64,6 +68,12 @@ Future<void> showPersonProfilePanel({
         child: PersonProfilePanel(
           data: data,
           onClose: () => Navigator.of(sheetContext).pop(),
+          onEdit: onEdit == null
+              ? null
+              : () {
+                  Navigator.of(sheetContext).pop();
+                  onEdit();
+                },
           onViewFamilyAs: onViewFamilyAs == null
               ? null
               : () {
@@ -112,6 +122,12 @@ Future<void> showPersonProfilePanel({
                 child: PersonProfilePanel(
                   data: data,
                   onClose: () => Navigator.of(dialogContext).pop(),
+                  onEdit: onEdit == null
+                      ? null
+                      : () {
+                          Navigator.of(dialogContext).pop();
+                          onEdit();
+                        },
                   onViewFamilyAs: onViewFamilyAs == null
                       ? null
                       : () {
@@ -132,12 +148,14 @@ class PersonProfilePanel extends StatelessWidget {
   final PersonProfilePanelData data;
   final VoidCallback onClose;
   final VoidCallback? onViewFamilyAs;
+  final VoidCallback? onEdit;
 
   const PersonProfilePanel({
     super.key,
     required this.data,
     required this.onClose,
     required this.onViewFamilyAs,
+    this.onEdit,
   });
 
   @override
@@ -208,6 +226,7 @@ class PersonProfilePanel extends StatelessWidget {
         _ProfileActions(
           data: data,
           onViewFamilyAs: onViewFamilyAs,
+          onEdit: onEdit,
         ),
       ],
     );
@@ -230,11 +249,15 @@ class _ProfileHeader extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             radius: 30,
             backgroundColor: AppColors.lavenderSoft,
             foregroundColor: AppColors.lavender,
-            child: Icon(Icons.person, size: 30),
+            backgroundImage:
+                data.photoBytes == null ? null : MemoryImage(data.photoBytes!),
+            child: data.photoBytes == null
+                ? const Icon(Icons.person, size: 30)
+                : null,
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -425,64 +448,43 @@ class _FamilyGroup extends StatelessWidget {
 class _ProfileActions extends StatelessWidget {
   final PersonProfilePanelData data;
   final VoidCallback? onViewFamilyAs;
+  final VoidCallback? onEdit;
 
   const _ProfileActions({
     required this.data,
     required this.onViewFamilyAs,
+    required this.onEdit,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (data.isViewer) {
-      return const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.visibility, size: 18, color: AppColors.primary),
-            SizedBox(width: 8),
-            Flexible(
-              child: Text(
-                'You are viewing the family from this person',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.primary,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (!data.canViewFamilyAs || onViewFamilyAs == null) {
-      return const Padding(
-        padding: EdgeInsets.all(16),
-        child: Text(
-          'Viewer mode for this person will be available as the graph expands.',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: AppColors.mutedInk),
-        ),
-      );
-    }
-
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: SizedBox(
-        width: double.infinity,
-        child: FilledButton.icon(
-          key: ValueKey('profile-view-as-${data.personId}'),
-          onPressed: onViewFamilyAs,
-          style: FilledButton.styleFrom(
-            minimumSize: const Size(
-              AppDimensions.minimumTouchTarget,
-              AppDimensions.minimumTouchTarget,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (onEdit != null)
+            OutlinedButton.icon(
+              key: ValueKey('profile-edit-${data.personId}'),
+              onPressed: onEdit,
+              icon: const Icon(Icons.edit_outlined),
+              label: const Text('Edit profile and photo'),
             ),
-          ),
-          icon: const Icon(Icons.visibility_outlined),
-          label: Text('View family as ${_shortName(data.personName)}'),
-        ),
+          if (onViewFamilyAs != null) ...[
+            const SizedBox(height: 8),
+            FilledButton.icon(
+              key: ValueKey('profile-view-as-${data.personId}'),
+              onPressed: onViewFamilyAs,
+              icon: const Icon(Icons.visibility_outlined),
+              label: Text('View family as ${_shortName(data.personName)}'),
+            ),
+          ],
+          if (data.isViewer)
+            const Text(
+              'You are viewing the family from this person',
+              textAlign: TextAlign.center,
+            ),
+        ],
       ),
     );
   }

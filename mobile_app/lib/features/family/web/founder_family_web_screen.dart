@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../domain/relationship_projection_service.dart';
+import '../data/local_profiles/local_profile_store.dart';
+import 'widgets/edit_person_profile_dialog.dart';
 import '../models/founder_graph.dart';
 import '../models/person_profile_metadata.dart';
 import '../models/relationship_edge.dart';
@@ -356,7 +358,7 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
     );
   }
 
-  Future<void> _showPersonProfile(String personId) {
+  Future<void> _showPersonProfile(String personId) async {
     final person = FounderGraph.personById(personId);
     final viewer = FounderGraph.personById(_viewerId);
     final projection = _projectionService.project(
@@ -364,10 +366,15 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
       targetId: personId,
     );
 
+    final store = LocalProfileStore.current;
+    final photoBytes = await store?.photoFor(personId);
+    if (!mounted) return;
+
     return showPersonProfilePanel(
       context: context,
       data: PersonProfilePanelData(
         personId: person.id,
+        photoBytes: photoBytes,
         personName: person.primaryName,
         viewerName: viewer.primaryName,
         aliases: person.aliases,
@@ -387,10 +394,29 @@ class _FounderFamilyWebScreenState extends State<FounderFamilyWebScreen>
         isViewer: personId == _viewerId,
         canViewFamilyAs: _viewerIds.contains(personId),
       ),
+      onEdit: store == null ? null : () => _editPersonProfile(personId, store),
       onViewFamilyAs: _viewerIds.contains(personId) && personId != _viewerId
           ? () => _selectViewer(personId)
           : null,
     );
+  }
+
+  Future<void> _editPersonProfile(
+    String personId,
+    LocalProfileStore store,
+  ) async {
+    final changed = await showDialog<bool>(
+      context: context,
+      builder: (context) => EditPersonProfileDialog(
+        person: FounderGraph.personById(personId),
+        store: store,
+      ),
+    );
+    if (changed != true || !mounted) return;
+    final updated = await store.applyTo(FounderGraph.data);
+    if (!mounted) return;
+    setState(() => FounderGraph.install(updated));
+    await _showPersonProfile(personId);
   }
 
   List<String> _parentNames(String personId) {
