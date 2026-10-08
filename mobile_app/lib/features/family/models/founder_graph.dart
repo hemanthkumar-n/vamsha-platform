@@ -121,6 +121,7 @@ class FounderGraph {
     PersonEntity(
       id: 'keerthi',
       gender: Gender.female,
+      siblingOrder: 2,
       primaryName: 'Doguparthi Keerthi',
       aliases: ['Keerthi Doguparti', 'Keerthi Doguparthi'],
       knownAs: ['Keerthi'],
@@ -143,6 +144,7 @@ class FounderGraph {
     PersonEntity(
       id: 'doguparthi_kiran',
       gender: Gender.male,
+      siblingOrder: 1,
       primaryName: 'Doguparthi Kiran Kumar',
       knownAs: ['Kiran'],
       languageProfile: _teluguLanguageProfile,
@@ -256,6 +258,41 @@ class FounderGraph {
       culturalRelationship: 'Chelli',
     ),
     ViewerRelationshipOverride(
+      viewerId: 'yuvan',
+      targetId: 'divya',
+      canonicalRelationship: 'paternal_aunt_fathers_sister',
+      relationship: "Father's Younger Sister",
+      culturalRelationship: 'Atha',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'yuvan',
+      targetId: 'kamesh',
+      canonicalRelationship: 'paternal_uncle_fathers_sisters_husband',
+      relationship: "Father's Sister's Husband",
+      culturalRelationship: 'Mamaiya',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'yuvan',
+      targetId: 'shreasta',
+      canonicalRelationship: 'cousin',
+      relationship: 'Cousin',
+      culturalRelationship: 'Maradhal',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'yuvan',
+      targetId: 'vedhansh',
+      canonicalRelationship: 'cousin',
+      relationship: 'Cousin',
+      culturalRelationship: 'Thamudu',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'yuvan',
+      targetId: 'krithiksha',
+      canonicalRelationship: 'cousin',
+      relationship: 'Cousin',
+      culturalRelationship: 'Maradhal',
+    ),
+    ViewerRelationshipOverride(
       viewerId: 'hemanth',
       targetId: 'kamesh',
       canonicalRelationship: 'brother_in_law_sisters_husband',
@@ -282,6 +319,21 @@ class FounderGraph {
       canonicalRelationship: 'niece',
       relationship: 'Niece',
       culturalRelationship: 'Kodalu',
+    ),
+    ViewerRelationshipOverride(
+      viewerId: 'doguparthi_kiran',
+      targetId: 'keerthi',
+      canonicalRelationship: 'younger_sister',
+      relationship: 'Younger Sister',
+      culturalRelationship: 'Chelli',
+    ),
+    // Kiran calls his sister's son Alludu, independent of sibling age.
+    ViewerRelationshipOverride(
+      viewerId: 'doguparthi_kiran',
+      targetId: 'yuvan',
+      canonicalRelationship: 'nephew_sisters_son',
+      relationship: 'Nephew',
+      culturalRelationship: 'Alludu',
     ),
     ViewerRelationshipOverride(
       viewerId: 'doguparthi_jayamma',

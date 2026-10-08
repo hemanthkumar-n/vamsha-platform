@@ -134,7 +134,7 @@ void main() {
       expect(find.text('Mother-in-law'), findsWidgets);
       expect(find.text('Father'), findsOneWidget);
       expect(find.text('Mother'), findsOneWidget);
-      expect(find.text('Brother'), findsOneWidget);
+      expect(find.text('Elder Brother'), findsOneWidget);
 
       await tester.tap(
         find.byKey(const ValueKey('couple-person-sudha')),

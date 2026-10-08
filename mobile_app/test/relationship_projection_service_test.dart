@@ -146,10 +146,33 @@ void main() {
       service.project(viewerId: 'yuvan', targetId: 'hemanth').relationship,
       'Father',
     );
-    expect(
-      service.project(viewerId: 'yuvan', targetId: 'divya').relationship,
-      'Paternal Aunt',
+    final fathersYoungerSister = service.project(
+      viewerId: 'yuvan',
+      targetId: 'divya',
     );
+    expect(fathersYoungerSister.canonicalRelationship,
+        'paternal_aunt_fathers_sister');
+    expect(fathersYoungerSister.relationship, "Father's Younger Sister");
+    expect(fathersYoungerSister.culturalRelationship, 'Atha');
+  });
+
+  test('applies Yuvan calling names for his paternal aunt family', () {
+    final uncle = service.project(viewerId: 'yuvan', targetId: 'kamesh');
+    expect(
+        uncle.canonicalRelationship, 'paternal_uncle_fathers_sisters_husband');
+    expect(uncle.relationship, "Father's Sister's Husband");
+    expect(uncle.culturalRelationship, 'Mamaiya');
+
+    for (final entry in {
+      'shreasta': 'Maradhal',
+      'vedhansh': 'Thamudu',
+      'krithiksha': 'Maradhal',
+    }.entries) {
+      final cousin = service.project(viewerId: 'yuvan', targetId: entry.key);
+      expect(cousin.canonicalRelationship, 'cousin');
+      expect(cousin.relationship, 'Cousin');
+      expect(cousin.culturalRelationship, entry.value);
+    }
   });
 
   test('projects the Doguparthi birth family and Hemanth in-laws', () {
@@ -172,7 +195,7 @@ void main() {
       service
           .project(viewerId: 'keerthi', targetId: 'doguparthi_kiran')
           .relationship,
-      'Brother',
+      'Elder Brother',
     );
     expect(
       service
@@ -233,14 +256,22 @@ void main() {
 
     expect(father.relationship, 'Father');
     expect(mother.relationship, 'Mother');
-    expect(sister.relationship, 'Sister');
+    expect(sister.canonicalRelationship, 'younger_sister');
+    expect(sister.relationship, 'Younger Sister');
+    expect(sister.culturalRelationship, 'Chelli');
+    final elderBrother = service.project(
+      viewerId: 'keerthi',
+      targetId: 'doguparthi_kiran',
+    );
+    expect(elderBrother.canonicalRelationship, 'elder_brother');
+    expect(elderBrother.culturalRelationship, 'Anna');
     expect(
         sistersHusband.canonicalRelationship, 'brother_in_law_sisters_husband');
     expect(sistersHusband.relationship, 'Brother-in-law');
     expect(sistersHusband.culturalRelationship, 'Bāvagāru');
     expect(sistersSon.canonicalRelationship, 'nephew_sisters_son');
     expect(sistersSon.relationship, 'Nephew');
-    expect(sistersSon.culturalRelationship, 'Akka koduku');
+    expect(sistersSon.culturalRelationship, 'Alludu');
   });
 
   test('applies Jayamma family calling conventions', () {
